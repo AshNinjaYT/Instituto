@@ -8,7 +8,7 @@ public class E2 {
         int llarg2 = 300;
         int ample2 = 80;
         int prof2 = 35;
-
+        
         int area1 = ample1 * llarg1;
         int area2 = ample2 * llarg2;
         System.out.println("Area piscina 1: " + area1);
