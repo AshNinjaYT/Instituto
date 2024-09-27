@@ -1,11 +1,11 @@
-package Ej2.Questionario;
+package Achraf.Ej2.Questionario;
 
 public class Professor {
     // Atributs
     String nom;
     String assignatura;
-    // Mètodes
 
+    // Mètodes
     public void ensenyar() {
         System.out.println("El professor " + nom + " esta ensenyant " + assignatura);
     }

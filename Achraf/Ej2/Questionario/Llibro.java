@@ -1,11 +1,11 @@
-package Ej2.Questionario;
+package Achraf.Ej2.Questionario;
 
-public class Llibre {
+public class Llibro {
     //Atributs
     String titol;
     String autor;
+
     // Mètodes
-    
     public void llegir() {
         System.out.println("S'esta llegint " + titol + " del autor " + autor);
     }

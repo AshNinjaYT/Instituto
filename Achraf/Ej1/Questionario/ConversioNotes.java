@@ -1,4 +1,4 @@
-package Ej1.Questionario;
+package Achraf.Ej1.Questionario;
 public class ConversioNotes {
     public static void main(String[] args) {
         double nota = 8.5;

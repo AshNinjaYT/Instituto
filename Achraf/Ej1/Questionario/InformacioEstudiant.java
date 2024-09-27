@@ -1,4 +1,4 @@
-package Ej1.Questionario;
+package Achraf.Ej1.Questionario;
 public class InformacioEstudiant {
     public static void main(String[] args) {
         String nom = "Achraf";

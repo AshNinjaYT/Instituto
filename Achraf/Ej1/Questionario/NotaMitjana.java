@@ -1,4 +1,4 @@
-package Ej1.Questionario;
+package Achraf.Ej1.Questionario;
 public class NotaMitjana {
     public static void main(String[] args) {
         final int quantitat_assignatura = 3;
