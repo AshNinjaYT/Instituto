@@ -1,4 +1,5 @@
-public class E2 {
+package Achraf.Pruebas;
+public class prueba_int {
 
     public static void main(String[] args) {
         // Dimensiones iniciales
