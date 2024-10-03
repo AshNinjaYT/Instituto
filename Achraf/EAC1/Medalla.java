@@ -21,6 +21,14 @@ public class Medalla {
         numMedallesRepartides++;
     }
 
-    //OHLALA
+    public String descripcio() {
+        String tipusMedalla = switch (posicio) {
+            case MEDALLA_OR -> "or";
+            case MEDALLA_ARGENT -> "argent";
+            case MEDALLA_BRONZE -> "bronze";
+            default -> "sense medalla";
+        };
+        return "L'atleta " + atleta.nom + " ha guanyat una medalla en obtenir la posició " + posicio + " a la seva prova de " + atleta.disciplina;
 
+}
 }
