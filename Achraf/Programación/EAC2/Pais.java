@@ -1,5 +1,3 @@
-package EAC2.Enunciat;
-
 public class Pais {
     String nom;
     private int numMedalles;

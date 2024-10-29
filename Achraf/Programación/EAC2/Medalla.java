@@ -1,5 +1,3 @@
-package EAC2.Enunciat;
-
 public class Medalla {
 
     static final int MEDALLA_OR = 1;
@@ -10,6 +8,7 @@ public class Medalla {
   
     int posicio;
     Atleta atleta;
+    String medallaNom;
 
     public static int getNumMedallesRepartides() {
         return numMedallesRepartides;
@@ -22,9 +21,22 @@ public class Medalla {
         atleta.guanyarMedalla(this);
         numMedallesRepartides++;
     }
-
     public String descripcio() {
-        return  "L'atleta " + atleta.nom + " ha guanyat una medalla en obtenir la posició " + posicio + " a la seva prova de " + atleta.disciplina;
+        switch (posicio) {
+            case 1:
+            medallaNom = "d’or";
+            break;
+            case 2:
+            medallaNom = "d’argent";
+            break;
+            case 3:
+            medallaNom = "de bronze";
+            break;
+            default: 
+            medallaNom = "MEDALLA NO VÀLIDA";
+            break;
+        };
+        return  "L'atleta " + atleta.nom + " ha guanyat una medalla "+ medallaNom +" en obtenir la posició " + posicio + " a la seva prova de " + atleta.disciplina;
     }
 
 }

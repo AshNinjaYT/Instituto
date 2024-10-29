@@ -1,5 +1,3 @@
-package EAC2.Enunciat;
-
 public class Atleta {
     String nom;
     Pais pais;
