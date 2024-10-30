@@ -3,18 +3,18 @@ import java.util.Scanner;
 public class JocsOlimpics {
 
     public static void main(String[] args) {
-        //Comencem els jocs olímpics
+        //Començem els jocs olímpics
         System.out.println("***Benvinguts al sistema de proves dels Jocs Olímpics de París 2024***");
         System.out.println("Com que acabem de començar, ara mateix s'han repartit " + Medalla.getNumMedallesRepartides() + " medalles");
         
-        //Anem a crear un nou pais
+        //crearem el pais
         System.out.println("***Creació d'un país***");
         String paisTurquia = "Turquia";
         Pais p1 = new Pais(paisTurquia);
-        // Provem que ha funcionat la creació del país
+        // Provem que si ha funcionat
         System.out.println("El país es diu " + p1.nom + " i té " +0+ " medalles");
 
-        // Anem a crear un atleta
+        // Crearem un atleta
         System.out.println("***Creació d'un atleta***");
         String nomAtleta = "Yusuf Dikec";
         Pais paisAtleta = p1;
@@ -29,10 +29,10 @@ public class JocsOlimpics {
         int posicio = Medalla.MEDALLA_ARGENT;
         Medalla m1 = new Medalla(posicio, a1);
 
-        //Provem que ha funcionat la creació de la medalla i que se li ha assignat a l'atleta
+        //Provem que si ha funcionat
         System.out.println("L'atleta " + nomAtleta + " ha guanyat una medalla en obtenir la posició " + m1.posicio + " a la seva prova de Tir olímpic");
 
-        //Comprovem que ara el país té una medalla
+        //Comprovem si el pais te una medalla
         System.out.println("El país " + p1.nom + " té " + p1.getNumMedalles() + " medalles");
  
         //Creació de diversos països, atletes i medalles
@@ -50,7 +50,7 @@ public class JocsOlimpics {
         Atleta atletaFrance2 = new Atleta("Charline Picon", paisFrance, "Vela");
         m1 = new Medalla(Medalla.MEDALLA_BRONZE, atletaFrance2);
 
-        //Diferentes proves
+        //Diferents proves per verificar-ho tot
         System.out.println("***Fer diferentes proves amb les dades introduïdes");
         System.out.println("En Léon Marchand ha guanyat 6 medalles? " + (atletaFrance1.getNumMedalles() == 6));
         System.out.println("Estats Units ha guanyat més medalles que França? " + (paisUSA.getNumMedalles() > paisFrance.getNumMedalles()));
