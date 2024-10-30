@@ -1,0 +1,42 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "JocsOlimpics",
+            "request": "launch",
+            "mainClass": "JocsOlimpics",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
+            "name": "JocsOlimpics2",
+            "request": "launch",
+            "mainClass": "JocsOlimpics2",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
+            "name": "Aprova",
+            "request": "launch",
+            "mainClass": "Questionario.Aprova",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
+            "name": "Descompte",
+            "request": "launch",
+            "mainClass": "Questionario.Descompte",
+            "projectName": "Instituto_78cca92a"
+        }
+    ]
+}
