@@ -1,6 +1,8 @@
+package EAC2.Enunciat;
+
 public class Pais {
     String nom;
-    private int numMedalles; //Se cambia a privado la variable
+    private int numMedalles;
 
     public int getNumMedalles() {
         return numMedalles;
