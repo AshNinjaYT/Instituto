@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class JocsOlimpics2 {
 
     public static void main(String[] args) {
@@ -41,9 +39,5 @@ public class JocsOlimpics2 {
         System.out.print("Quin és el teu esport favorit? ");
         String elTeuEsport = scan.nextLine();
         Atleta tu = new Atleta(elTeuNom, elTeuPais, elTeuEsport);*/
-
-        InputUtils inp = new InputUtils();
-        System.out.println(inp.readLine("Como te llamas? "));
-        System.out.println(inp.readInt("Escribe un numero entero: "));
     }
 }

@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MostraNumeros",
+            "request": "launch",
+            "mainClass": "MostraNumeros",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
+            "name": "BWhile",
+            "request": "launch",
+            "mainClass": "BWhile",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
