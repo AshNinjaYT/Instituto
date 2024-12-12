@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TestMedaller",
+            "request": "launch",
+            "mainClass": "TestMedaller",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
+            "name": "TestJocsOlimpicsUnitat4",
+            "request": "launch",
+            "mainClass": "TestJocsOlimpicsUnitat4",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
             "name": "MostraNumeros",
             "request": "launch",
             "mainClass": "MostraNumeros",
