@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EAC5S22425",
+            "request": "launch",
+            "mainClass": "EAC5S22425",
+            "projectName": "EAC5S22425"
+        },
+        {
+            "type": "java",
             "name": "ejercicio",
             "request": "launch",
             "mainClass": "ejercicio",
