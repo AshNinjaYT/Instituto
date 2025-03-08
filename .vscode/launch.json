@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ejercicio",
+            "request": "launch",
+            "mainClass": "ejercicio",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
+            "name": "ejercicio1",
+            "request": "launch",
+            "mainClass": "ejercicio1",
+            "projectName": "Instituto_78cca92a"
+        },
+        {
+            "type": "java",
             "name": "TestMedaller",
             "request": "launch",
             "mainClass": "TestMedaller",
