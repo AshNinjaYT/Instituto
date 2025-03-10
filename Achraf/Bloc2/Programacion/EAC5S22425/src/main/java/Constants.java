@@ -1,4 +1,5 @@
 public class Constants {
+    public static final String TEMPORAL_DATA_DIRECTORY = "Achraf\\Bloc2\\Programacion\\EAC5S22425\\";
 
     public static final String SEPARADOR = "-------------------------------------------------------------------";
     public static final String DEFAULT_FILE_NAME = "supermarkets.txt";

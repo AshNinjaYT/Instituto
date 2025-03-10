@@ -1,3 +1,4 @@
+import java.io.File;
 import java.nio.channels.FileLock;
 import java.util.Scanner;
 
@@ -12,6 +13,8 @@ public class EAC5S22425 {
   public void start() {
     UtilsIO io = new UtilsIO();
     FileUtils fileUtils = new FileUtils(Constants.DEFAULT_DATA_DIRECTORY);
+    System.out.println(fileUtils.getFilePath(Constants.DEFAULT_FILE_NAME));
+    
     Scanner scanner = new Scanner(System.in);
 
     io.showMenu(Constants.START_MENU_HEADER);
@@ -34,6 +37,7 @@ public class EAC5S22425 {
         break;
 
     }
+    scanner.close();
   }
 
 }
