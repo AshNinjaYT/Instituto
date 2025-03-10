@@ -4,5 +4,6 @@
         "Achraf/Programación/EAC4",
         "Achraf/Programación/EAC2",
         "Achraf/Programación/Practicar examen"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
