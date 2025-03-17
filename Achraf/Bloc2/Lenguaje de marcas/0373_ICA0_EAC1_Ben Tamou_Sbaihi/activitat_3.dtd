@@ -1,0 +1,15 @@
+<!ELEMENT best_sellers (llibre+)>
+
+<!ELEMENT llibre (nom, editorial, autor, ISBN, protagonista*, preu, sinopsi)>
+<!ATTLIST llibre
+    categoria (Ficció | No_Ficció | Infantil) #REQUIRED
+    numero_pagines CDATA #IMPLIED>
+
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT editorial (#PCDATA)>
+<!ELEMENT autor (#PCDATA)>
+<!ELEMENT ISBN (#PCDATA)>
+<!ELEMENT protagonista (actor+)>
+<!ELEMENT actor (#PCDATA)>
+<!ELEMENT preu (#PCDATA)>
+<!ELEMENT sinopsi (#PCDATA)>

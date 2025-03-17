@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<series>
+    <serie>
+        <titol>Oh, Europa</titol>
+        <temporades>1</temporades>
+        <episodis>15</episodis>
+        <primercapitol>12/06/94</primercapitol>
+        <ultimcapitol>15/12/94</ultimcapitol>
+        <productora>DAGOLL DAGOM</productora>
+    </serie>
+    <serie>
+        <titol>La memòria dels cargols</titol>
+        <temporades>1</temporades>
+        <episodis>26</episodis>
+        <primercapitol>18/01/99</primercapitol>
+        <ultimcapitol>12/07/99</ultimcapitol>
+        <productora>DAGOLL DAGOM</productora>
+    </serie>
+    <serie>
+        <titol>Les Teresines SA</titol>
+        <temporades>1</temporades>
+        <episodis>13</episodis>
+        <primercapitol>02/04/92</primercapitol>
+        <ultimcapitol>25/06/92</ultimcapitol>
+        <productora>LA CUBANA</productora>
+    </serie>
+    <serie>
+        <titol>Estació d’enllaç</titol>
+        <temporades>5</temporades>
+        <episodis>140</episodis>
+        <primercapitol>20/11/94</primercapitol>
+        <ultimcapitol>20/01/99</ultimcapitol>
+        <productora>TV3</productora>
+    </serie>
+    <serie>
+        <titol>Merlí</titol>
+        <temporades>2</temporades>
+        <episodis>25</episodis>
+        <primercapitol>14/09/15</primercapitol>
+        <ultimcapitol>15/01/18</ultimcapitol>
+        <productora>TV3</productora>
+    </serie>
+    <serie>
+        <titol>Plats Bruts</titol>
+        <temporades>6</temporades>
+        <episodis>73</episodis>
+        <primercapitol>19/04/99</primercapitol>
+        <ultimcapitol>30/07/02</ultimcapitol>
+        <productora>EL TERRAT</productora>
+    </serie>
+</series>

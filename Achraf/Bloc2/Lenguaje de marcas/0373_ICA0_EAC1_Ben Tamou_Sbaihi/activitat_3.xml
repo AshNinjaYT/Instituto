@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE best_sellers SYSTEM "activitat_3.dtd">
+<best_sellers>
+    <llibre categoria="Ficció" numero_pagines="464">
+        <nom>Història d'un piano</nom>
+        <editorial>Columna</editorial>
+        <autor>Ramón Gener</autor>
+        <ISBN>9788466431682</ISBN>
+        <protagonista>
+            <actor>Janusz Borowski</actor>
+        </protagonista>
+        <preu>21.75</preu>
+        <sinopsi>Història d’un piano és una novel·la captivadora sobre la força 
+                d’un instrument que esdevé una metàfora del poder de redempció a través de l’amor, de l’amistat, 
+                de la bellesa i, per descomptat, de la música</sinopsi>
+    </llibre>
+     <llibre categoria="Ficció" numero_pagines="448">
+        <nom>Un animal salvatge</nom>
+        <editorial>La Campana</editorial>
+        <autor>Joël Dicker</autor>
+        <ISBN>9788419245984</ISBN>
+        <protagonista>
+            <actor>Sophie Brown</actor>
+        </protagonista>
+        <preu>11,57</preu>
+        <sinopsi>El 2 de juliol de 2022 dos delinqüents es disposen a dur a terme un atracament en una important joieria de Ginebra. 
+        Un incident que difereix molt de ser un simple robatori. Vint dies abans, en una urbanització de luxe a la vora del llac Leman, 
+        la Sophie Braun es prepara per celebrar el seu quarantè aniversari.</sinopsi>
+    </llibre>
+
+     <llibre categoria="Ficció" numero_pagines="160">
+        <nom>Ocàs o fascinació</nom>
+        <editorial>Club Editoria</editorial>
+        <autor>Eva Baltasar</autor>
+        <ISBN>9788473294294</ISBN>
+        <protagonista>
+            <actor></actor>
+        </protagonista>
+        <preu>17.57</preu>
+        <sinopsi>Flotes, això és el màxim que has aconseguit. Tens mitja feina, 
+        una habitació rellogada i un títol que acredita que ets dels que no poden caure. 
+        Però caus. El risc ha entrat a la teva vida sense que el veiessis venir</sinopsi>
+    </llibre>
+
+    <llibre categoria="No_Ficció">
+        <nom>Aprendre a esquivar les bales</nom>
+        <editorial>La Campana</editorial>
+        <autor>Xavi Coral</autor>
+        <ISBN>9788419245434</ISBN>
+        <protagonista>
+            <actor></actor>
+        </protagonista>
+        <preu>20.80</preu>
+        <sinopsi>Amb l'inici de la Guerra Civil, 
+        Josep Trullàs decideix allistar-se voluntari a defensar la República, 
+        deixant a Terrassa la família i un futur prometedor</sinopsi>
+    </llibre>
+    
+</best_sellers>
