@@ -1,0 +1,3 @@
+Supermercats JR,Vilanova i la Geltrú,41.2192459,1.7112366
+Caprabo,Sitges,41.2359047,1.7931275
+Aldi,Terrassa,41.5582809,1.9965351

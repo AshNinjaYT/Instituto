@@ -1,0 +1,30 @@
+Supermercats JR,Vilanova i la Geltrú,Llet sencera 1L,1.15
+Supermercats JR,Vilanova i la Geltrú,Tomàquets kg,2.89
+Supermercats JR,Vilanova i la Geltrú,Formatge ratllat 200g,2.50
+Supermercats JR,Vilanova i la Geltrú,Pollastre sencer,6.75
+Supermercats JR,Vilanova i la Geltrú,Pa de motlle,2.45
+Supermercats JR,Vilanova i la Geltrú,Pomes kg,2.99
+Supermercats JR,Vilanova i la Geltrú,Espaguetis 500g,1.75
+Supermercats JR,Vilanova i la Geltrú,Iogurts pack 4,2.10
+Supermercats JR,Vilanova i la Geltrú,Ous dotzena,3.23
+Supermercats JR,Vilanova i la Geltrú,Arròs 1kg,1.85
+Caprabo,Sitges,Llet sencera 1L,1.15
+Caprabo,Sitges,Tomàquets kg,2.89
+Caprabo,Sitges,Formatge ratllat 200g,2.50
+Caprabo,Sitges,Pollastre sencer,6.75
+Caprabo,Sitges,Pa de motlle,2.45
+Caprabo,Sitges,Pomes kg,2.99
+Caprabo,Sitges,Espaguetis 500g,1.75
+Caprabo,Sitges,Iogurts pack 4,2.10
+Caprabo,Sitges,Ous dotzena,3.23
+Caprabo,Sitges,Arròs 1kg,1.85
+Aldi,Terrassa,Llet sencera 1L,1.15
+Aldi,Terrassa,Tomàquets kg,2.89
+Aldi,Terrassa,Formatge ratllat 200g,2.50
+Aldi,Terrassa,Pollastre sencer,6.75
+Aldi,Terrassa,Pa de motlle,2.45
+Aldi,Terrassa,Pomes kg,2.99
+Aldi,Terrassa,Espaguetis 500g,1.75
+Aldi,Terrassa,Iogurts pack 4,2.10
+Aldi,Terrassa,Ous dotzena,3.23
+Aldi,Terrassa,Arròs 1kg,1.85
