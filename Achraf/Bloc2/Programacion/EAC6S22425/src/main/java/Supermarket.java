@@ -14,7 +14,6 @@ public class Supermarket {
         this.city = city;
         this.longitude = longitude;
         this.latitude = latitude;
-
     }
 
     public boolean hasProduct(String productName) {

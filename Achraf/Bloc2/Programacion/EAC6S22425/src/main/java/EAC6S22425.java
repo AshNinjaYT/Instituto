@@ -16,7 +16,7 @@ public class EAC6S22425 {
     }
 
     public void start() {
-        Supermarket su;
+        SupermarketList sul = new SupermarketList();
         UtilsIO io = new UtilsIO();
         FileUtils fu = new FileUtils(Constants.DEFAULT_DATA_DIRECTORY);
         while (true) {
@@ -24,19 +24,19 @@ public class EAC6S22425 {
             int option = io.askForInteger(Constants.MESSAGE_ASK_OPTION_VALUE, Constants.ERROR_NO_INTEGER);
             switch (option) {
                 case 1:
-                    enterSupermarketData(io, fu,su);
+                    sul.addSupermarket(enterSupermarketData(io, fu));
                     break;
                 case 2:
-                    addProduct();
+                    // addProduct();
                     break;
                 case 3:
-                    listSupermarkets();
+                    io.showSupermarkets(sul.listToString());
                     break;
                 case 4:
-                    exportSupermarkets();
+                    // exportSupermarkets();
                     break;
                 case 5:
-                    importSupermarkets();
+                    // importSupermarkets();
                     break;
                 case 0:
                     return;
@@ -47,13 +47,12 @@ public class EAC6S22425 {
         }
     }
 
-    private void enterSupermarketData(UtilsIO io, FileUtils fu, Supermarket su) {
-        String supermarketName = io.askForString(Constants.MESSAGE_INSERT_MARKET_NAME, Constants.MESSAGE_ERROR_EMPTY_STRING);
-        String supermarketCity = io.askForString(Constants.MESSAGE_INSERT_CITY, Constants.MESSAGE_ERROR_EMPTY_STRING);
-        float supermarketLongitude = io.askForFloat(Constants.MESSAGE_INSERT_LONGITUDE, Constants.MESSAGE_ERROR_NO_FLOAT);
-        float supermarketLatitude = io.askForFloat(Constants.MESSAGE_INSERT_LATITUDE, Constants.MESSAGE_ERROR_NO_FLOAT);
-        su.
+    private Supermarket enterSupermarketData(UtilsIO io, FileUtils fu) {
+        String supermarketName = io.askForString(Constants.MESSAGE_INSERT_MARKET_NAME, Constants.ERROR_EMPTY_STRING);
+        String supermarketCity = io.askForString(Constants.MESSAGE_INSERT_CITY, Constants.ERROR_EMPTY_STRING);
+        float supermarketLongitude = io.askForFloat(Constants.MESSAGE_INSERT_LONGITUDE, Constants.ERROR_NO_FLOAT);
+        float supermarketLatitude = io.askForFloat(Constants.MESSAGE_INSERT_LATITUDE, Constants.ERROR_NO_FLOAT);
         
-        fu.insertMarketInfoIntoFile(supermarketName, supermarketCity, supermarketLongitude, supermarketLatitude);
-    }          
+        return new Supermarket(supermarketName, supermarketCity, supermarketLongitude, supermarketLatitude);
+    }
 }

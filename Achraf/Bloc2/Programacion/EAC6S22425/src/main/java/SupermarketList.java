@@ -63,10 +63,13 @@ public class SupermarketList {
 
     public String listToString() {
         StringBuilder sb = new StringBuilder();
-
-        for (Supermarket supermarket : supermarketList) {
-            sb.append(supermarket.supermarketToString());// Utilitzem el mètode supermarketToString() de Supermarket
-
+        if (supermarketList.size() == 0) {
+            UtilsIO io = new UtilsIO();
+            io.showError(Constants.SUPERMARKET_ERROR_EPMTY);
+        } else {
+            for (Supermarket supermarket : supermarketList) {
+                sb.append(supermarket.supermarketToString());// Utilitzem el mètode supermarketToString() de Supermarket
+            }
         }
         return sb.toString();
 

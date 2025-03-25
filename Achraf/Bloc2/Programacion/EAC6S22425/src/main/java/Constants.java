@@ -53,4 +53,8 @@ public class Constants {
     public static final String DATE_FORMAT = "yyyyMMddHHmm";
     public final static String SUPERMARKET_BOARD_FORMAT = "%-18s  %-24s %11.7f %11.7f";
     public final static String SUPERMARKET_SPLIT_FORMAT = "%s,%s,%.7f,%.7f\n";
+
+    public final static String SUPERMARKET_ERROR_EPMTY = "No hi ha cap supermercat emmagatzemat";
+
+
 }
