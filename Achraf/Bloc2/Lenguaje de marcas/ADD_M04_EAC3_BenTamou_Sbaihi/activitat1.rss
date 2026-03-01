@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>Canal de Meteorologia - Exemple Estudiant</title>
+    <link>https://exemple-estudiant.cat/meteo</link>
+    <description>Últimes notícies meteorològiques recents</description>
+    <lastBuildDate>Tue, 01 Apr 2025 10:00:00 +0200</lastBuildDate>
+    <category>Meteorologia</category>
+    <managingEditor>nom.cognom@exemple.cat (Nom Cognom)</managingEditor>
+
+    <item>
+      <title>Pluges intenses al Pirineu</title>
+      <guid>https://exemple-estudiant.cat/meteo/pluja-pirineu</guid>
+      <description>Fortes precipitacions registrades a la zona del Pirineu durant la matinada.</description>
+      <pubDate>Mon, 31 Mar 2025 22:30:00 +0200</pubDate>
+      <author>meteocat@exemple.cat (Servei Meteorològic de Catalunya)</author>
+    </item>
+
+    <item>
+      <title>Temperatures màximes rècord a València</title>
+      <guid>https://exemple-estudiant.cat/meteo/calor-valencia</guid>
+      <description>València registra temperatures superiors als 35°C en ple abril.</description>
+      <pubDate>Tue, 01 Apr 2025 08:00:00 +0200</pubDate>
+      <author>info@climaval.org (ClimaVal)</author>
+    </item>
+
+    <item>
+      <title>Entrada d'aire fred prevista al nord peninsular</title>
+      <guid>https://exemple-estudiant.cat/meteo/fred-nord</guid>
+      <description>Els models preveuen una davallada notable de les temperatures al nord durant els
+        pròxims dies.</description>
+      <pubDate>Tue, 01 Apr 2025 09:15:00 +0200</pubDate>
+      <author>redaccio@tempsactual.cat (Temps Actual)</author>
+    </item>
+
+  </channel>
+</rss>

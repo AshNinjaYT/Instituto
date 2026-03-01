@@ -1,0 +1,39 @@
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.exe
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.deps.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.runtimeconfig.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.pdb
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.csproj.GenerateResource.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.AssemblyInfoInputs.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.AssemblyInfo.cs
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.csproj.CoreCompileInputs.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.sourcelink.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\refint\EAC1_ Interfícies.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.pdb
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.genruntimeconfig.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\ref\EAC1_ Interfícies.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1__Interfícies.Form3.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1__Interfícies.Properties.Resources.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1__Interfícies.Reserva.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1__Interfícies.Vuelos.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.exe
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.deps.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.runtimeconfig.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\bin\Debug\net8.0-windows\EAC1_ Interfícies.pdb
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1__Interfícies.Properties.Resources.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1__Interfícies.Reserva.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1__Interfícies.Vuelos.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.csproj.GenerateResource.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.AssemblyInfoInputs.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.AssemblyInfo.cs
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.csproj.CoreCompileInputs.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.sourcelink.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\refint\EAC1_ Interfícies.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.pdb
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\EAC1_ Interfícies.genruntimeconfig.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1\EAC1_ Interfícies\EAC1_ Interfícies\obj\Debug\net8.0-windows\ref\EAC1_ Interfícies.dll

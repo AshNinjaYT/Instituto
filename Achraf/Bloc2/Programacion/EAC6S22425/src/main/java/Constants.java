@@ -20,6 +20,9 @@ public class Constants {
     public static final String MESSAGE_INSERT_CITY = "A quina ciutat es troba?";
     public static final String MESSAGE_INSERT_LONGITUDE = "Introdueixi la longitud on es troba el supermercat";
     public static final String MESSAGE_INSERT_LATITUDE = "Introdueixi la latitud on es troba el supermercat";
+    public static final String MESSAGE_INSERT_NAME_PRODUCT = "Introdueixi el nom del producte";
+    public static final String MESSAGE_INSERT_PRICE = "Introdueixi el preu del producte";
+
     public static final String MESSAGE_CONFIRM_DELETION = "Està segur que vol esborrar l'arxiu de sortida? (S/N)";
     public static final String MESSAGE_CONFIRMED_DELETION = "Arxiu esborrat i creat de nou satisfactòriament";
     public static final String MESSAGE_FILES_CREATED = "Supermercats i productes exportats correctament";
@@ -55,6 +58,7 @@ public class Constants {
     public final static String SUPERMARKET_SPLIT_FORMAT = "%s,%s,%.7f,%.7f\n";
 
     public final static String SUPERMARKET_ERROR_EPMTY = "No hi ha cap supermercat emmagatzemat";
+    public final static String SUPERMARKET_ERROR_EXIST = "Supermercat no trobat";
 
 
 }

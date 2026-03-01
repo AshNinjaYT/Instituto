@@ -1,0 +1,5 @@
+cat\exemple\util\HibernateUtil.class
+cat\exemple\App.class
+cat\exemple\Application.class
+cat\exemple\dao\ProducteDAO.class
+cat\exemple\model\Producte.class

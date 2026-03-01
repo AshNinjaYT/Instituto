@@ -1,0 +1,69 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\Reconocimiento\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{84EFD1CF-6ED0-4480-8710-108E69F90B4B}|Reconocimiento\\Reconocimiento.csproj|d:\\users\\achraf\\documents\\instituto\\achraf\\desenvolupament d\u2019interf\u00EDcies\\reconocimiento\\reconocimiento\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{84EFD1CF-6ED0-4480-8710-108E69F90B4B}|Reconocimiento\\Reconocimiento.csproj|solutionrelative:reconocimiento\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{84EFD1CF-6ED0-4480-8710-108E69F90B4B}|Reconocimiento\\Reconocimiento.csproj|D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\Reconocimiento\\reconocimiento\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{84EFD1CF-6ED0-4480-8710-108E69F90B4B}|Reconocimiento\\Reconocimiento.csproj|solutionrelative:reconocimiento\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\Reconocimiento\\Reconocimiento\\Form1.cs",
+              "RelativeDocumentMoniker": "Reconocimiento\\Form1.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\Reconocimiento\\Reconocimiento\\Form1.cs",
+              "RelativeToolTip": "Reconocimiento\\Form1.cs",
+              "ViewState": "AgIAAA0BAAAAAAAAAAAgwDABAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-04T16:50:37.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\Reconocimiento\\Reconocimiento\\Form1.cs",
+              "RelativeDocumentMoniker": "Reconocimiento\\Form1.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\Reconocimiento\\Reconocimiento\\Form1.cs [Design]",
+              "RelativeToolTip": "Reconocimiento\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-04T16:48:44.022Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

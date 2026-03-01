@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Supermarket {
@@ -63,13 +64,14 @@ public class Supermarket {
     }
 
     public String supermarketToString() {
-        return String.format(Constants.SUPERMARKET_SPLIT_FORMAT, name, city, longitude, latitude);
+        return String.format(/*Locale.US,*/ Constants.SUPERMARKET_SPLIT_FORMAT, name, city, longitude, latitude);
     }
 
     public String productsToString() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<String, Float> entry : products.entrySet()) {
-            sb.append(name).append(",").append(city).append(",").append(entry.getKey()).append(",").append(String.format("%.2f", entry.getValue()).replace(",", ".")).append("\n");
+            sb.append(name).append(",").append(city).append(",").append(entry.getKey()).append(",")
+                    .append(String.format("%.2f", entry.getValue()).replace(",", ".")).append("\n");
         }
         return sb.toString().trim(); // Elimina el último salto de línea extra
     }

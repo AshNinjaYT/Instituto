@@ -1,0 +1,152 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|d:\\users\\achraf\\documents\\instituto\\achraf\\desenvolupament d\u2019interf\u00EDcies\\eac1\\eac1_gestor de finanzas\\eac1_gestor de finanzas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|solutionrelative:eac1_gestor de finanzas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\eac1_gestor de finanzas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|solutionrelative:eac1_gestor de finanzas\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|d:\\users\\achraf\\documents\\instituto\\achraf\\desenvolupament d\u2019interf\u00EDcies\\eac1\\eac1_gestor de finanzas\\eac1_gestor de finanzas\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|solutionrelative:eac1_gestor de finanzas\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\eac1_gestor de finanzas\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|solutionrelative:eac1_gestor de finanzas\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|d:\\users\\achraf\\documents\\instituto\\achraf\\desenvolupament d\u2019interf\u00EDcies\\eac1\\eac1_gestor de finanzas\\eac1_gestor de finanzas\\form2.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|solutionrelative:eac1_gestor de finanzas\\form2.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|d:\\users\\achraf\\documents\\instituto\\achraf\\desenvolupament d\u2019interf\u00EDcies\\eac1\\eac1_gestor de finanzas\\eac1_gestor de finanzas\\usercontrol1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|solutionrelative:eac1_gestor de finanzas\\usercontrol1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\eac1_gestor de finanzas\\usercontrol1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{036F8C2C-BA70-4770-B8E0-C1E787437155}|EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas.csproj|solutionrelative:eac1_gestor de finanzas\\usercontrol1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 259,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserControl1.cs",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\UserControl1.cs",
+              "RelativeDocumentMoniker": "EAC1_Gestor de Finanzas\\UserControl1.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\UserControl1.cs",
+              "RelativeToolTip": "EAC1_Gestor de Finanzas\\UserControl1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T18:40:12.378Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserControl1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\UserControl1.cs",
+              "RelativeDocumentMoniker": "EAC1_Gestor de Finanzas\\UserControl1.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\UserControl1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "EAC1_Gestor de Finanzas\\UserControl1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T18:32:10.502Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form2.Designer.cs",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form2.Designer.cs",
+              "RelativeDocumentMoniker": "EAC1_Gestor de Finanzas\\Form2.Designer.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form2.Designer.cs",
+              "RelativeToolTip": "EAC1_Gestor de Finanzas\\Form2.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMBAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T17:46:17.428Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form2.cs",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form2.cs",
+              "RelativeDocumentMoniker": "EAC1_Gestor de Finanzas\\Form2.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form2.cs",
+              "RelativeToolTip": "EAC1_Gestor de Finanzas\\Form2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:49:14.449Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form1.cs",
+              "RelativeDocumentMoniker": "EAC1_Gestor de Finanzas\\Form1.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form1.cs",
+              "RelativeToolTip": "EAC1_Gestor de Finanzas\\Form1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:22:54.678Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Form2.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form2.cs",
+              "RelativeDocumentMoniker": "EAC1_Gestor de Finanzas\\Form2.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form2.cs [Dise\u00F1o]",
+              "RelativeToolTip": "EAC1_Gestor de Finanzas\\Form2.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:47:28.889Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form1.cs [Dise\u00F1o]",
+              "DocumentMoniker": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form1.cs",
+              "RelativeDocumentMoniker": "EAC1_Gestor de Finanzas\\Form1.cs",
+              "ToolTip": "D:\\Users\\Achraf\\Documents\\Instituto\\Achraf\\Desenvolupament d\u2019interf\u00EDcies\\EAC1\\EAC1_Gestor de Finanzas\\EAC1_Gestor de Finanzas\\Form1.cs [Dise\u00F1o]",
+              "RelativeToolTip": "EAC1_Gestor de Finanzas\\Form1.cs [Dise\u00F1o]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-07T16:20:12.795Z",
+              "EditorCaption": " [Dise\u00F1o]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

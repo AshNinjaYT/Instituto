@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "EAC1_ Interfícies/1.0.0": {
+        "runtime": {
+          "EAC1_ Interfícies.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EAC1_ Interfícies/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="http://docbook.org/xml/5.2/rng/docbook.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="http://docbook.org/xml/5.2/rng/docbook.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.2">
+    <info>
+        <title>Manual de usuario de Github</title>
+        <author>
+            <orgname>Achraf Ben Tamou</orgname>
+        </author>
+        <address><inlinemediaobject><imageobject><imagedata fileref="../../../../../Downloads/Untitled2-removebg-preview.png"/></imageobject></inlinemediaobject></address>
+    </info>
+    <part>
+            <title>Guia de principiantes</title>
+        <chapter>
+            <title>Introducción</title>
+            <sect1>
+                <title>¿Qué es GitHub?</title>
+                <para>GitHub es una plataforma en línea que permite alojar y gestionar proyectos de
+                    desarrollo de software usando el sistema de control de versiones Git. Es una
+                    comunidad global donde desarrolladores, empresas y organizaciones colaboran en
+                    proyectos compartidos, realizan revisiones de código, gestionan tareas y
+                    documentan su trabajo. La plataforma facilita la colaboración en equipo y la
+                    gestión eficiente de cambios en archivos, permitiendo hacer seguimiento
+                    histórico, revertir versiones anteriores, y fusionar aportaciones. <informalexample>
+                        <para><emphasis>Imagina un proyecto de código abierto para un app móvil.
+                                Varios desarrolladores en distintas partes del mundo trabajan en
+                                diferentes funcionalidades, haciendo commits y creando issues para
+                                bugs o nuevas ideas. GitHub centraliza todo, permitiendo que todos
+                                contribuyan de manera ordenada y transparente.</emphasis></para>
+                    </informalexample></para>
+            </sect1>
+        </chapter>
+        <chapter>
+            <title>Creación de cuenta y configuración básica</title>
+            <sect1>
+                <title>Registro y Configuración inicial</title>
+                <para>
+                    <orderedlist>
+                        <listitem>
+                            <para><emphasis role="bold">Crear una cuenta:</emphasis> Ir a <link
+                                    xlink:href="https://github.com">https://github.com</link>,
+                                rellenar el formulario con usuario, email y contraseña. Se
+                                recomienda usar una contraseña segura y activar la verificación en
+                                dos pasos para mayor seguridad. </para>
+                        </listitem>
+                        <listitem>
+                            <para><emphasis role="bold">Verificación del email:</emphasis> Recibirás
+                                un correo para verificar tu cuenta, asi que deberas entrar a tu
+                                correo y presionar el boton donde ponga "<emphasis role="bold"
+                                    >Verificar</emphasis>". </para>
+                        </listitem>
+                        <listitem>
+                            <para><emphasis role="bold">Configuración del perfil:</emphasis> Subir
+                                una foto, añadir una breve bio, enlaces a tu blog o portafolio
+                                profesional. Esto mejora tu presencia y credibilidad en la
+                                comunidad. </para>
+                        </listitem>
+                        <listitem>
+                            <para><emphasis role="bold">(Opcional) Configuración de
+                                    SSH/HTTPS:</emphasis> Para sincronizar tus repositorios locales
+                                con GitHub, configura claves SSH o token de acceso personal. Esto
+                                evita introducir tu usuario y contraseña repetidamente.</para>
+                        </listitem>
+                    </orderedlist>
+                </para>
+            </sect1>
+        </chapter>
+        <chapter>
+            <title>Conceptos básicos de GitHub</title>
+            <sect1>
+                <title>Repositorios</title>
+                <itemizedlist>
+                    <listitem>
+                        <para><emphasis role="bold">¿Qué son? </emphasis></para>
+                        <para>Un repositorio de GitHub es el espacio central donde un proyecto
+                            almacena todos sus archivos y el historial de cambios a lo largo del
+                            tiempo. Dentro de un repositorio puedes tener cualquier tipo de
+                            archivos: código fuente, imágenes, documentos, configuración e incluso
+                            manuales. Además, los repositorios guardan metadatos importantes como
+                            quién ha hecho cada cambio, cuándo y por qué. GitHub proporciona
+                            numerosos servicios integrados en los repositorios, como el seguimiento
+                            de problemas, las solicitudes de cambio, la wiki del proyecto y las
+                            opciones de seguridad avanzadas.​ </para>
+                    </listitem>
+                    <listitem>
+                        <para><emphasis role="bold">Cómo crearlos:</emphasis>
+                        </para>
+                        <para>Puedes crear un repositorio en la web de GitHub haciendo clic en "New
+                            Repository". Se solicita un nombre y puedes añadir una descripción. Es
+                            importante decidir si tu repositorio será público, para que cualquier
+                            usuario lo vea, o privado, para mantenerlo restringido. Es muy
+                            recomendable incluir un archivo README, que explica el propósito del
+                            proyecto, y un archivo .gitignore, que indica qué archivos no se deben
+                            subir. Una vez creado, puedes clonar el repositorio en tu equipo local
+                            usando Git y así trabajar de forma remota y sincronizada. <informalexample>
+                                <para><emphasis>Por ejemplo, al crear el repositorio
+                                        “MiProyectoWeb”, puedes alojar el código para una página web
+                                        personal. El repositorio contendrá el archivo index.html,
+                                        imágenes del sitio, documentación en el README, y una lista
+                                        de problemas a resolver en la pestaña Issues. Si varios
+                                        usuarios contribuyen, cada cambio queda registrado y
+                                        referenciado con el usuario y la fecha correspondientes.
+                                    </emphasis></para>
+                            </informalexample></para>
+                    </listitem>
+                </itemizedlist>
+            </sect1>
+            <sect1>
+                <title>Commits</title>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para><emphasis role="bold">¿Qué son? </emphasis></para>
+                            <para>Un commit es una instantánea del estado de los archivos de un
+                                repositorio en un momento determinado. Cada vez que haces cambios en
+                                tu proyecto, puedes guardar esos cambios en un commit. De esta
+                                forma, GitHub mantiene un historial completo de lo que ha cambiado y
+                                quién realizó esa modificación. Los commits pueden tener mensajes
+                                descriptivos que ayudan al equipo a entender el propósito de cada
+                                conjunto de cambios, lo que facilita la revisión y el mantenimiento
+                                del proyecto, incluso después de años de desarrollo.​</para>
+                        </listitem>
+                        <listitem>
+                            <para><emphasis role="bold">Como hacer un coomit</emphasis></para>
+                            <orderedlist>
+                                <listitem>
+                                    <para>Seleccionar los archivos que quieres agregar al
+                                        commit</para>
+                                </listitem>
+                                <listitem>
+                                    <para>Escribe un mensaje explicativo y guarda tu commit. Los
+                                        mensajes claros y específicos mejoran la colaboración, por
+                                        ejemplo: <emphasis>"Arreglo del error al guardar
+                                            usuario"</emphasis>, <emphasis>"Agrego pantalla de
+                                            estadísticas"</emphasis>.</para>
+                                </listitem>
+                            </orderedlist>
+                            <para>Para hacer un commit, normalmente usas comandos de Git o la
+                                interfaz visual de GitHub Desktop o VSCode. El proceso básico es: Es
+                                importante hacer commits frecuentes y de pequeños cambios para
+                                mantener el historial organizado. En GitHub, los commits pueden ser
+                                revisados por otros usuarios mediante pull requests, antes de llegar
+                                al código principal.<informalexample>
+                                    <para><emphasis>Supón que modificas el color del fondo en tu
+                                            aplicación y le cambia el tono a otro. El commit debe
+                                            reflejar este cambio con un mensaje como: “Cambio de
+                                            color del fondo”. </emphasis></para>
+                                </informalexample></para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </sect1>
+            <sect1>
+                <title>Issues</title>
+                <para>
+                    <itemizedlist>
+                        <listitem>
+                            <para><emphasis role="bold">¿Qué son?</emphasis>
+                            </para>
+                            <para>Las Issues en GitHub son el sistema que permite identificar,
+                                registrar y gestionar tareas, ideas o problemas relacionados con el
+                                proyecto. Son útiles tanto para grandes equipos como para trabajos
+                                individuales, ya que ofrecen trazabilidad, comunicación y
+                                documentación de los retos del proyecto. Dentro de una issue puedes
+                                describir el problema, asignar responsables, definir etiquetas
+                                (“bug”, “enhancement”, “question”), establecer prioridades e incluso
+                                relacionar issues con pull requests, automatizando su cierre si la
+                                solución está en el código. Issues también sirven para discutir
+                                propuestas de cambios, preguntar dudas importantes y dividir el
+                                trabajo en sub­tareas.​ </para>
+                        </listitem>
+                        <listitem>
+                            <para><emphasis role="bold">Cómo usarlos</emphasis>
+                            </para>
+                            <orderedlist>
+                                <listitem>
+                                    <para>Accede a la pestaña Issues de tu repositorio y pulsa
+                                            “<emphasis role="bold">New Issue</emphasis>”.</para>
+                                </listitem>
+                                <listitem>
+                                    <para>Redacta una descripción precisa, añade pasos para
+                                        reproducir el problema si es un bug, adjunta capturas o
+                                        códigos de ejemplo, y etiqueta la issue según su tipo.
+                                    </para>
+                                </listitem>
+                            </orderedlist>
+                            <para>A medida que avanzas, actualiza el estado de la issue con
+                                comentarios y, cuando la tarea esté completa, puedes cerrarla. Si la
+                                issue representa una tarea grande, puedes descomponerla en
+                                sub-issues o listas de tareas, logrando una mejor organización.<informalexample>
+                                    <para><emphasis>En el desarrollo de una plataforma de cursos
+                                            online, puedes crear una issue llamada “Error al cargar
+                                            video en navegadores móviles”. Esta issue tendrá una
+                                            descripción del problema, pasos para reproducirlo,
+                                            evidencia visual (captura de pantalla del error) y
+                                            estará asignada a un miembro del equipo.
+                                        </emphasis></para>
+                                </informalexample></para>
+                        </listitem>
+                    </itemizedlist>
+                </para>
+            </sect1>
+        </chapter>
+        <chapter>
+            <title>Conclusiones</title>
+            <para>GitHub es esencial para colaborar en proyectos de software, permitiendo gestionar
+                versiones, revisar cambios y coordinar tareas. Crear una cuenta, entender los
+                conceptos de repos, commits e issues, y seguir buenas prácticas, son los pasos
+                fundamentales para empezar a contribuir o gestionar tus propios proyectos. </para>
+        </chapter>
+    </part>
+</book>

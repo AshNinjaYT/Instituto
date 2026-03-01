@@ -1,0 +1,19 @@
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\bin\Debug\net8.0-windows\EAC1_Gestor de Finanzas.exe
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\bin\Debug\net8.0-windows\EAC1_Gestor de Finanzas.deps.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\bin\Debug\net8.0-windows\EAC1_Gestor de Finanzas.runtimeconfig.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\bin\Debug\net8.0-windows\EAC1_Gestor de Finanzas.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\bin\Debug\net8.0-windows\EAC1_Gestor de Finanzas.pdb
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor_de_Finanzas.Form1.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor_de_Finanzas.Form2.resources
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.csproj.GenerateResource.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.AssemblyInfoInputs.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.AssemblyInfo.cs
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.csproj.CoreCompileInputs.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.sourcelink.json
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\refint\EAC1_Gestor de Finanzas.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.pdb
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor de Finanzas.genruntimeconfig.cache
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\ref\EAC1_Gestor de Finanzas.dll
+D:\Users\Achraf\Documents\Instituto\Achraf\Desenvolupament d’interfícies\EAC1_Gestor de Finanzas\EAC1_Gestor de Finanzas\obj\Debug\net8.0-windows\EAC1_Gestor_de_Finanzas.UserControl1.resources

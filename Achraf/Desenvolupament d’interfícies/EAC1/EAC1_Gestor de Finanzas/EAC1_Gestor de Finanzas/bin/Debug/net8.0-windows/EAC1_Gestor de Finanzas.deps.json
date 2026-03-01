@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "EAC1_Gestor de Finanzas/1.0.0": {
+        "runtime": {
+          "EAC1_Gestor de Finanzas.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "EAC1_Gestor de Finanzas/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

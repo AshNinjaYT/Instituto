@@ -1,0 +1,6 @@
+cat\supermarkets\util\HibernateUtil.class
+cat\supermarkets\util\UtilsIO.class
+cat\supermarkets\util\Constants.class
+cat\supermarkets\dao\SupermarketDAO.class
+cat\supermarkets\App.class
+cat\supermarkets\model\Supermarket.class

@@ -1,0 +1,2 @@
+pan,1.20,0,FOOD,20261202
+uzm,12.20,0,COSMETIC,Nake

@@ -5,7 +5,7 @@ public class UtilsIO {
 
     public void showAnyMessage(String header, String mainText) {
         if (mainText == null || mainText.isEmpty()
-            || header == null || header.isEmpty()) {
+                || header == null || header.isEmpty()) {
             return;
         }
         System.out.println(Constants.EMPTY_SPACE);
@@ -28,33 +28,29 @@ public class UtilsIO {
         showAnyMessage(Constants.INFO_HEADER, menuText);
     }
 
-    public String askForString(String message, String errorMessage){
-        if (message == null || message.isEmpty()) 
-        {
+    public String askForString(String message, String errorMessage) {
+        if (message == null || message.isEmpty()) {
             message = Constants.MESSAGE_DEFAULT_ASK_STRING;
         }
-        if (errorMessage == null || errorMessage.isEmpty()) 
-        {
+        if (errorMessage == null || errorMessage.isEmpty()) {
             errorMessage = Constants.MESSAGE_DEFAULT_ERROR_STRING;
         }
         Scanner scanner = new Scanner(System.in, "Cp850");
         System.out.println(message);
         String inputText = scanner.nextLine();
-        while (inputText.isEmpty()){
+        while (inputText.isEmpty()) {
             System.out.println(errorMessage);
             System.out.println(message);
             inputText = scanner.nextLine();
         }
         return inputText;
     }
-    
+
     public int askForInteger(String message, String errorMessage) {
-        if (message == null || message.isEmpty()) 
-        {
+        if (message == null || message.isEmpty()) {
             message = Constants.MESSAGE_DEFAULT_ASK_INTEGER;
         }
-        if (errorMessage == null || errorMessage.isEmpty()) 
-        {
+        if (errorMessage == null || errorMessage.isEmpty()) {
             errorMessage = Constants.MESSAGE_DEFAULT_ERROR_INTEGER;
         }
         Scanner scan = new Scanner(System.in);
@@ -72,14 +68,12 @@ public class UtilsIO {
         scan.nextLine();
         return inputInt;
     }
-    
+
     public float askForFloat(String message, String errorMessage) {
-        if (message == null || message.isEmpty()) 
-        {
+        if (message == null || message.isEmpty()) {
             message = Constants.MESSAGE_DEFAULT_ASK_FLOAT;
         }
-        if (errorMessage == null || errorMessage.isEmpty()) 
-        {
+        if (errorMessage == null || errorMessage.isEmpty()) {
             errorMessage = Constants.MESSAGE_DEFAULT_ERROR_FLOAT;
         }
         Scanner scan = new Scanner(System.in);
@@ -98,7 +92,7 @@ public class UtilsIO {
         scan.nextLine();
         return inputFloat;
     }
-    
+
     public void showSupermarkets(String supermarketsList) {
         if (supermarketsList == null || supermarketsList.isEmpty()) {
             return;
@@ -113,7 +107,9 @@ public class UtilsIO {
                 try {
                     float longitude = Float.parseFloat(supermarket[2]);
                     float latitude = Float.parseFloat(supermarket[3]);
-                    System.out.println(String.format(Constants.SUPERMARKET_BOARD_FORMAT, supermarket[0], supermarket[1], longitude, latitude));
+                    System.out.println(
+                            String.format(Locale.US, Constants.SUPERMARKET_BOARD_FORMAT, supermarket[0], supermarket[1],
+                                    longitude, latitude));
                 } catch (NumberFormatException e) {
                     continue;
                 }

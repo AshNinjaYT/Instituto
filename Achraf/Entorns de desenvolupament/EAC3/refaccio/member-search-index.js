@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"refraccio","c":"GestorDescomptes","l":"calculaPreuFinal(double, String)","u":"calculaPreuFinal(double,java.lang.String)"},{"p":"refraccio","c":"GestorDescomptes","l":"GestorDescomptes()","u":"%3Cinit%3E()"},{"p":"refraccio","c":"GestorDescomptes","l":"mensaje(String, double, double)","u":"mensaje(java.lang.String,double,double)"}];updateSearchResults();

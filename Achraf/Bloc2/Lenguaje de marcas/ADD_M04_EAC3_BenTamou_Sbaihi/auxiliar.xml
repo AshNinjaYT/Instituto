@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="activitat2.xslt"?>
+<CINECLUB NIF="A12345678Q">
+    <nom>Amants del cinema Tona</nom>
+    <municipi>Tona</municipi>
+    <adreca>Cr Major 24 - Tona</adreca>
+    <pelicula codi="RO001">
+        <titol any="1996">El Paciente Inglés</titol>
+        <portada>https://pics.filmaffinity.com/the_english_patient-572633305-large.jpg</portada>
+        <director pais="Regne Unit">ANTHONY MINGHELLA</director>
+        <genere>ROMÀNTIC</genere>
+        <companyia>FILMIX</companyia>
+        <durada>162</durada>
+        <actors>
+            <actor>Ralph Fiennes</actor>
+            <actor>Kristin Scott Thomas</actor>
+            <actor>Juliette Binoche</actor>
+        </actors>
+    </pelicula>
+    <pelicula codi="TH100">
+        <titol any="2023">Club Zero</titol>
+        <portada>https://pics.filmaffinity.com/club_zero-511206995-large.jpg</portada>
+        <director pais="Àustria">JESSICA HAUSNER</director>
+        <genere>THRILLER</genere>
+        <companyia>COOP99 FILMPRODUKTION</companyia>
+        <durada>110</durada>
+        <actors>
+            <actor>Mia Wasikowska</actor>
+            <actor>Sidse Babett Knudsen</actor>
+            <actor>Elsa Zylberteins</actor>
+        </actors>
+    </pelicula>
+    <pelicula codi="DR400">
+        <titol any="1990">Corazon Salvaje</titol>
+        <portada>https://pics.filmaffinity.com/wild_at_heart-799674263-mmed.jpg</portada>
+        <director pais="Estats Units">DAVID LYNCH</director>
+        <genere>DRAMA</genere>
+        <companyia>POLYGRAM FILMED ENTERTAINMENT</companyia>
+        <durada>125</durada>
+        <actors>
+            <actor>Nicolas Cage</actor>
+            <actor>Laura Dern</actor>
+            <actor>Diane Ladd</actor>
+        </actors>
+    </pelicula>
+</CINECLUB>
