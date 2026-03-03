@@ -15,7 +15,7 @@ public class Eac1 {
      * @param args els arguments especificats en l'enunciat de l'EAC
      */
     public static void main(String[] args) {
-        //TODO
+        
     }
 
 }
