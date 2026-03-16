@@ -1,14 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ex2.gestors;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import ex2.model.Estacio;
 
 /**
  *
- * @author joan
+ * @author joan 
  */
 public class GestorEstacio {
 
@@ -21,8 +30,16 @@ public class GestorEstacio {
      * fitxer
      */
     public Estacio llegirFitxerXML(String nomFitxer) throws GestorEstacioException {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+        if (nomFitxer == null) {
+            throw new GestorEstacioException("El nom del fitxer XML no pot ser nul");
+        }
+        try {
+            JAXBContext context = JAXBContext.newInstance(Estacio.class);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            return (Estacio) unmarshaller.unmarshal(new File(nomFitxer));
+        } catch (JAXBException | IllegalArgumentException e) {
+            throw new GestorEstacioException("Error en llegir el fitxer XML: " + nomFitxer, e);
+        }
     }
 
     /**
@@ -34,8 +51,17 @@ public class GestorEstacio {
      * fitxer
      */
     public void gravarFitxerXML(String nomFitxer, Estacio estacio) throws GestorEstacioException {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+        if (nomFitxer == null) {
+            throw new GestorEstacioException("El nom del fitxer XML no pot ser nul");
+        }
+        try {
+            JAXBContext context = JAXBContext.newInstance(Estacio.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            marshaller.marshal(estacio, new File(nomFitxer));
+        } catch (JAXBException | IllegalArgumentException e) {
+            throw new GestorEstacioException("Error en gravar el fitxer XML: " + nomFitxer, e);
+        }
     }
 
     /**
@@ -47,8 +73,15 @@ public class GestorEstacio {
      * fitxer
      */
     public Estacio llegirFitxerJSON(String nomFitxer) throws GestorEstacioException {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+        if (nomFitxer == null) {
+            throw new GestorEstacioException("El nom del fitxer JSON no pot ser nul");
+        }
+        Gson gson = new Gson();
+        try (FileReader reader = new FileReader(nomFitxer)) {
+            return gson.fromJson(reader, Estacio.class);
+        } catch (IOException e) {
+            throw new GestorEstacioException("Error en llegir el fitxer JSON: " + nomFitxer, e);
+        }
     }
 
     /**
@@ -60,8 +93,15 @@ public class GestorEstacio {
      * fitxer
      */
     public void gravarFitxerJSON(String nomFitxer, Estacio estacio) throws GestorEstacioException {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+        if (nomFitxer == null) {
+            throw new GestorEstacioException("El nom del fitxer JSON no pot ser nul");
+        }
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        try (FileWriter writer = new FileWriter(nomFitxer)) {
+            gson.toJson(estacio, writer);
+        } catch (IOException e) {
+            throw new GestorEstacioException("Error en gravar el fitxer JSON: " + nomFitxer, e);
+        }
     }
 
 }

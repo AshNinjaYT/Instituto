@@ -1,25 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ex2.model;
 
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlType;
 
-/**
- *
- * @author joan
- */
-//TODO Afegir anotacions JAXB i GSON
+import com.google.gson.annotations.SerializedName;
+
+@XmlType(propOrder = {"nom", "longitud", "desnivell", "color", "oberta", "gruixNeu", "qualitatNeu"})
 public class Pista {
 
     private String id;
+    
     private String nom;
     private int longitud;
     private int desnivell;
     private String color;
     private boolean oberta;
+    
+    @SerializedName("gruix_neu")
     private int gruixNeu;
+    
+    @SerializedName("qualitat_neu")
     private String qualitatNeu;
 
     public Pista() {
@@ -36,6 +38,7 @@ public class Pista {
         this.oberta = oberta;
     }
 
+    @XmlAttribute
     public String getId() {
         return id;
     }
@@ -76,6 +79,7 @@ public class Pista {
         this.color = color;
     }
 
+    @XmlElement(name = "gruix-neu")
     public int getGruixNeu() {
         return gruixNeu;
     }
@@ -84,6 +88,7 @@ public class Pista {
         this.gruixNeu = gruixNeu;
     }
 
+    @XmlElement(name = "qualitat-neu")
     public String getQualitatNeu() {
         return qualitatNeu;
     }
@@ -145,5 +150,4 @@ public class Pista {
         }
         return Objects.equals(this.qualitatNeu, other.qualitatNeu);
     }
-
 }

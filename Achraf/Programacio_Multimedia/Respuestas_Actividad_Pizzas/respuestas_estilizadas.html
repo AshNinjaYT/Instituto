@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍕 Respuestas: Ejercicio de Comandas de Pizzas</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            color: #d32f2f;
+            text-align: center;
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #1565c0;
+            margin-top: 30px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #2e7d32;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .highlight {
+            background-color: #e3f2fd;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #c62828;
+            font-weight: bold;
+        }
+        .note {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .warning {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🍕 Respuestas: Ejercicio de Comandas de Pizzas</h1>
+
+    <div class="card">
+        <h2>📊 1. Diferencias entre tipos de variables (Contadores)</h2>
+        <p>A continuación se detalla el comportamiento de las tres variables de estado al realizar diferentes acciones funcionales sobre el dispositivo o emulador:</p>
+
+        <h3>🔘 Prueba 1 (Pulsar el botón "+1 contadores")</h3>
+        <ul>
+            <li><span class="highlight">contadorNormal</span>: La interfaz siempre muestra <strong>0</strong>. Aunque el valor interno de la variable aumente al pulsar el botón, Jetpack Compose <strong>no es notificado</strong> del cambio, por lo que no redibuja ese texto. Además, como el botón también altera los estados de memory/saveable, Compose vuelve a pintar la interfaz y recrea la variable con su valor inicial (<code>var contadorNormal = 0</code>).</li>
+            <li><span class="highlight">contadorRemember</span>: Se incrementa y se actualiza correctamente en la pantalla. Al usar <code>remember</code> junto con un <code>MutableState</code>, le avisa a Compose que hay un cambio y le pide que redibuje (recomposición), <strong>recordando</strong> su valor actual mientras el componente siga vivo y visible.</li>
+            <li><span class="highlight">contadorSaveable</span>: Visualmente funciona exactamente igual que el <code>remember</code>: se incrementa en pantalla, avisa a Compose del cambio y conserva el último valor sumado.</li>
+        </ul>
+
+        <h3>🔄 Prueba 2 (Rotación de pantalla)</h3>
+        <ul>
+            <li><span class="highlight">contadorNormal</span>: Continúa mostrando su valor por defecto de <strong>0</strong>.</li>
+            <li><span class="highlight">contadorRemember</span>: <strong>Se reinicia a 0</strong>. Al girar la pantalla en Android, la aplicación destruye la Activity por completo (<code>onDestroy</code>) y la vuelve a crear desde cero con el nuevo tamaño o disposición (<code>onCreate</code>). En esta destrucción total, el <code>remember</code> simple <strong>olvida</strong> el estado que guardaba.</li>
+            <li><span class="highlight">contadorSaveable</span>: <strong>¡Mantiene su valor perfectamente!</strong> Esta es su ventaja principal. <code>rememberSaveable</code> se ancla al mecanismo nativo de Android (<code>savedInstanceState</code>) capaz de serializar y guardar datos de estado en un Bundle antes de destruir la Activity por rotarla, recuperándolos en cuanto el sistema vuelve a crear la ventana.</li>
+        </ul>
+        <div class="note">
+            Nota: Los campos de texto del formulario de la app, como "Nom" o "Quantitat", también usan esta técnica para que no se borren en medio de una comanda al girar el móvil.
+        </div>
+
+        <h3>📱 Prueba 3 (App en segundo plano y vuelta)</h3>
+        <p>Si envías la aplicación al menú de Inicio de Android (segundo plano) brevemente y la vuelves a abrir, <strong>los tres mantienen los valores que tenían</strong>. Esto ocurre porque la Activity no se ha llegado a cerrar definitivamente, sino que ha quedado pausada (<code>onPause</code> y <code>onStop</code>) en la memoria RAM del teléfono.</p>
+        
+        <p class="warning">⚠️ Excepción Crítica:</p>
+        <p>Si el sistema operativo necesita liberar memoria RAM y "mata" tu aplicación mientras está de fondo, cuando la vuelvas a abrir se recreará desde cero. En este escenario, <strong>solo <span class="highlight">contadorSaveable</span> recuperará su número</strong>, mientras que <span class="highlight">contadorRemember</span> se habrá reiniciado tal como en la rotación.</p>
+    </div>
+
+    <div class="card">
+        <h2>⏳ 2. Ciclo de vida de la Activity</h2>
+
+        <h3>📝 Etapas observadas (Logcat y UI)</h3>
+        <p>A lo largo de la ejecución, se han registrado las siguientes etapas del ciclo nativo de Android:<br>
+        <span class="highlight">onCreate</span>, <span class="highlight">onStart</span>, <span class="highlight">onResume</span>, <span class="highlight">onPause</span>, <span class="highlight">onStop</span>, <span class="highlight">onDestroy</span> y <span class="highlight">onRestart</span>.</p>
+
+        <h3>⏱️ Orden cronológico según las acciones</h3>
+        <ol>
+            <li><strong>Al abrir la app por primera vez:</strong><br> <code>onCreate</code> ➔ <code>onStart</code> ➔ <code>onResume</code></li>
+            <li><strong>Al enviar la app a segundo plano (Inicio):</strong><br> <code>onPause</code> ➔ <code>onStop</code></li>
+            <li><strong>Al volver a la app desde el segundo plano:</strong><br> <code>onRestart</code> ➔ <code>onStart</code> ➔ <code>onResume</code></li>
+            <li><strong>Al girar la pantalla:</strong><br> <code>onPause</code> ➔ <code>onStop</code> ➔ <code>onDestroy</code> <em>(Activity vieja destruida)</em> ➔ <code>onCreate</code> ➔ <code>onStart</code> ➔ <code>onResume</code> <em>(Activity nueva creada horizontal/vertical)</em></li>
+            <li><strong>Al cerrar la app definitivamente (Botón Atrás o limpiar la multitarea):</strong><br> <code>onPause</code> ➔ <code>onStop</code> ➔ <code>onDestroy</code></li>
+        </ol>
+
+        <h3>💡 Cuándo se llama a cada etapa</h3>
+        <ul>
+            <li><strong><code>onCreate</code></strong>: Solo ocurre una vez por ciclo de vida completo. Construye la aplicación por primera vez y enlaza el contenido UI inicial.</li>
+            <li><strong><code>onStart</code></strong>: La interfaz visual se "prepara" y está a punto de ser visible para el usuario, aunque aún no intercepta clics ni interacciones.</li>
+            <li><strong><code>onResume</code></strong>: La app ya está totalmente en Foreground (primer plano visible). Permite al usuario interactuar, escribir o tocar botones libremente.</li>
+            <li><strong><code>onPause</code></strong>: La actividad pasa a segundo plano temporal. Puede suceder si se abre una ventana flotante encima, se quitan los permisos, o si el usuario sale de la app pero ésta aún se ve en el menú de aplicaciones recientes. Se congela o "pausa" toda animación.</li>
+            <li><strong><code>onStop</code></strong>: La ventana desaparece totalmente de la vista del usuario (minimización).</li>
+            <li><strong><code>onRestart</code></strong>: Función puente que se dispara si estábamos en estado <code>onStop</code> y el usuario ha decidido volver a abrirnos, procediendo a llamar a <code>onStart</code> de nuevo.</li>
+            <li><strong><code>onDestroy</code></strong>: Fin del ciclo. Limpieza exhaustiva de la ventana y variables dinámicas de memoria RAM.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <h2>🧠 3. Uso del ViewModel vs Interfaz de Estado</h2>
+
+        <h3>⚖️ Diferencia principal frente a los Contadores</h3>
+        <p>Las variables de Compose (<code>remember</code> o <code>rememberSaveable</code>) operan vinculadas estrictamente al árbol visual estético; por ende, su ciclo de vida y su procesamiento están emparejados a la pantalla actual.</p>
+        <p>En cambio, un <strong><code>ViewModel</code></strong> es un componente arquitectónico especial (proporcionado por Google) que existe en un estrato de la aplicación <strong>completamente aislado</strong> del diseño visual y de la pantalla. El <code>ViewModel</code> sobrevive automáticamente a la destrucción temporal por giros o recargas de Activity de manera pasiva y natural, sin necesitar etiquetas extras de serialización como <code>rememberSaveable</code>.</p>
+
+        <h3>🚀 Grandes Ventajas de utilizar ViewModel</h3>
+        <ul>
+            <li><strong>Separación de responsabilidades (Clean Code):</strong><br> Dejamos de ensuciar el archivo de "dibujar pantalla" (UI) con funciones lógicas complicadas. La vista se dedica a mostrar píxeles y colores, y manda las tareas de procesamiento y guardado al <code>ViewModel</code>.</li>
+            <li><strong>Robustez estructural y Rendimiento:</strong><br> Salvar datos sencillos (como un <code>int</code> para los contadores) con un <code>rememberSaveable</code> está bien, pero si usamos esta táctica para guardar una lista de datos enorme que se va llenando sin parar (como pasa aquí con el Historial del Ciclo de Vida), cada vez que giremos la pantalla la aplicación se trabaría serializando decenas de variables visuales a un Bundle. Como el <code>ViewModel</code> persiste sin requerir serialización en la rotación de pantalla, otorga un rendimiento y escalabilidad netamente superior para los historiales.</li>
+        </ul>
+    </div>
+
+</body>
+</html>

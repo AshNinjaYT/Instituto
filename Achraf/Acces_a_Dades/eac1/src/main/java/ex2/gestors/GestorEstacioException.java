@@ -1,18 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ex2.gestors;
 
-import javax.xml.bind.JAXBException;
-
 /**
- *
- * @author joan
+ * Excepció personalitzada per als errors en la gestió de les estacions
+ * 
+ * @author professor (Modificat)
  */
 public class GestorEstacioException extends Exception {
 
-    public GestorEstacioException(String message, Exception e) {
+    /**
+     * Crea una instància de GestorEstacioException amb un missatge d'error
+     * especificat
+     *
+     * @param missatge el missatge d'error
+     */
+    public GestorEstacioException(String missatge) {
+        super(missatge);
     }
-    
+
+    /**
+     * Crea una instància de GestorEstacioException amb un missatge d'error
+     * especificat i l'origen de l'error
+     *
+     * @param missatge el missatge d'error
+     * @param causa l'excepció origen de l'error
+     */
+    public GestorEstacioException(String missatge, Throwable causa) {
+        super(missatge, causa);
+    }
 }

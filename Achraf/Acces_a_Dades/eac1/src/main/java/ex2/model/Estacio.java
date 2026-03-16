@@ -1,26 +1,31 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ex2.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- *
- * @author joan
- */
-//TODO Afegir anotacions JAXB i GSON
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.google.gson.annotations.SerializedName;
+
+@XmlRootElement(name = "estacio")
 public class Estacio {
 
     private String id;
+    
     private String nom;
     private String comarca;
     private String web;
+    
+    @SerializedName("altitud_maxima")
     private int altitudMaxima;
+    
     private String qualificacio;
+    
+    @SerializedName("estat_obertura_percentatge")
     private int estatObertura;
 
     private List<Pista> pistes = new ArrayList<>();
@@ -38,6 +43,7 @@ public class Estacio {
         this.estatObertura = estatObertura;
     }
 
+    @XmlAttribute
     public String getId() {
         return id;
     }
@@ -70,6 +76,7 @@ public class Estacio {
         this.web = web;
     }
 
+    @XmlElement(name = "altitud-maxima")
     public int getAltitudMaxima() {
         return altitudMaxima;
     }
@@ -86,6 +93,7 @@ public class Estacio {
         this.qualificacio = qualificacio;
     }
 
+    @XmlElement(name = "estat-obertura-percentatge")
     public int getEstatObertura() {
         return estatObertura;
     }
@@ -94,7 +102,12 @@ public class Estacio {
         this.estatObertura = estatObertura;
     }
 
+    @XmlElementWrapper(name = "pistes")
+    @XmlElement(name = "pista")
     public List<Pista> getPistes() {
+        if (pistes == null) {
+            pistes = new ArrayList<>();
+        }
         return pistes;
     }
 
@@ -106,8 +119,17 @@ public class Estacio {
      * Calcula el percentatge de pistes obertes
      */
     public void actualitzaEstatObertura() {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+        if (this.pistes == null || this.pistes.isEmpty()) {
+            this.estatObertura = 0;
+            return;
+        }
+        int obertes = 0;
+        for (Pista p : this.pistes) {
+            if (p.isOberta()) {
+                obertes++;
+            }
+        }
+        this.estatObertura = (int) Math.round((double) obertes / this.pistes.size() * 100.0);
     }
 
     @Override
