@@ -7,130 +7,159 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 /**
  *
- * @author joan (Modificat com a Eac1)
+ * @author joan (Modificado)
  */
 public class Eac1 {
 
     /**
-     * Mètode principal del programa
+     * Metodo principal del programa
      *
-     * @param args els arguments especificats en l'enunciat de l'EAC
+     * @param args los argumentos especificados en el enunciado del EAC
      */
     public static void main(String[] args) {
         
-        // Comprovació de nombre d'arguments
-        if (args.length != 5) {
-            System.err.println("Error: Nombre d'arguments incorrecte.");
-            System.out.println("Us esperat: java Eac1 <opcio> <origen> <extensio> <text_contingut> <destinacio>");
-            System.out.println("Exemple: java Eac1 c ./dir_origen txt hola ./dir_desti");
-            return;
+        // El numero de parametros no esta entre cuatro y cinco
+        if (args.length < 4 || args.length > 5) {
+            System.err.println("Error: El numero de parametros debe ser 4 o 5.");
+            System.exit(2);
         }
 
-        // Recol·lectem els arguments en variables més llegibles
-        String actionStr = args[0].toLowerCase();
-        String originDirPath = args[1];
-        String extensionFilterStr = args[2];
-        String contentFilterStr = args[3];
-        String targetDirPath = args[4];
-
-        // Validem l'opció (C = Copiar, M = Moure)
-        boolean isMove = false;
-        if (actionStr.equals("m")) {
-            isMove = true;
-        } else if (!actionStr.equals("c")) {
-            System.err.println("Error: L'opcio (primer argument) ha de ser 'c' per copiar o 'm' per moure.");
-            return;
+        // El primer parametro no es C ni M
+        String opcio = args[0].toUpperCase();
+        if (!opcio.equals("C") && !opcio.equals("M")) {
+            System.err.println("Error: El primer parametro debe ser C o M.");
+            System.exit(2);
         }
 
-        // Objectes dels directoris d'origen i destinacio
-        File originDir = new File(originDirPath);
-        File targetDir = new File(targetDirPath);
-
-        // Validem que el directori d'origen existeixi i sigui un directori navegable
-        if (!originDir.exists() || !originDir.isDirectory()) {
-            System.err.println("Error: El directori d'origen '" + originDirPath + "' no existeix o no es valid.");
-            return;
+        // El segundo parametro no es una carpeta valida o no se tiene permiso de escritura
+        File destDir = new File(args[1]);
+        if (!destDir.exists() || !destDir.isDirectory() || !destDir.canWrite()) {
+            System.err.println("Error: El segundo parametro no es una carpeta valida o no tiene permiso de escritura.");
+            System.exit(2);
         }
 
-        // Validem el directori de destinacio, i intentem crear-lo si no existeix
-        if (!targetDir.exists()) {
-            boolean created = targetDir.mkdirs();
-            if (!created) {
-                System.err.println("Error: No s'ha pogut crear el directori de destinacio '" + targetDirPath + "'.");
-                return;
+        // El tercer parametro no es ni M ni N
+        String criteri = args[2].toUpperCase();
+        if (!criteri.equals("M") && !criteri.equals("N")) {
+            System.err.println("Error: El tercer parametro debe ser M o N.");
+            System.exit(2);
+        }
+
+        long maximaMida = -1;
+        String iniciNom = null;
+
+        if (criteri.equals("M")) {
+            // El cuarto parametro debe ser un numero entero si el tercero es M
+            try {
+                maximaMida = Long.parseLong(args[3]);
+            } catch (NumberFormatException e) {
+                System.err.println("Error: El cuarto parametro debe ser un numero entero.");
+                System.exit(2);
             }
-        } else if (!targetDir.isDirectory()) {
-            System.err.println("Error: La ruta de destinacio '" + targetDirPath + "' ja existeix i no es un directori.");
-            return;
+        } else {
+            iniciNom = args[3];
         }
 
-        // Creem el filtre per seleccionar quins fitxers del directori origen ens interesen
-        // Hem de declarar contentFilterStr com a *effectively final* per la lambda.
-        final String searchContent = contentFilterStr;
+        boolean incloureOcults = false;
+        // El quinto parametro no es una H
+        if (args.length == 5) {
+            if (!args[4].toUpperCase().equals("H")) {
+                System.err.println("Error: El quinto parametro debe ser la letra H.");
+                System.exit(2);
+            }
+            incloureOcults = true;
+        }
 
-        FileFilter fileCriteria = file -> {
-            // Nomes ens interesen arxius normals, no altres carpetes ni enllacos
+        // Directorio de trabajo (origen)
+        File workDir = new File(".");
+
+        // Si es la opcion de Mover (M) y no tenemos permiso de escritura en la carpeta origen (para borrarlos tras mover)
+        if (opcio.equals("M") && !workDir.canWrite()) {
+            System.out.println("La operacion de mover no se puede realizar porque no hay permiso de escritura en la carpeta de origen.");
+            return; // En este caso el enunciado indica de "mostrar un missatge", no forzar System.exit(2). Salimos amablemente.
+        }
+
+        // Declaracion de variables efectivamente finales para usarlas dentro de la lambda
+        final long fMaximaMida = maximaMida;
+        final String fIniciNom = iniciNom;
+        final boolean fIncloureOcults = incloureOcults;
+
+        // Creacion del FileFilter
+        FileFilter filtre = file -> {
+            // Solo procesamos archivos, no directorios
             if (!file.isFile()) {
                 return false;
             }
 
-            // Comprovem si el nom acaba amb la extensio que el professor ha passat com argument
-            if (!file.getName().endsWith("." + extensionFilterStr)) {
+            // Excluir ocultos si no esta la H
+            if (file.isHidden() && !fIncloureOcults) {
                 return false;
             }
 
-            // Comprovem si dins del fitxer de text existeix el substring (paraula o frase) de cerca
-            try {
-                String fileContent = new String(Files.readAllBytes(file.toPath()));
-                if (!fileContent.contains(searchContent)) {
+            // Filtrado por Mida (M) o Nom (N)
+            if (criteri.equals("M")) {
+                if (file.length() > fMaximaMida) {
                     return false;
                 }
-            } catch (IOException e) {
-                // Si per algun motiu el fitxer de text no es pot llegir, ens saltem l'arxiu i tornem false
-                System.err.println("Advertencia: No s'ha pogut llegir " + file.getName());
-                return false;
+            } else {
+                if (!file.getName().startsWith(fIniciNom)) {
+                    return false;
+                }
             }
 
-            // L'arxiu reuneix totes les condicions, aixi que aquest si l'agafem
             return true;
         };
 
-        // Apliquem el filtre que acabem de crear al directori origen i obtenim la llista de fitxers vàlids
-        File[] matches = originDir.listFiles(fileCriteria);
-
-        if (matches == null || matches.length == 0) {
-            System.out.println("No s'ha trobat cap fitxer al directori origen que compleixi els criteris.");
-            return;
+        // LLamada obligatoria a listFiles pasandole nuestro FileFilter
+        File[] arxiusProcessar = workDir.listFiles(filtre);
+        if (arxiusProcessar == null) {
+            arxiusProcessar = new File[0];
         }
 
-        // Processament dels fitxers (arxiu per arxiu)
-        for (File currentFile : matches) {
-            Path originPathInstance = currentFile.toPath();
-            Path targetPathInstance = Paths.get(targetDirPath, currentFile.getName());
+        int totalArxius = 0;
+        long midaTotalBytes = 0;
+
+        for (File f : arxiusProcessar) {
+            // Ficheros sin permiso de lectura, mostramos un mensaje y seguimos con el siguiente
+            if (!f.canRead()) {
+                System.out.println("El archivo " + f.getName() + " no tiene permisos de lectura e sera ignorado.");
+                continue;
+            }
+
+            File fitxerDesti = new File(destDir, f.getName());
+            boolean success = false;
 
             try {
-                if (isMove) {
-                    // Moure arxiu: La mateixa comanda elimina l'original si es produeix l'exit de l'operacio
-                    Files.move(originPathInstance, targetPathInstance, StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println("S'ha mogut el fitxer: " + currentFile.getName() + " -> " + targetPathInstance);
-                } else {
-                    // Copiar arxiu
-                    Files.copy(originPathInstance, targetPathInstance, StandardCopyOption.REPLACE_EXISTING);
-                    System.out.println("S'ha copiat el fitxer: " + currentFile.getName() + " -> " + targetPathInstance);
+                if (opcio.equals("C")) {
+                    Files.copy(f.toPath(), fitxerDesti.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    success = true;
+                } else if (opcio.equals("M")) {
+                    Files.move(f.toPath(), fitxerDesti.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                    success = true;
                 }
             } catch (IOException e) {
-                System.err.println("Error: S'ha produit un fallo inesperat al intentar " 
-                                   + (isMove ? "moure" : "copiar") 
-                                   + " el fitxer " + currentFile.getName() + ": " + e.getMessage());
+                System.out.println("Fallo al procesar el archivo: " + f.getName());
+            }
+
+            // Si se ha movido o copiado exitosamente, imprimimos el resultado de este archivo y acumulamos stats
+            if (success) {
+                totalArxius++;
+                long midaFitxer = fitxerDesti.length();
+                midaTotalBytes += midaFitxer;
+
+                // Formateo del mensaje con (H) y la size con B
+                String identificadorOcult = f.isHidden() ? " (H)" : "";
+                System.out.println(f.getName() + identificadorOcult + " " + midaFitxer + "B");
             }
         }
 
-        System.out.println("Processament Finalitzat.");
+        // Resumen final
+        System.out.println("\nResumen:");
+        System.out.println("Numero de ficheros procesados: " + totalArxius);
+        System.out.println("Tamano total: " + midaTotalBytes + "B");
     }
 }

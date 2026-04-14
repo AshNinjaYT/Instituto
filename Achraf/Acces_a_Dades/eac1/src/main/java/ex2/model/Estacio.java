@@ -8,21 +8,23 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 import com.google.gson.annotations.SerializedName;
 
 @XmlRootElement(name = "estacio")
+@XmlType(propOrder = {"nom", "comarca", "web", "altitudMaxima", "qualificacio", "estatObertura", "pistes"})
 public class Estacio {
 
     private String id;
     
     private String nom;
     private String comarca;
-    private String web;
     
     @SerializedName("altitud_maxima")
     private int altitudMaxima;
     
+    private String web;
     private String qualificacio;
     
     @SerializedName("estat_obertura_percentatge")
