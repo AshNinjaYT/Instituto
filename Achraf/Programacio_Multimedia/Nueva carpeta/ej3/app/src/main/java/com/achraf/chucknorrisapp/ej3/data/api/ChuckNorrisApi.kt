@@ -1,6 +1,6 @@
-package com.achraf.chucknorrisapp.ej2.data.api
+package com.achraf.chucknorrisapp.ej3.data.api
 
-import com.achraf.chucknorrisapp.ej2.data.model.ChuckNorrisJoke
+import com.achraf.chucknorrisapp.ej3.data.model.ChuckNorrisJoke
 import retrofit2.http.GET
 import retrofit2.http.Query
 

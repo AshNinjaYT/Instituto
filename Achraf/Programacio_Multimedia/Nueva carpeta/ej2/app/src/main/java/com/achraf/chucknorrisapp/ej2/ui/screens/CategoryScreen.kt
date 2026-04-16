@@ -18,45 +18,43 @@ import androidx.lifecycle.viewModelScope
 import com.achraf.chucknorrisapp.ej2.data.api.RetrofitClient
 import com.achraf.chucknorrisapp.ej2.data.model.ChuckNorrisJoke
 import com.achraf.chucknorrisapp.ej2.ui.theme.*
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-// --- ViewModel ---
+// --- ViewModel para la pantalla de Categorías ---
 class CategoryViewModel : ViewModel() {
-    private val _joke = MutableStateFlow<ChuckNorrisJoke?>(null)
-    val joke: StateFlow<ChuckNorrisJoke?> = _joke.asStateFlow()
+    // Variables con mutableStateOf para que Compose las escuche sin lios
+    var joke by mutableStateOf<ChuckNorrisJoke?>(null)
+        private set
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+    var isLoading by mutableStateOf(false)
+        private set
 
-    private val _errorMessage = MutableStateFlow<String?>(null)
-    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
+    var errorMessage by mutableStateOf<String?>(null)
+        private set
 
+    // Método que llamamos para traer un chiste de una categoría 
     fun loadJokeForCategory(category: String) {
         viewModelScope.launch {
-            _isLoading.value = true
-            _errorMessage.value = null
+            isLoading = true
+            errorMessage = null
             try {
-                val result = RetrofitClient.api.getRandomJokeByCategory(category)
-                _joke.value = result
+                // Buscamos el chiste en la api
+                joke = RetrofitClient.api.getRandomJokeByCategory(category)
             } catch (e: Exception) {
-                _errorMessage.value = "Error al cargar chiste de categoría: ${e.message}"
+                // Si hay error lo guardamos para que no pete la app
+                errorMessage = "Error al cargar chiste de categoría: ${e.message}"
             } finally {
-                _isLoading.value = false
+                isLoading = false
             }
         }
     }
 }
 
-// --- UI ---
+// --- Pantalla UI ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryScreen(category: String, viewModel: CategoryViewModel, onBackClick: () -> Unit) {
-    val joke by viewModel.joke.collectAsState()
-    val isLoading by viewModel.isLoading.collectAsState()
-
+    // Solo cargamos la primera vez que entra a la categoría
     LaunchedEffect(category) {
         viewModel.loadJokeForCategory(category)
     }
@@ -67,13 +65,14 @@ fun CategoryScreen(category: String, viewModel: CategoryViewModel, onBackClick: 
                 title = { Text(translateCategory(category), fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
+                        // Botón de atrás (Volver a la portada)
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = DarkSurface)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = SuperficieOscura)
             )
         },
-        containerColor = DarkBackground
+        containerColor = FondoOscuro
     ) { padding ->
         Column(
             modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp),
@@ -82,25 +81,24 @@ fun CategoryScreen(category: String, viewModel: CategoryViewModel, onBackClick: 
         ) {
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = DarkSurface),
-                shape = RoundedCornerShape(16.dp),
-                elevation = CardDefaults.cardElevation(8.dp)
+                colors = CardDefaults.cardColors(containerColor = SuperficieOscura),
+                shape = RoundedCornerShape(10.dp)
             ) {
                 Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-                    if (isLoading) {
-                        CircularProgressIndicator(color = AccentSecondary)
-                    } else if (joke != null) {
+                    if (viewModel.isLoading) {
+                        CircularProgressIndicator(color = ColorVerde)
+                    } else if (viewModel.joke != null) {
                         Text(
-                            text = "\"${joke!!.value}\"",
+                            text = "\"${viewModel.joke!!.value}\"",
                             style = MaterialTheme.typography.bodyLarge,
                             fontStyle = FontStyle.Italic,
                             lineHeight = 28.sp,
-                            color = TextPrimary
+                            color = TextoBlanco
                         )
                         Spacer(modifier = Modifier.height(24.dp))
                         Button(
                             onClick = { viewModel.loadJokeForCategory(category) },
-                            colors = ButtonDefaults.buttonColors(containerColor = AccentSecondary)
+                            colors = ButtonDefaults.buttonColors(containerColor = ColorVerde)
                         ) {
                             Icon(Icons.Default.Refresh, contentDescription = "Otro")
                             Spacer(Modifier.width(8.dp))
@@ -112,4 +110,3 @@ fun CategoryScreen(category: String, viewModel: CategoryViewModel, onBackClick: 
         }
     }
 }
-

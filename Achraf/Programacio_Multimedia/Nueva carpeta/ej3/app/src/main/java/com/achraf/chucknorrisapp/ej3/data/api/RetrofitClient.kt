@@ -1,4 +1,4 @@
-package com.achraf.chucknorrisapp.ej2.data.api
+package com.achraf.chucknorrisapp.ej3.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

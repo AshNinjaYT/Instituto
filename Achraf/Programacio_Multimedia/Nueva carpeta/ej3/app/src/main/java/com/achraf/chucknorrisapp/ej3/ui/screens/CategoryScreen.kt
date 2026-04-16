@@ -1,9 +1,6 @@
 package com.achraf.chucknorrisapp.ej3.ui.screens
 
 import android.content.Context
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -21,68 +18,74 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.achraf.chucknorrisapp.ej3.data.*
+import com.achraf.chucknorrisapp.ej3.data.api.RetrofitClient
+import com.achraf.chucknorrisapp.ej3.data.db.AppDatabase
+import com.achraf.chucknorrisapp.ej3.data.db.FavoriteJoke
+import com.achraf.chucknorrisapp.ej3.data.model.ChuckNorrisJoke
 import com.achraf.chucknorrisapp.ej3.ui.theme.*
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-// --- ViewModel ---
+// --- ViewModel para la pantalla de Categorías ---
 class CategoryViewModel(private val db: AppDatabase) : ViewModel() {
+    
+    // Convertimos a mutableStateOf para que sea mas facil
+    var joke by mutableStateOf<ChuckNorrisJoke?>(null)
+        private set
 
-    private val _joke = MutableStateFlow<ChuckNorrisJoke?>(null)
-    val joke: StateFlow<ChuckNorrisJoke?> = _joke.asStateFlow()
+    var isLoading by mutableStateOf(false)
+        private set
 
-    private val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+    var errorMessage by mutableStateOf<String?>(null)
+        private set
 
-    private val _errorMessage = MutableStateFlow<String?>(null)
-    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
+    var favoriteMessage by mutableStateOf<String?>(null)
+        private set
 
-    private val _favoriteMessage = MutableStateFlow<String?>(null)
-    val favoriteMessage: StateFlow<String?> = _favoriteMessage.asStateFlow()
-
+    // Método que llamamos para traer un chiste de una categoría 
     fun loadJokeForCategory(category: String) {
         viewModelScope.launch {
-            _isLoading.value = true
-            _errorMessage.value = null
+            isLoading = true
+            errorMessage = null
             try {
-                val result = RetrofitClient.api.getRandomJokeByCategory(category)
-                _joke.value = result
+                // Buscamos el chiste en la api
+                joke = RetrofitClient.api.getRandomJokeByCategory(category)
             } catch (e: Exception) {
-                _errorMessage.value = "Error al cargar chiste de categoría: ${e.message}"
+                // Si hay error lo guardamos para que no pete la app
+                errorMessage = "Error al cargar chiste de categoría: ${e.message}"
             } finally {
-                _isLoading.value = false
+                isLoading = false
             }
         }
     }
 
+    // Guarda el chiste actual como favorito
     fun saveCurrentJokeAsFavorite(category: String) {
-        val joke = _joke.value ?: return
+        val currentJoke = joke ?: return // Si es nulo no hacemos nada
         viewModelScope.launch {
             val dao = db.favoriteJokeDao()
-            val existing = dao.getFavoriteByApiId(joke.id)
+            val existing = dao.getFavoriteByApiId(currentJoke.id)
             if (existing != null) {
-                _favoriteMessage.value = "Este chiste ya está en favoritos"
+                favoriteMessage = "Este chiste ya está en favoritos"
             } else {
                 dao.insertFavorite(
                     FavoriteJoke(
-                        jokeApiId = joke.id,
-                        jokeText = joke.value,
+                        jokeApiId = currentJoke.id,
+                        jokeText = currentJoke.value,
                         category = category
                     )
                 )
-                _favoriteMessage.value = "¡Chiste guardado en favoritos!"
+                favoriteMessage = "¡Chiste guardado en favoritos!"
             }
         }
     }
 
+    // Para borrar el toast
     fun clearFavoriteMessage() {
-        _favoriteMessage.value = null
+        favoriteMessage = null
     }
 
+    // Necesario para pasarle la base de datos al viewmodel
     companion object {
         fun factory(context: Context): ViewModelProvider.Factory {
             return object : ViewModelProvider.Factory {
@@ -96,24 +99,22 @@ class CategoryViewModel(private val db: AppDatabase) : ViewModel() {
     }
 }
 
-// --- UI ---
+// --- Pantalla UI ---
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CategoryScreen(
-    category: String,
-    viewModel: CategoryViewModel,
+    category: String, 
+    viewModel: CategoryViewModel, 
     onBackClick: () -> Unit
 ) {
-    val joke by viewModel.joke.collectAsState()
-    val isLoading by viewModel.isLoading.collectAsState()
-    val favoriteMessage by viewModel.favoriteMessage.collectAsState()
-
+    // Solo cargamos la primera vez que entra a la categoría
     LaunchedEffect(category) {
         viewModel.loadJokeForCategory(category)
     }
 
-    LaunchedEffect(favoriteMessage) {
-        if (favoriteMessage != null) {
+    // Borramos el cartel de guardar
+    LaunchedEffect(viewModel.favoriteMessage) {
+        if (viewModel.favoriteMessage != null) {
             delay(2000)
             viewModel.clearFavoriteMessage()
         }
@@ -125,86 +126,79 @@ fun CategoryScreen(
                 title = { Text(translateCategory(category), fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
+                        // Botón de atrás (Volver a la portada)
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = DarkSurface)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = SuperficieOscura)
             )
         },
-        containerColor = DarkBackground
+        containerColor = FondoOscuro
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(16.dp),
+            modifier = Modifier.fillMaxSize().padding(padding).padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            AnimatedVisibility(
-                visible = favoriteMessage != null,
-                enter = fadeIn(),
-                exit = fadeOut()
-            ) {
+            if (viewModel.favoriteMessage != null) {
                 Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(containerColor = AccentFavorite),
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp),
+                    colors = CardDefaults.cardColors(containerColor = ColorRosa),
                     shape = RoundedCornerShape(8.dp)
                 ) {
                     Text(
-                        text = favoriteMessage ?: "",
+                        text = viewModel.favoriteMessage ?: "",
                         modifier = Modifier.padding(12.dp),
-                        color = TextPrimary,
+                        color = TextoBlanco,
                         fontWeight = FontWeight.Medium
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                colors = CardDefaults.cardColors(containerColor = DarkSurface),
-                shape = RoundedCornerShape(16.dp),
-                elevation = CardDefaults.cardElevation(8.dp)
+                colors = CardDefaults.cardColors(containerColor = SuperficieOscura),
+                shape = RoundedCornerShape(10.dp)
             ) {
-                Column(
-                    modifier = Modifier.padding(24.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    if (isLoading) {
-                        CircularProgressIndicator(color = AccentSecondary)
-                    } else if (joke != null) {
+                Column(modifier = Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+                    if (viewModel.isLoading) {
+                        CircularProgressIndicator(color = ColorVerde)
+                    } else if (viewModel.joke != null) {
                         Text(
-                            text = "\"${joke!!.value}\"",
+                            text = "\"${viewModel.joke!!.value}\"",
                             style = MaterialTheme.typography.bodyLarge,
                             fontStyle = FontStyle.Italic,
                             lineHeight = 28.sp,
-                            color = TextPrimary
+                            color = TextoBlanco
                         )
                         Spacer(modifier = Modifier.height(24.dp))
-
-                        OutlinedButton(
-                            onClick = { viewModel.saveCurrentJokeAsFavorite(category) },
+                        
+                        Row(
                             modifier = Modifier.fillMaxWidth(),
-                            colors = ButtonDefaults.outlinedButtonColors(contentColor = AccentFavorite),
-                            border = androidx.compose.foundation.BorderStroke(1.dp, AccentFavorite)
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            Icon(Icons.Default.Favorite, contentDescription = "Añadir a favoritos", modifier = Modifier.size(18.dp))
-                            Spacer(Modifier.width(8.dp))
-                            Text("Añadir a favoritos")
-                        }
+                            // Botón Añadir a Favoritos
+                            OutlinedButton(
+                                onClick = { viewModel.saveCurrentJokeAsFavorite(category) },
+                                modifier = Modifier.weight(1f),
+                                colors = ButtonDefaults.outlinedButtonColors(contentColor = ColorRosa),
+                                border = androidx.compose.foundation.BorderStroke(1.dp, ColorRosa)
+                            ) {
+                                Icon(Icons.Default.Favorite, contentDescription = null, modifier = Modifier.size(18.dp))
+                                Spacer(Modifier.width(8.dp))
+                                Text("Favorito")
+                            }
 
-                        Spacer(modifier = Modifier.height(8.dp))
-
-                        Button(
-                            onClick = { viewModel.loadJokeForCategory(category) },
-                            modifier = Modifier.fillMaxWidth(),
-                            colors = ButtonDefaults.buttonColors(containerColor = AccentSecondary)
-                        ) {
-                            Icon(Icons.Default.Refresh, contentDescription = "Otro", modifier = Modifier.size(18.dp))
-                            Spacer(Modifier.width(8.dp))
-                            Text("Siguiente chiste")
+                            // Botón Siguiente
+                            Button(
+                                onClick = { viewModel.loadJokeForCategory(category) },
+                                modifier = Modifier.weight(1f),
+                                colors = ButtonDefaults.buttonColors(containerColor = ColorVerde)
+                            ) {
+                                Icon(Icons.Default.Refresh, contentDescription = "Otro")
+                                Spacer(Modifier.width(8.dp))
+                                Text("Siguiente")
+                            }
                         }
                     }
                 }
