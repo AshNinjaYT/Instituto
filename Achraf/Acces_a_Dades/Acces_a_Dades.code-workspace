@@ -1,13 +1,16 @@
 {
 	"folders": [
 		{
-			"path": "D:/Users/Achraf/Documents/Instituto/Achraf/Acces_a_Dades"
+			"name": "EAC 2 - Ejercicio 1",
+			"path": "eac2/eac2-ex1"
 		},
 		{
-			"path": "D:/Users/Achraf/Downloads/font-video1"
+			"name": "EAC 2 - Ejercicio 2",
+			"path": "eac2/eac2-ex2"
 		},
 		{
-			"path": "D:/Users/Achraf/Downloads/font-video2"
+			"name": "EAC 2 - Documentación",
+			"path": "eac2/docs"
 		}
 	],
 	"settings": {}
