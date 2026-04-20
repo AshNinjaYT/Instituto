@@ -12,8 +12,6 @@
     import java.util.ArrayList;
     import java.util.Arrays;
     import java.util.List;
-    import java.util.logging.Level;
-    import java.util.logging.Logger;
 
     /**
      * Gestor de pistes que proporciona operacions CRUD sobre la taula 'pistes'
