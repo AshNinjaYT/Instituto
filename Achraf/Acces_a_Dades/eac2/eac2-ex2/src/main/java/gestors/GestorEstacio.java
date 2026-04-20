@@ -29,8 +29,23 @@ public class GestorEstacio {
      * @throws GestorExcepcio si ja existeix una estació amb el mateix identificador
      */
     public void afegeixEstacio(Estacio estacio) throws GestorExcepcio {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Comprobar si la estación ya existe en la base de datos por su ID
+        if (em.find(Estacio.class, estacio.getId()) != null) {
+            throw new GestorExcepcio("L'estació ja existeix");
+        }
+        
+        try {
+            // Iniciar la transacción
+            em.getTransaction().begin();
+            // Guardar la estación
+            em.persist(estacio);
+            // Confirmar los cambios
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            // Deshacer los cambios en caso de que ocurra algún error
+            em.getTransaction().rollback();
+            throw new GestorExcepcio("Error: " + e.getMessage());
+        }
     }
 
     /**
@@ -40,8 +55,26 @@ public class GestorEstacio {
      * @throws GestorExcepcio si l'estació no existeix.
      */
     public void esborraEstacio(String id) throws GestorExcepcio {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Buscar la estación por su ID
+        Estacio e = em.find(Estacio.class, id);
+        
+        // Si no se encuentra, lanzar la excepción
+        if (e == null) {
+            throw new GestorExcepcio("L'estació no existeix");
+        }
+        
+        try {
+            // Iniciar la transacción
+            em.getTransaction().begin();
+            // Eliminar la estación de la base de datos
+            em.remove(e);
+            // Confirmar los cambios
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            // Deshacer los cambios si falla
+            em.getTransaction().rollback();
+            throw new GestorExcepcio("Error: " + ex.getMessage());
+        }
     }
 
     /**
@@ -50,8 +83,8 @@ public class GestorEstacio {
      * @return llista amb totes les estacions disponibles.
      */
     public List<Estacio> obteTotesEstacions() {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Ejecutar query para obtener todas las estaciones (SELECT sobre la entidad Estacio)
+        return em.createQuery("SELECT e FROM Estacio e", Estacio.class).getResultList();
     }
 
     /**
@@ -62,7 +95,13 @@ public class GestorEstacio {
      * @throws GestorExcepcio si l'estació no existeix.
      */
     public List<Pista> obtePistes(String idEstacio) throws GestorExcepcio {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Buscar la estación
+        Estacio e = em.find(Estacio.class, idEstacio);
+        // Verificar si la estación devuelta es nula
+        if (e == null) {
+            throw new GestorExcepcio("L'estació no existeix");
+        }
+        // Devolver la lista de pistas asociadas
+        return e.getPistes();
     }
 }

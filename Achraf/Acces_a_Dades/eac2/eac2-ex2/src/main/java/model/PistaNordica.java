@@ -2,7 +2,9 @@ package model;
 
 import java.util.Objects;
 
-//TODO Posar anotacions JPA
+import javax.persistence.Entity;
+
+@Entity
 public class PistaNordica extends Pista {
 
     private String estil;

@@ -29,7 +29,14 @@ public class GestorItinerariRaquetes {
      * @return llista d'itineraris de raquetes que compleixen el criteri de temps.
      */
     public List<ItinerariRaquetes> obteItinerarisRaquetesFinsTemps(int tempsMaxim) {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Hacemos el SELECT comprobando que el 'tempsEstimat' sea menor o igual al dado
+        String jpql = "SELECT i FROM ItinerariRaquetes i WHERE i.tempsEstimat <= :temps";
+        javax.persistence.TypedQuery<ItinerariRaquetes> query = em.createQuery(jpql, ItinerariRaquetes.class);
+        
+        // Ojo al setParameter para introducir la variable
+        query.setParameter("temps", tempsMaxim);
+        
+        // Pedimos que nos traiga la lista de la base de datos
+        return query.getResultList();
     }
 }

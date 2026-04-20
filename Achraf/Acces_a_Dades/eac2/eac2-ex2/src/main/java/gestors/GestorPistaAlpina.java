@@ -29,7 +29,20 @@ public class GestorPistaAlpina {
      * @throws GestorExcepcio si l'estació no existeix.
      */
     public List<PistaAlpina> obtePistesAlpinesEstacioPerColor(String idEstacio, String color) throws GestorExcepcio {
-            //TODO Implementa el mètode
-            throw new UnsupportedOperationException("Mètode no implementat");
+        // Verificamos si la estación existe primero
+        if (em.find(model.Estacio.class, idEstacio) == null) {
+            throw new GestorExcepcio("L'estació no existeix");
+        }
+        
+        // Creamos la consulta en lenguaje JPQL usando parámetros dinámicos
+        String jpql = "SELECT p FROM PistaAlpina p WHERE p.estacio.id = :idEstacio AND p.color = :color";
+        javax.persistence.TypedQuery<PistaAlpina> query = em.createQuery(jpql, PistaAlpina.class);
+        
+        // Sustituimos los parámetros por las variables pasadas a la función
+        query.setParameter("idEstacio", idEstacio);
+        query.setParameter("color", color);
+        
+        // Retornamos los resultados en forma de lista
+        return query.getResultList();
     }
 }

@@ -2,15 +2,24 @@ package model;
 
 import java.util.Objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  * Representa una pista d'esquí de la taula 'pistes'
  * Conté informació sobre les característiques físiques, condicions de neu i remuntadors
  */
-//TODO Posar anotacions JPA
-
+@Entity
+@Table(name = "pistes")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Pista {
 
 
+    @Id
     private String id;
     private String nom;
     private int longitud;
@@ -19,6 +28,8 @@ public abstract class Pista {
     private int gruixNeu;
     private String qualitatNeu;
     private boolean iluminada;
+    
+    @ManyToOne
     private Estacio estacio;
 
     // ==================== CONSTRUCTORS ====================
@@ -120,18 +131,14 @@ public abstract class Pista {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pista pista = (Pista) o;
-        return longitud == pista.longitud && oberta == pista.oberta &&
-                desnivell == pista.desnivell && gruixNeu == pista.gruixNeu &&
-                iluminada == pista.iluminada && Objects.equals(id, pista.id) &&
-                Objects.equals(nom, pista.nom) &&
-                Objects.equals(qualitatNeu, pista.qualitatNeu) &&
-                Objects.equals(estacio.getId(), pista.estacio.getId());
+        return Objects.equals(id, pista.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, longitud, oberta, desnivell, gruixNeu, qualitatNeu, iluminada, estacio);
+        return Objects.hash(id);
     }
 }

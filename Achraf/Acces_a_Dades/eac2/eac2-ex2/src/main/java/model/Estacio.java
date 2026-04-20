@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.Objects;
 
 
-//TODO Posar anotacions JPA
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+@Entity
 public class Estacio {
 
 
+    @Id
     private String id;
     private String nom;
     private String comarca;
@@ -17,6 +22,8 @@ public class Estacio {
     private String web;
     private String qualificacio;
     private double percentatgePistesObertes;
+    
+    @OneToMany(mappedBy = "estacio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Pista> pistes = new ArrayList<>();
 
     protected Estacio() {
@@ -111,19 +118,14 @@ public class Estacio {
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Estacio estacio = (Estacio) o;
-        return altitudMaxima == estacio.altitudMaxima &&
-                Double.compare(percentatgePistesObertes, estacio.percentatgePistesObertes) == 0 &&
-                Objects.equals(id, estacio.id) && Objects.equals(nom, estacio.nom) &&
-                Objects.equals(comarca, estacio.comarca) && Objects.equals(web, estacio.web) &&
-                Objects.equals(qualificacio, estacio.qualificacio) &&
-                getPistes().size() == estacio.getPistes().size() &&
-                getPistes().containsAll(estacio.getPistes());
+        return Objects.equals(id, estacio.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, comarca, altitudMaxima, web, qualificacio, percentatgePistesObertes, getPistes());
+        return Objects.hash(id);
     }
 }

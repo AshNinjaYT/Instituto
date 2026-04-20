@@ -6,7 +6,9 @@ package gestors;
 
 import javax.persistence.EntityManager;
 
+import model.Estacio;
 import model.Pista;
+
 
 /**
  *
@@ -33,8 +35,38 @@ public class GestorPista {
      * @throws GestorExcepcio si l'estació no existeix o si la pista ja existeix.
      */
     public void afegeixPista(String idEstacio, Pista pista) throws GestorExcepcio {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Buscar la estación por su ID
+        Estacio e = em.find(Estacio.class, idEstacio);
+        // Si no existe lanzamos error
+        if (e == null) {
+            throw new GestorExcepcio("L'estació no existeix");
+        }
+        // Buscar si ya existe una pista con el mismo id
+        if (em.find(Pista.class, pista.getId()) != null) {
+            throw new GestorExcepcio("La pista ja existeix");
+        }
+        
+        try {
+            // Empezamos la transacción
+            em.getTransaction().begin();
+            
+            // Asignar la estación a la pista
+            pista.setEstacio(e);
+            // Añadir la pista a la lista de pistas de la estación
+            e.getPistes().add(pista);
+            // Recalcular el porcentaje de pistas abiertas
+            e.calcularPercentatgeObertura();
+            
+            // Persistir la pista en la BD
+            em.persist(pista);
+            
+            // Confirmar transacción
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            // Si hay excepción, se hace un rollback para evitar inconsistencias
+            em.getTransaction().rollback();
+            throw new GestorExcepcio("Error: " + ex.getMessage());
+        }
     }
 
     /**
@@ -45,8 +77,33 @@ public class GestorPista {
      * @throws GestorExcepcio si la pista no existeix
      */
     public void esborraPista(String idPista) throws GestorExcepcio {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Comprobar si la pista existe en base de datos
+        Pista p = em.find(Pista.class, idPista);
+        if (p == null) {
+            throw new GestorExcepcio("La pista no existeix");
+        }
+        
+        try {
+            // Iniciar transacción
+            em.getTransaction().begin();
+            
+            // Obtener la estación a la que pertenece
+            Estacio e = p.getEstacio();
+            // Eliminar la pista de la lista de la estación en memoria
+            e.getPistes().remove(p);
+            // Recalcular el porcentaje para la estación modificada
+            e.calcularPercentatgeObertura();
+            
+            // Borrar la pista de la BD
+            em.remove(p);
+            
+            // Finalizar transacción
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            // Deshacer si hubo problemas
+            em.getTransaction().rollback();
+            throw new GestorExcepcio("Error: " + ex.getMessage());
+        }
     }
 
     /**
@@ -57,8 +114,23 @@ public class GestorPista {
      * @throws GestorExcepcio si la pista no existeix.
      */
     public void actualitzaGruixNeuPista(String idPista, int increment) throws GestorExcepcio {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Encontrar pista primero
+        Pista p = em.find(Pista.class, idPista);
+        if (p == null) {
+            throw new GestorExcepcio("La pista no existeix");
+        }
+        
+        try {
+            // Comenzar cambios
+            em.getTransaction().begin();
+            // Modificar el grosor de la nieve usando el incremento dado
+            p.setGruixNeu(p.getGruixNeu() + increment);
+            // Confirmar y guardar el cambio
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            throw new GestorExcepcio("Error: " + ex.getMessage());
+        }
     }
 
     /**
@@ -70,7 +142,27 @@ public class GestorPista {
      * @throws GestorExcepcio si la pista no existeix.
      */
     public void actualitzaObertaPista(String idPista, boolean oberta) throws GestorExcepcio {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Buscar siempre la pista y comprobar su existencia fuera del try
+        Pista p = em.find(Pista.class, idPista);
+        if (p == null) {
+            throw new GestorExcepcio("La pista no existeix");
+        }
+        
+        try {
+            // Empezar transacción para modificar datos
+            em.getTransaction().begin();
+            // Cambiar la propiedad abiert/cerrado
+            p.setOberta(oberta);
+            
+            // Obtener su estación y volver a calcular el porcentaje de abiertas
+            Estacio e = p.getEstacio();
+            e.calcularPercentatgeObertura();
+            
+            // Terminar y volcar cambios a la base
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            throw new GestorExcepcio("Error: " + ex.getMessage());
+        }
     }
 }

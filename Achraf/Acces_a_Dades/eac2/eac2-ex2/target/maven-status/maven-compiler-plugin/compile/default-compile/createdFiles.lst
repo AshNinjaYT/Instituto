@@ -1,0 +1,16 @@
+gestors\GestorEstacio.class
+model\ItinerariRaquetes.class
+gestors\GestorExcepcio.class
+gestors\GestorItinerariRaquetes.class
+model\Estacio_.class
+model\PistaNordica.class
+model\PistaNordica_.class
+model\PistaAlpina_.class
+gestors\GestorPista.class
+gestors\GestorPistaNordica.class
+model\Estacio.class
+model\ItinerariRaquetes_.class
+gestors\GestorPistaAlpina.class
+model\PistaAlpina.class
+model\Pista_.class
+model\Pista.class

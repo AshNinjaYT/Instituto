@@ -2,9 +2,10 @@ package model;
 
 import java.util.Objects;
 
-public class ItinerariRaquetes extends Pista {
+import javax.persistence.Entity;
 
-    //TODO Posar anotacions JPA
+@Entity
+public class ItinerariRaquetes extends Pista {
 
     private String dificultat;
     private boolean circular;

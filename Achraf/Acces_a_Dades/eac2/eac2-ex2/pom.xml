@@ -98,5 +98,5 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
     </properties>
-    <name>eac2-ex2 2526S2</name>
+    <name>eac2-ex2 2526S2</name>    
 </project>

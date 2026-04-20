@@ -28,7 +28,15 @@ public class GestorPistaNordica {
      * @return llista de pistes nòrdiques que compleixen el criteri indicat.
      */
     public List<PistaNordica> obtePistesNordiquesPerTrepitjada(boolean trepitjada) {
-        //TODO Implementa el mètode
-        throw new UnsupportedOperationException("Mètode no implementat");
+        // Preparamos la frase JPQL para buscar según el campo booleano 'trepitjada'
+        String jpql = "SELECT p FROM PistaNordica p WHERE p.trepitjada = :trepitjada";
+        
+        // Generamos la query estructurada
+        javax.persistence.TypedQuery<PistaNordica> query = em.createQuery(jpql, PistaNordica.class);
+        // Insertamos el valor pasado por argumento al atributo de la sentencia
+        query.setParameter("trepitjada", trepitjada);
+        
+        // Entregamos los objetos encontrados
+        return query.getResultList();
     }
 }
