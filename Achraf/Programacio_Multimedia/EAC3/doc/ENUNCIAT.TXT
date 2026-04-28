@@ -1,0 +1,314 @@
+
+
+Desenvolupament d’aplicacions multiplataforma
+Mòdul 0489 – Programació multimèdia i dispositius mòbils
+Unitat 3
+EAC3
+(Curs 2025/26  2n semestre)
+
+
+Enunciat
+
+
+Presentació i resultats d'aprenentatge
+
+Aquest exercici d’avaluació continuada (EAC) es correspon amb els continguts treballats a la unitat 1 d’aquest mòdul. Introducció a la programació de dispositius mòbils.
+
+Els resultats d'aprenentatge que es plantegen són:
+•	Selecciona i prova motors de jocs analitzant l'arquitectura de jocs 2D i 3D
+•	Desenvolupa jocs 2D i 3D senzills fent servir motors de jocs
+
+
+
+Criteris d’avaluació
+
+La puntuació màxima assolible a cada activitat s’indica a l’enunciat respectiu.
+Els criteris que es tindran en compte per avaluar el treball de l’alumnat són els següents:
+•	Descriu els conceptes fonamentals de l'animació 2D i 3D.
+•	Identifica els elements que composen l'arquitectura d'un joc en 2D i 3D
+•	Analitza els components d'un motor de jocs
+•	Analitza entorns de desenvolupament de jocs
+•	Analitza diferents motors de jocs, les seves característiques i funcionalitats.
+•	Identifica els blocs funcionals d'un joc existent
+•	Defineix i executa els processos de render
+•	Reconeix la representació lògica i espacial d'una escena gràfica sobre un joc existent
+•	Crea objectes i defineix els fons
+•	Instal•la i utilitza extensions pel tractament d'escenes
+•	Utilitza instruccions gràfiques per determinar les propietats finals de la superfície d'un objecte o imatge
+•	Incorpora so als diferents esdeveniments del joc
+•	Desenvolupa i implanta jocs per dispositius mòbils
+•	Realitza proves de funcionament i optimització dels jocs desenvolupats
+•	Documenta les fases de disseny i desenvolupament.
+
+
+Forma i data de lliurament
+
+
+Al lliurament heu d'incloure el projecte sencer d'Android Studio -heu d’esborrar el directori «build» que està a dintre de «app» («app/build»)- comprimit amb un compressor lliure (zip). RAR no és un compressor lliure i no es pot fer servir per lliurar fitxers.
+
+També heu d’incloure al fitxer comprimit un document PDF amb la informació requerida en els següents exercicis i respondre el qüestionari que s’esmenta a l’apartat 1.
+
+Un cop finalitzat l’exercici d’avaluació continuada, heu d’enviar el document des de l'apartat  -Lliurament EAC3- de l'aula, dins del termini establert. Tingueu en compte que el sistema no permetrà fer lliuraments després de la data i hora indicades i que no s'acceptaran els lliuraments marcats com a «esborrador». També heu de respondre el Qüestionari de l’EAC4, que trobareu a l’aula.
+
+El nom del fitxer serà el següent: DAM_EAC3_Cognom1_Inicial del cognom2. Els cognoms s’escriuran sense accents. Per exemple, l’estudiant Jorge García Santos posaria el següent nom al seu fitxer de l’EAC3: DAM_EAC3_Garcia_S.
+
+Substituïu Nom i cognoms de la capçalera per les vostres dades personals.
+
+El termini per fer el lliurament i respondre el qüestionari finalitza a les 23:55 h del dia 11/5/2026.  La proposta de solució de l’EAC es publicarà el 12/5/2026 i les qualificacions es publicaran el dia 15/5/2025.
+
+Recordeu que el lliurament de treballs o tasques d'avaluació continuada que siguin còpia literal (total o parcial) d'altres treballs, exercicis o fonts es consideraran automàticament suspesos amb una qualificació de 0. Això inclou codi copiat d’anteriors EAC.
+
+
+
+
+
+Enunciat
+
+
+1) 2 Punts
+
+Contesta el qüestionari associat a l’EAC3 en el Moodle (Qüestionari de l’EAC3).
+Inclou al fitxer comprimit una captura de pantalla del qüestionari acabat.
+
+
+ATENCIÓ:
+•	El qüestionari només té 1 intent. No té, però, límit de temps.
+•	Cada resposta correcta suma 1/n punts on «n» és el nombre de preguntes, cada error en resta 1/2n punts.
+
+2) 8 Punts
+
+
+Indicacions generals
+
+→ Realitza el següent exercici.
+→ Llegeix amb detall els següents requeriments, imprescindibles per avaluar l’exercici.
+→ En cada un dels apartats i subapartats, afegeix captures de pantalla i una explicació breu del que has fet.
+→ Cada captura de pantalla ha d’ensenyar l’aplicació en funcionament i algun fragment de codi relacionat amb aquella part.
+→ Ha de quedar clar a quin punt dels requisits correspon cada captura.
+→ Per tal que quedi clar, afegeix les captures i les explicacions en aquest mateix enunciat convertit en PDF.
+→ Marca amb una creu si cada apartat funciona o no funciona.
+→ A més del PDF, cal entregar també el projecte complet, sense la carpeta build.
+
+Context
+
+Estàs creant un joc 2D amb libGDX i Kotlin en què el jugador controla un submarinista que explora un mapa submarí més gran que la pantalla del dispositiu mòbil. La càmera segueix el personatge mentre es desplaça pel fons marí, recull tresors i bombolles d’oxigen, evita obstacles i intenta sobreviure a les mines submarines.
+
+El joc es desenvoluparà de manera progressiva, afegint funcionalitats en diferents fases. Això permetrà un aprenentatge estructurat i una avaluació clara de cada component del joc.
+
+Objectiu del joc
+
+El jugador controla un submarinista que es mou dins d’un entorn submarí. El moviment del personatge ha de transmetre sensació de flotació: quan el jugador impulsa el personatge, aquest puja, i quan deixa d’impulsar-lo, baixa lentament de nou.
+
+Durant la partida, el jugador ha de:
+
+- recollir tresors per obtenir punts,
+- recollir bombolles d’oxigen per recuperar oxigen,
+- evitar xocar amb parets, sostre, terra o obstacles,
+- evitar les mines submarines, que es mouen amunt i avall i exploten quan el jugador s’hi acosta massa.
+
+El jugador perdrà oxigen de manera progressiva amb el pas del temps, i també quan rebi danys per col•lisions o explosions. La partida finalitza quan l’oxigen arriba a zero.
+
+Metodologia i estructura del joc
+
+El joc es desenvoluparà en diferents apartats. Cada apartat se centrarà en una funcionalitat concreta i s’ha d’implementar de manera que pugui ser avaluada per separat. Això permet puntuar cada apartat segons la seva dificultat i grau de compleció.
+
+És important seguir l’ordre indicat, començant pel moviment bàsic i la càmera, i afegint posteriorment animacions, objectes, mines, dany, interfície i pantalla final de resultats.
+
+
+
+Apartat 1: Moviment bàsic del submarinista i càmera (15%)
+1. Moviment del personatge
+
+Implementa el moviment bàsic del submarinista dins del mapa.
+El moviment ha de simular flotació sota l’aigua:
+quan el jugador impulsa el personatge, aquest puja,
+quan no l’impulsa, baixa lentament.
+El personatge també s’ha de poder desplaçar lateralment pel mapa.
+El mapa ha de ser més gran que la pantalla del dispositiu.
+
+Consells
+
+Utilitza TiledMap i TiledMapRenderer per gestionar el mapa.
+Pots controlar la pujada i la baixada modificant la velocitat vertical del personatge.
+Apartat Fet?      
+
+
+2. Càmera que segueix el personatge
+•	Fes que la càmera segueixi el submarinista mentre es desplaça pel mapa.
+•	El personatge s’ha de mantenir dins de la vista de la càmera.
+•	Ajusta els límits de la càmera perquè no mostri zones fora del mapa.
+Consells
+•	Utilitza OrthographicCamera per gestionar el seguiment del personatge.
+Apartat Fet?      
+
+
+
+3. Parets i col•lisions amb l’entorn
+•	Afegeix parets, roques, sostre, terra o altres límits al mapa.
+•	El personatge no ha de poder travessar aquests elements.
+•	Cal implementar col•lisions amb l’entorn.
+Consells
+•	Pots utilitzar Rectangle i comprovar interseccions per detectar col•lisions.
+Apartat Fet?      
+
+
+
+
+
+
+
+
+
+Apartat 2: Animacions del personatge (15%)
+1. Animacions del submarinista
+•	Implementa animacions del personatge segons el seu estat de moviment.
+•	Com a mínim, cal mostrar animacions diferenciades per a:
+•	pujada,
+•	descens,
+•	desplaçament lateral o repòs.
+•	Les animacions poden ser seqüències de sprites.
+•	Pots utilitzar sprites open source, no cal fer-los manualment.
+Consells
+•	Utilitza Animation<TextureRegion> per gestionar les animacions.
+•	Pots trobar recursos gratuïts a llocs com opengameart.org o itch.io.
+•	https://opengameart.org/content/scuba-diver
+•	https://ansimuz.itch.io/underwater-diving
+Apartat Fet?      
+
+
+
+Apartat 3: Recollida d’objectes (15%)
+1. Tipus d’objectes
+•	Afegeix dos tipus d’objectes dispersos pel mapa que el jugador pugui recollir:
+•	Tresors: cada vegada que el jugador en recull un, augmenten els punts.
+•	Bombolles d’oxigen: quan es recullen, augmenta l’oxigen del jugador.
+Consells
+•	Pots fer servir Array<Sprite> o una estructura equivalent per emmagatzemar els objectes.
+•	Utilitza col•lisions amb Rectangle per determinar quan el personatge recull un objecte.
+Apartat Fet?      
+
+
+
+2. Implementació de col•lisions amb objectes
+•	Implementa la col•lisió entre el submarinista i els objectes del mapa.
+•	Quan el personatge toca un objecte:
+•	aquest s’ha de recollir i desaparèixer,
+•	s’ha de modificar la puntuació o l’oxigen segons el tipus d’objecte.
+Consells
+•	Utilitza Intersector.overlaps() per comprovar les col•lisions.
+•	Pots utilitzar removeValue() o una solució equivalent per eliminar objectes recollits.
+Apartat Fet?      
+
+
+
+Apartat 4: Mines submarines i detecció de proximitat (15%)
+1. Mines en moviment
+•	Afegeix mines submarines dins del mapa.
+•	Les mines s’han de moure de manera repetitiva amunt i avall entre dos punts.
+•	El moviment ha de ser automàtic.
+Consells
+•	Utilitza Vector2 o variables equivalents per gestionar el moviment vertical de les mines.
+Apartat Fet?      
+
+
+
+2. Activació per proximitat
+•	Implementa un sistema perquè la mina detecti si el jugador s’hi acosta massa.
+•	Quan el submarinista entra dins d’una certa distància, la mina s’ha d’activar o explotar.
+Consells
+•	Pots calcular la distància entre la posició del jugador i la de la mina.
+•	Defineix un radi de proximitat a partir del qual la mina reacciona.
+Apartat Fet?      
+
+
+
+3. Explosió i radi de dany
+•	Quan una mina explota, ha de fer dany si el submarinista es troba dins del radi de l’explosió.
+•	L’explosió ha de tenir efecte sobre el jugador encara que no hi hagi contacte directe amb la mina.
+•	Pots fer que la mina desaparegui després d’explotar, o bé que deixi de ser activa.
+Consells
+•	Pots representar el radi d’explosió amb Circle o una estructura equivalent.
+Apartat Fet?      
+
+
+
+
+
+
+
+Apartat 5: Oxigen, dany i interfície (15%)
+1. Pèrdua d’oxigen
+•	El submarinista ha de perdre oxigen de manera progressiva amb el pas del temps.
+•	També ha de perdre oxigen:
+•	quan rep dany per una explosió,
+•	i quan col•lideix amb elements de l’entorn, si així ho has implementat.
+•	Aquest sistema ha de forçar el jugador a moure’s i a recollir bombolles d’oxigen.
+Consells
+•	Pots utilitzar una variable numèrica per representar l’oxigen actual del jugador.
+•	Pots limitar el valor màxim d’oxigen.
+Apartat Fet?      
+
+
+
+2. Interfície de joc
+•	Mostra a la pantalla la informació bàsica de la partida.
+•	Com a mínim, cal mostrar:
+•	l’oxigen actual,
+•	la puntuació del jugador.
+Consells
+•	Utilitza Label o eines equivalents de Scene2D per mostrar aquesta informació.
+Apartat Fet?      
+
+
+Apartat 6: Final de partida (15%)
+1. Derrota quan s’acaba l’oxigen
+•	El joc ha d’acabar quan l’oxigen arriba a zero.
+•	El jugador ha de perdre la partida quan ja no li quedi oxigen.
+Apartat Fet?      
+
+
+
+
+
+
+
+
+
+
+
+
+
+2. Pantalla o missatge de final de partida
+•	Mostra un missatge o pantalla de final de partida que indiqui clarament que el jugador ha perdut perquè s’ha quedat sense oxigen.
+Consells
+•	Pots utilitzar Scene2D per gestionar la interfície del missatge de final de partida.
+Apartat Fet?      
+
+
+
+Apartat 7: Pantalla de resultats del joc (10%)
+1. Resultats finals
+•	Afegeix una pantalla de resultats que mostri, com a mínim:
+•	la puntuació final del jugador,
+•	el temps total que ha sobreviscut,
+•	el nombre de tresors recollits.
+Això ha de permetre donar context al rendiment del jugador durant la partida.
+Consells
+•	Utilitza Screen per crear una pantalla de resultats.
+•	Preferences pot ser una bona manera de guardar la millor puntuació per a partides futures.
+Apartat Fet?      
+
+
+
+Entrega
+Cal entregar dues coses:
+1. Un document PDF
+Aquest PDF ha de contenir:
+•	aquest mateix enunciat,
+•	una breu explicació de què has fet a cada apartat i subapartat,
+•	captures de pantalla de l’aplicació en funcionament,
+•	fragments de codi relacionats amb cada requisit,
+•	la indicació clara de quin punt s’està mostrant,
+•	i una marca indicant si cada apartat funciona o no.
+2. El projecte complet
+Cal entregar també el projecte complet de libGDX i Kotlin, sense la carpeta build.

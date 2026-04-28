@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"name": "💻 1. Código Principal",
+			"path": "SubmarinistGame/core/src/main/kotlin/com/achraf/submarinista"
+		},
+		{
+			"name": "🎨 2. Recursos (Imágenes, Mapas)",
+			"path": "SubmarinistGame/assets"
+		},
+		{
+			"name": "📄 3. Documentación",
+			"path": "doc"
+		},
+		{
+			"name": "⚙️ 4. Otras carpetas (Sistema/Gradle - No tocar)",
+			"path": "SubmarinistGame"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.gradle": true,
+			"**/.idea": true,
+			"**/build": true,
+			"**/.kotlin": true
+		}
+	}
+}
