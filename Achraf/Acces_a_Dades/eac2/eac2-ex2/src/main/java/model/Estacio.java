@@ -6,6 +6,7 @@ import java.util.Objects;
 
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -15,8 +16,13 @@ public class Estacio {
 
 
     @Id
+    @Column(length = 14) // El id tiene que medir 14 según el enunciado
     private String id;
+    
+    @Column(length = 100) // Nombre máximo de 100 caracteres
     private String nom;
+    
+    @Column(length = 50) // Comarca máximo de 50 caracteres
     private String comarca;
     private int altitudMaxima;
     private String web;

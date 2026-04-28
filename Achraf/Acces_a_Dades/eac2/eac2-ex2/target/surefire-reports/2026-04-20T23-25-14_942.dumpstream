@@ -1,0 +1,5 @@
+# Created at 2026-04-20T23:25:15.063
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Users\Achraf\Documents\Instituto\Achraf\Acces_a_Dades\eac2\eac2-ex2\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

@@ -2,6 +2,7 @@ package model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -15,12 +16,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "pistes")
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Tabla única como pide el enunciado
 public abstract class Pista {
 
 
     @Id
+    @Column(length = 14) // El id debe ser de 14 caracteres
     private String id;
+    
+    @Column(length = 100) // Nombre máximo de 100 caracteres
     private String nom;
     private int longitud;
     private boolean oberta;

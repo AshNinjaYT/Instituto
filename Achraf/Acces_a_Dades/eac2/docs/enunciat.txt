@@ -1,0 +1,218 @@
+
+
+DAM CFGS Desenvolupament d'Aplicacions Multiplataforma
+Mòdul 0486 – Accés a dades
+U2 – Persistència en BDR-BDOR-BDOO
+EAC2
+(Curs 2025–26 / 2n semestre)
+
+
+Presentació i resultats d'aprenentatge
+
+Aquest exercici d’avaluació continuada (EAC) es correspon amb els continguts treballats a la unitat 2, Persistència en BDR-BDOR-BDOO.
+
+Els resultats d'aprenentatge que es plantegen són:
+2. Desenvolupa aplicacions que gestionen informació emmagatzemada en bases de dades relacionals identificant i utilitzant mecanismes de connexió.
+        2.1 Valora els avantatges i els inconvenients d'utilitzar connectors.
+        2.2 Utilitza gestors de bases de dades encastats i independents.
+        2.3 Utilitza el connector idoni a l'aplicació.
+        2.4 Estableix la connexió.
+        2.5 Defineix l'estructura de la base de dades.
+        2.6 Desenvolupa aplicacions que modifiquen el contingut de la base de dades.
+        2.7 Defineix els objectes destinats a emmagatzemar el resultat de les consultes.
+        2.8 Desenvolupa aplicacions que fan consultes.
+        2.9 Elimina els objectes un cop finalitzada la funció.
+        2.10 Gestiona les transaccions.
+        2.11 Executa procediments emmagatzemats a la base de dades.
+3. Gestiona la persistència de les dades identificant eines de mapatge objecte relacional (ORM) i desenvolupant aplicacions que les utilitzen.
+        3.1 Instal•la l'eina ORM.
+        3.2 Configura l'eina ORM.
+        3.3 Defineix configuracions de mapatge.
+        3.4 Aplica mecanismes de persistència als objectes.
+        3.5 Desenvolupa aplicacions que modifiquen i recuperen objectes persistents.
+        3.6 Desenvolupa aplicacions que fan consultes usant el llenguatge SQL.
+        3.7 Gestiona les transaccions.
+4. Desenvolupa aplicacions que gestionen la informació emmagatzemada en bases de dades objecte relacionals i orientades a objectes valorant-ne les característiques i utilitzant els mecanismes d'accés incorporats.
+        4.1 Identifica els avantatges i inconvenients de les bases de dades que emmagatzemen objectes.
+        4.2 Estableix i tanca connexions.
+        4.3 Gestiona la persistència d'objectes simples.
+        4.4 Gestiona la persistència d'objectes estructurats.
+        4.5 Desenvolupa aplicacions que fan consultes.
+        4.6 Modifica els objectes emmagatzemats.
+        4.7 Gestiona les transaccions.
+        4.8 Prova i documenta les aplicacions desenvolupades.
+
+
+Criteris d’avaluació
+
+La puntuació màxima assignada a cada activitat s’indica a l’enunciat.
+
+Els criteris que es tindran en compte per avaluar el treball de l’alumnat són els següents:
+•	Utilització de les classes per a la gestió de les bases de dades.
+•	Utilització de les diferents formes d'accés a les bases de dades.
+•	Ús de les excepcions.
+•	Documentació del codi.
+•	Funcionament correcte del programa.
+
+Forma i data de lliurament
+
+Un cop finalitzat l’exercici d’avaluació continuada heu d’enviar el document des de l'apartat Lliurament EAC2 de l'aula, dins del termini establert. Tingueu en compte que el sistema no permetrà fer lliuraments després de la data i hora indicades.
+
+El nom del fitxer serà el següent: DAM_0486_EAC2_Cognom1_Inicial del cognom2.ZIP Els cognoms s’escriuran sense accents. Per exemple, l’estudiant Joan García Santos posaria el següent nom al seu fitxer de l’EAC2: DAM_0486_EAC2_Garcia_S.ZIP.
+
+El termini de lliurament finalitza a les 23:55 h del dia 21/04/2026. La proposta de solució i les qualificacions de l’EAC es publicaran el dia 28/04/2026.
+
+
+Enunciat
+
+Per a publicar la solució, heu d’entregar un fitxer que serà un comprimit .zip amb el nom indicat a "Forma i data de lliurament".  Aquest fitxer aplegarà comprimits els resultats que es demanen a cada exercici.
+
+A cada exercici s’indica la seva qualificació màxima i com es distribueix entre les diferents tasques que heu de fer.
+Els projectes que trobareu adjunts a aquest enunciat són Maven. NetBeans els obre directament des de l'opció File → Open Project... (des d'aquesta opció només cal seleccionar la carpeta principal del projecte). En aquesta carpeta trobareu, entre altres elements, el fitxer pom.xml. Aquest conté l'especificació Maven de totes les biblioteques necessàries per a usar JUnit5, PostgreSQL (en els dos) i EclipseLink (només al segon). Quan obriu el projecte amb Netbeans, trobareu les biblioteques de PostgresSQL i EclipseLink a la carpeta Dependencies en l’arbre del projecte, i les biblioteques de JUnit5 a la carpeta TestDependencies.
+A tots els exercicis s’inclou, a la carpeta test del comprimit, una classe, TestGestor que cal utilitzar per comprovar el funcionament correcte de la biblioteca tot utilitzant JUnit5. A l’entorn NetBeans apareixerà dins de TestPackages.
+
+Per a fer la prova de la biblioteca amb JUnit, només heu de seleccionar l'opció Test File del menú contextual que es mostra en posar el ratolí a sobre de la classe TestGestor, que apareix dins del paquet gestors, a TestPackages. També podeu utilitzar aquesta classe per a depurar el vostre programa seleccionant l'opció Debug Test File (en lloc de l’opció Test File). A continuació teniu una imatge que mostra com s'ha de veure la classe abans d'activar el menú contextual:
+ 
+
+
+Restriccions per a tots dos exercicis:
+
+•	Cal elaborar la solució en Java, utilitzar l'entorn NetBeans i la base de dades PostgreSQL.
+•	No es pot utilitzar cap biblioteca no inclosa en aquestes eines i JUnit.
+
+EXERCICI 1 (4 punts)
+
+Modifiqueu i completeu la biblioteca compresa a la carpeta eac2-ex1 del fitxer zip (conté un projecte maven amb el codi font de la biblioteca, a la carpeta src, i una classe per comprovar-ne el funcionament, a la carpeta test).  Aquesta biblioteca realitza una gestió senzilla d'una base de dades que conté informació de pistes d’esquí.
+	
+Aquesta biblioteca treballarà amb PostgreSQL sobre una base de dades que només té una taula (pista)  que es crea executant el fitxer adjunt pista.sql. Es pot veure que aquesta taula aprofita característiques objecte-relacional de PostgreSQL, com són:
+
+•	La possibilitat de definir tipus (TYPE dades_tecniques, estat_neu)
+•	La possibilitat de definir camps de tipus array (remuntadors_access character varying[])
+
+La biblioteca ha de permetre fer:
+•	Crear i esborrar pistes.
+•	Obtenir una llista de pistes que es poden accedir per un remuntador determinat
+•	Obtenir una pista a partir del seu identificador (id).
+
+La biblioteca conté els paquets (són a la carpeta src/main):
+✔	model, amb la classe Pista, els objectes de la qual cal fer persistents.
+✔	gestors, amb la classe GestorPista, que conté els mètodes per fer persistents els objectes de la classe Pista, i la classe GestorExcepcio, que representa l’excepció que llencen aquests mètodes si es produeix algun error.
+
+A més, al paquet gestors de la carpeta src/test/gestors trobareu la classe TestGestor. Aquesta classe permet comprovar el funcionament correcte de les altres classes amb JUnit.
+
+La classe TestGestors, que s’utilitza per realitzar les proves i treballa amb una base de dades, que haureu de crear, amb aquestes dades de connexió:
+
+URL="jdbc:postgresql://localhost:5432/eac2ex1_2526s2";
+USER="ioc";
+PSW="ioc";
+
+
+Un cop creada la base de dades, cal executar-hi el fitxer pista.sql perquè generi la taula amb la qual treballareu. Això es pot fer executant postgresql de la següent manera
+
+psql -h hostname -d databasename -U username -f file.sql
+
+
+Codi a lliurar:
+
+Només heu de fer canvis al fitxer GestorPista, on cal completar els seus mètodes:
+•	esborraTot
+•	afegeixPista
+•	esborraPista
+•	actualitzaPista
+•	obtePistesPerRemuntador
+
+Aquests mètodes es comunicaran amb la base de dades per a obtenir les consultes i realitzar les actualitzacions adients. L'especificació exacta de cada mètode es troba al propi codi.
+
+Per a facilitar la compleció dels mètodes, aquests es troben marcats amb //TODO per indicar on s’ha d’escriure codi. Si seleccioneu l’opció de menú Windows → Action Items us apareixerà una finestra amb tots els //TODO que falten per completar als projectes oberts.
+
+Un cop acabat l'exercici, afegiu el fitxer GestorPista.java al fitxer comprimit que heu de lliurar.
+
+Cada test passat amb JUnit compta 0,8 punts.
+
+Podeu trobar la informació per fer aquest exercici als apartats 1, 3.1 i 3.2 del material.
+
+
+
+EXERCICI 2 (6 punts)
+
+Modifiqueu i completeu la biblioteca del projecte que trobareu a la carpeta eac2-ex2 (conté el codi font de la biblioteca, a la carpeta src/main, i una classe per comprovar-ne el funcionament, a la carpeta src/test). Aquesta biblioteca realitza una gestió molt senzilla d'una base de dades que conté informació sobre estacions i pistes d’esquí.
+
+Cada Estacio té un identificador (id) i els següents atributs: nom, comarca, altitudMaxima, web, qualificacio, precentagePistesObertes. Cada estació té pistes, que poden ser de diferents tipus: PistaAlpina, PistaNordica i IntinerariRaquetes.
+
+De cada pista en volem emmagatzemar l’identificador (id), i els següents atributs: nom, longitud, oberta, desnivell, gruixNeu, qualitatNeu, iluminada. A més dels atributs comuns, cada tipus de pista tindrà uns atributs específics. Les pistes alpines tindran color i pendentMax. Les pistes nòrdiques tindran estil i trepitjada. Els itineraris de raquetes tindran: dificultat, circular, senyalitzat, tempsEstimat.
+
+El diagrama de classes corresponent és el següent:
+
+
+Existeix una relació entre Estacio i Pista de 1 a N i navegable en tots dos sentits. S’entén que una pista no pot estar en més d’una estació i no hi poden haver pistes que no estiguin en cap estació.
+
+La biblioteca permetrà, una vegada implementada, altes, consultes, baixes i modificacions de les entitats Estacio i Pista:
+•	Inserir:
+◦	Una estació
+◦	Una pista a una estació. Això implica actualitzar el percentatge de pistes obertes de l’estació.
+•	Eliminar:
+◦	Una estació i totes les seves pistes
+◦	Una pista. Això implica actualitzar el percentatge de pistes obertes de l’estació.
+•	Consultar:
+◦	Totes les estacions
+◦	Les pistes alpines d’una estació segons el seu color
+◦	Les pistes nòrdiques segons si la neu és trepitjada o no
+◦	Els itineraris de raquetes amb un tempsEstimat menor o igual que un de determinat
+•	Modificar:
+◦	Actualitzar el gruix de neu d’una pista indicant un increment com a paràmetre.
+◦	Actualitzar l’atribut obert d’una pista. Això implica actualitzar el percentatge de pistes obertes de l’estació.
+
+La biblioteca té (a la carpeta src):
+
+•	Els paquets:
+◦	model amb les classes a fer persistents:
+•	Estacio
+•	Pista
+•	PistaAlpina
+•	PistaNordica
+•	ItinerariRaquetes
+
+◦	gestors amb les classe que contenen els mètodes per fer-les persistents:
+•	GestorEstacio
+•	GestiorPista
+•	GestorPistaAlpina
+•	GestioPistaNordica
+•	GestorItinerariRaquetes
+•	GestorExcepcio excepció que llencen aquests mètodes si es produeix algun error.
+
+•	La carpeta META-INF:
+◦	persistence.xml fitxer amb la configuració de connexió amb la base de dades.
+
+La biblioteca té també classes per a realitzar les proves (a la carpeta test):
+•	a la carpeta gestors, la classe TestGestor, on estan implementades les proves que comproven el funcionament correcte amb JUnit de les notacions JPA i els mètodes que s’han d’implementar, al paquet gestors.
+
+El projecte que duu l’enunciat contindrà les biblioteques PostgreSQL JDBC Driver i EclipseLink (JPA 2.2).  
+
+A més, a Test Libraries hi haurà les biblioteques necessàries per a poder utilitzar JUnit. No es pot utilitzar cap biblioteca més de les que s’acaben d’esmentar.
+
+Recordeu que per fer la prova de la biblioteca amb JUnit, només heu de seleccionar l'opció Test File del menú contextual, que es mostra en posar el ratolí a sobre de la classe TestGestors (és a dins de Test Packages). També podeu utilitzar aquesta classe per depurar el vostre programa seleccionant l'opció Debug Test File (en lloc de l’opció Test File).
+
+La classe TestGestors, que s’utilitza per a realitzar les proves, treballa amb una base de dades utilitzant la unitat de persistència anomenada eac2PU. Aquesta unitat de persistència ja està configurada i treballa amb una base de dades que s’anomena també eac2ex2_2526s2 i s’hi accedeix amb l’usuari ioc i la contrasenya ioc. Aquesta base de dades l’haureu de crear a PostgreSQL.
+
+
+Tasca a fer i codi a lliurar:
+
+1. Definir la persistència a les classes amb JPA:
+Cal afegir a les classes del paquet model les anotacions necessàries per a fer-les persistents, utilitzant mapatge objecte-relacional amb JPA sobre en la base de dades PostgreSQL.
+•	Cal tenir present que, a la base de dades, els camps:
+◦	id tindrà una mida de 14 caràcters
+◦	comarca tindrà una mida màxima de 50 caràcters.
+◦	nom tindrà una mida màxima de 100 caràcters.
+◦	L’estratègia per fer l’herència serà de taula única.
+
+2. Mètodes: Heu de completar els mètodes de les classes del paquet gestors. Aquests mètodes estan especificats als comentaris del propi codi (es troben marcats amb //TODO).
+
+Per a facilitar aquesta feina (punts 1 i 2 acabats d’exposar), els mètodes i classes que cal completar es troben marcats amb //TODO per indicar on s’ha d’escriure codi. Si seleccioneu l’opció de menú Windows → Action Items us apareixerà una finestra amb tots els //TODO que falten per completar als projectes oberts.
+
+Un cop acabat l'exercici, genereu un fitxer comprimit amb el contingut de la carpeta src, anomeneu-lo Solucio2.zip i afegiu-lo al fitxer comprimit que heu de lliurar.
+
+Puntuació: En total hi ha 10 tests de JUnit. Cadascun val 0.5 punts. Les anotacions JPA valen 1 punt.
+
+Orientacions: les trobareu als apartats de l’1 al 7 del document de l’aula Material complementari Unitat 2 - Iniciació a JPA
+
+
