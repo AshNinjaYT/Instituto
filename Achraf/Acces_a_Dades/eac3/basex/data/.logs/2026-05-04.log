@@ -1,0 +1,17 @@
+17:49:30.236	SERVER	admin	OK	Server was started (port: 1984).		
+17:49:30.330	SERVER	admin	INFO	Initial admin password (change after first login): 2bd48eb1-ce5d-4e25-bc07-44d8c1dbd4dd		
+18:02:09.863	SERVER	admin	OK	Server was started (port: 1984).		
+18:02:28.930	SERVER	admin	OK	Server was stopped (port: 1984).		
+18:02:54.730	SERVER	admin	OK	Server was started (port: 1984).		
+18:06:51.568	SERVER	admin	OK	Server was stopped (port: 1984).		
+18:07:31.557	SERVER	admin	OK	Server was started (port: 1984).		
+18:07:35.604	SERVER	admin	OK	Server was stopped (port: 1984).		
+18:09:20.497	SERVER	admin	OK	Server was started (port: 1984).		
+18:10:15.045	SERVER	admin	OK	Server was stopped (port: 1984).		
+18:10:17.120	SERVER	admin	OK	Server was started (port: 1984).		
+18:10:19.896	SERVER	admin	OK	Server was stopped (port: 1984).		
+18:10:24.924	SERVER	admin	OK	Server was started (port: 1984).		
+18:10:48.836	127.0.0.1:62870	admin	OK	QUERY[0] delete node doc("pistes/pistes.xml")/pistes/pista	1.36 ms	
+18:10:49.146	127.0.0.1:62870	admin	OK	FULL[0]	308.39 ms	
+18:10:49.150	127.0.0.1:62870	admin	REQUEST	EXIT	0.84 ms	
+18:10:49.150	127.0.0.1:62870	admin	OK		0.2 ms	

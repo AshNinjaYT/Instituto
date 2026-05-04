@@ -1,0 +1,104 @@
+# Version
+UPDATEVERSION = 12.0
+CHECKUPDATES = false
+
+# Paths
+INPUTPATH = D:/Users/Achraf/Documents/Instituto/Achraf/Acces_a_Dades/eac3/pistes.xml
+DATAPATH = D:\Users\Achraf\Documents\Instituto\Achraf\Acces_a_Dades\eac3\basex\
+WORKPATH = D:/Users/Achraf/Documents/Instituto/Achraf/Acces_a_Dades/eac3/basex/
+PROJECTPATH = D:/Users/Achraf/Documents/Instituto/Achraf/Acces_a_Dades/eac3/basex/
+
+# Layout
+FONT = SansSerif
+MONOFONT = Consolas
+FONTSIZE = 15
+LISTMONO = true
+ANTIALIAS = System
+COLORRED = 21
+COLORGREEN = 14
+COLORBLUE = 7
+
+# Windows
+VIEWS = V H editor folder map plot - H text info table tree explore - - 
+GUISIZE0 = 1004
+GUISIZE1 = 748
+GUILOC0 = 923
+GUILOC1 = 339
+MAXSTATE = true
+SHOWBUTTONS = true
+SHOWINPUT = true
+SHOWSTATUS = true
+SHOWINFO = true
+SHOWMAP = true
+SHOWTABLE = false
+SHOWTEXT = true
+SHOWFOLDER = false
+SHOWEXPLORE = false
+SHOWPLOT = false
+SHOWEDITOR = true
+SHOWTREE = false
+SHOWPROJECT = true
+INDENTRESULT = false
+PREFTAB = 0
+LOOKANDFEEL = 
+LABELS = name,label,id
+SCROLLTABS = true
+MOUSEFOCUS = false
+XMLSUFFIXES = xml,xsd,svg,rdf,rss,rng,sch,xhtml
+ASCSORT = true
+CASESORT = true
+MERGEDUPL = false
+COLUMN = 1
+UNICODE = true
+SHOWMARGIN = true
+MARGIN = 80
+TABSPACES = true
+INDENT = 2
+SHOWINVISIBLE = true
+SHOWNL = false
+SHOWLINES = true
+MARKLINE = true
+SAVERUN = false
+PARSEPROJ = true
+AUTO = true
+FILES = *.xml, *.xq*
+SHOWHIDDEN = false
+SEARCHMODE = 0
+FILTERRT = false
+EXECRT = false
+DBNAME = pistes
+LASTINSERT = 1
+
+# Visualizations
+MAPATTS = false
+MAPOFFSETS = 3
+MAPALGO = 0
+MAPWEIGHT = 0
+TREESLIM = true
+TREEATTS = false
+PLOTDOTS = 0
+PLOTXLOG = false
+PLOTYLOG = false
+MAXTEXT = 8388608
+MAXRESULTS = 500000
+
+# Search
+SEARCHED = 0
+REPLACED = 0
+
+# History
+COMMANDS = 0
+SEARCH = 0
+XQUERY = 0
+
+# Files
+EDITOR = 0
+INPUTS = 1
+INPUTS1 = D:/Users/Achraf/Documents/Instituto/Achraf/Acces_a_Dades/eac3/pistes.xml
+OPEN = 0
+PROJECTS = 1
+PROJECTS1 = D:/Users/Achraf/Documents/Instituto/Achraf/Acces_a_Dades/eac3/basex/
+PROJFILES = 0
+PROJCONTS = 0
+
+# Local Options
