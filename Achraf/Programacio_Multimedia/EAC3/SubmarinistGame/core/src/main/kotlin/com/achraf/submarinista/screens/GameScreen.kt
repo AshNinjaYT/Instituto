@@ -81,8 +81,11 @@ class GameScreen(val game: SubmarinistGame) : Screen {
 
         // Cargamos imágenes
         backgroundTexture = Texture("background.png")
+        backgroundTexture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
         idleSheet = Texture("player-idle.png")
+        idleSheet.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
         swimmingSheet = Texture("player-swiming.png")
+        swimmingSheet.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear)
         
         // Setup de animaciones del jugador
         if (idleSheet.width >= 80 && idleSheet.height >= 80) {
@@ -188,6 +191,10 @@ class GameScreen(val game: SubmarinistGame) : Screen {
     }
 
     override fun render(delta: Float) {
+        // Limpiamos la pantalla (Apartado 1 del feedback)
+        Gdx.gl.glClearColor(0f, 0f, 0.1f, 1f)
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+
         player.update(delta)
 
         val oldX = player.position.x
