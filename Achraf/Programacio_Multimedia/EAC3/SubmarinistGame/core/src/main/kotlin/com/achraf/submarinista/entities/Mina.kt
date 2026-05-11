@@ -40,6 +40,7 @@ class Mina(val startPosition: Vector2, val region: TextureRegion) {
     }
     
     fun getBoundingRectangle(): Rectangle {
+        // Reutilizamos el objeto bounds para no generar basura en el Garbage Collector
         bounds.set(position.x, position.y, size, size)
         return bounds
     }
