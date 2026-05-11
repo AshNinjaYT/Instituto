@@ -59,6 +59,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
     // Nuestro objeto jugador
     private lateinit var player: Player
     private lateinit var debugRenderer: com.badlogic.gdx.graphics.glutils.ShapeRenderer
+    private var totalMonedas = 0
     
     // Colores para el HUD
     private val colorFondoHUD = Color(0f, 0f, 0f, 0.6f)
@@ -139,7 +140,10 @@ class GameScreen(val game: SubmarinistGame) : Screen {
                     val region = obj.tile.textureRegion
                     
                     when (type) {
-                        "moneda" -> items.add(Item(ItemType.TREASURE, pos, region))
+                        "moneda" -> {
+                            items.add(Item(ItemType.TREASURE, pos, region))
+                            totalMonedas++
+                        }
                         "oxigeno" -> items.add(Item(ItemType.OXYGEN, pos, region))
                         "mina" -> minas.add(Mina(pos, region))
                     }
@@ -223,8 +227,8 @@ class GameScreen(val game: SubmarinistGame) : Screen {
             return
         }
         
-        val mapaAnchoPixeles = mapLayer.width * mapLayer.tileWidth
-        if (player.position.x > mapaAnchoPixeles - 100f) {
+        // CONDICIÓN DE VICTORIA: Recoger todas las monedas
+        if (totalMonedas > 0 && player.treasuresCollected >= totalMonedas) {
             game.screen = VictoryScreen(game, player.score, player.timeSurvived, player.treasuresCollected)
             return
         }

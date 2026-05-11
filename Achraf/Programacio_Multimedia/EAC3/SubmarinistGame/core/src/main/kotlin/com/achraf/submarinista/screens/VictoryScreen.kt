@@ -50,7 +50,7 @@ class VictoryScreen(val game: SubmarinistGame, val score: Int, val time: Float, 
 
         // Estadísticas finales
         font.data.setScale(1.8f)
-        drawTextWithShadow("Has explorado todo el océano", 400f, colorMensaje)
+        drawTextWithShadow("¡Has recogido todos los tesoros!", 400f, colorMensaje)
         drawTextWithShadow("Puntuación final: $score", 320f, colorPuntos)
         drawTextWithShadow("Tesoros recogidos: $treasures", 270f, colorTesoros)
         drawTextWithShadow("Tiempo total: ${time.toInt()} segundos", 220f, colorTiempo)
