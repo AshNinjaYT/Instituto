@@ -5,11 +5,12 @@ import com.badlogic.gdx.Input
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 
-// Esta clase es para controlar a nuestro personaje
+// Esta es la clase del jugador, el submarinista
+// Aquí controlo dónde está, cómo de rápido cae y si choca con cosas
 class Player(startX: Float, startY: Float) {
     var position = Vector2(startX, startY)
     var velocity = Vector2(0f, 0f)
-    private val bounds = Rectangle() // Uso esto para las colisiones con el mapa
+    private val bounds = Rectangle() // Pre-alojamos el rectángulo para evitar lag (GC pressure)
     
     
     // Tamaño del jugador (64x64 encaja mejor en tiles de 32x32)
@@ -24,7 +25,7 @@ class Player(startX: Float, startY: Float) {
     // Velocidad de movimiento a izquierda/derecha
     val speedX = 200f
 
-    // Atributos del jugador para el Apartado 3, 5 y 7
+    // Estadísticas para los apartados 3, 5 y 7 del trabajo
     var score = 0
     var treasuresCollected = 0
     var timeSurvived = 0f
@@ -43,8 +44,8 @@ class Player(startX: Float, startY: Float) {
         stateTime += delta
         timeSurvived += delta
 
-        // El oxígeno baja un poco cada segundo (2 unidades por segundo)
-        // He puesto que baje así para que de tiempo a jugar
+        // --- 1. OXÍGENO (Apartado 5) ---
+        // El aire se va gastando poco a poco cada segundo
         oxygen -= 2f * delta
         if (oxygen < 0f) oxygen = 0f
 
@@ -55,9 +56,9 @@ class Player(startX: Float, startY: Float) {
         val isLeftPressed = Gdx.input.isKeyPressed(Input.Keys.LEFT) || Gdx.input.isKeyPressed(Input.Keys.A)
         val isRightPressed = Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.D)
 
-        // MOVIMIENTO VERTICAL
+        // MOVIMIENTO VERTICAL (Impulso)
         if (isTouched || isUpPressed) {
-            // Si pulsamos, el submarino sube (impulso)
+            // Empujamos con más fuerza para compensar la gravedad
             velocity.y += 700f * delta
             if (velocity.y > 250f) velocity.y = 250f // Aumentado de 180 a 250
             state = State.UP
@@ -81,11 +82,15 @@ class Player(startX: Float, startY: Float) {
                 velocity.x = speedX
             }
         } else {
-            velocity.x = 0f
+            velocity.x = 0f // Si no pulso nada, se queda quieto
         }
     }
 
-    // Metodo para pillar el rectangulo de colision
+    /**
+     * Devuelve el rectángulo que rodea al jugador, necesario para comprobar colisiones con el mapa.
+     * Usamos un rectángulo un poco más pequeño que la imagen para que el movimiento sea más fluido
+     * y no se quede "pegado" a las esquinas.
+     */
     fun getBoundingRectangle(): Rectangle {
         // Usamos un margen generoso (16px por cada lado).
         // Si el submarino es de 64x64, la zona que choca es de 32x32.

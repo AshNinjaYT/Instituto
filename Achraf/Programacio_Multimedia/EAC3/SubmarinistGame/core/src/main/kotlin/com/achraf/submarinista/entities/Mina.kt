@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2
 // Estados de la mina
 enum class MinaState { ACTIVE, EXPLODING, DONE }
 
-// Esta clase es para las minas malas que explotan
+// Clase para las minas enemigas
 class Mina(val startPosition: Vector2, val region: TextureRegion) {
     val position = Vector2(startPosition)
     val size = 45f // Tamaño del sprite en el juego

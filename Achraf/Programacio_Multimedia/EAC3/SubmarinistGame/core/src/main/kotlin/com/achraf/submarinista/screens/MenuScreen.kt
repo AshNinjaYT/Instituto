@@ -12,9 +12,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 
-/**
- * Pantalla de inicio del juego.
- */
+// Esta es la pantalla de inicio, la que sale al abrir el juego
 class MenuScreen(val game: SubmarinistGame) : Screen {
 
     private val camera = OrthographicCamera()
@@ -34,7 +32,7 @@ class MenuScreen(val game: SubmarinistGame) : Screen {
         game.batch.projectionMatrix = camera.combined
 
         game.batch.begin()
-        // Dibujamos el fondo estirado
+        // Dibujamos el fondo ocupando toda la pantalla
         game.batch.draw(background, 0f, 0f, 800f, 600f)
         
         font.draw(game.batch, "SUBMARINIST GAME", 0f, 400f, 800f, Align.center, false)
