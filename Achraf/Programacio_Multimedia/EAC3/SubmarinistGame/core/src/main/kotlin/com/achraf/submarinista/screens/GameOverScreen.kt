@@ -19,6 +19,14 @@ class GameOverScreen(val game: SubmarinistGame, val score: Int, val time: Float,
     private val viewport = FitViewport(800f, 600f, camera)
     private val font = BitmapFont()
     private var timer = 0f // Para evitar saltar la pantalla por accidente
+    
+    // Colores para la interfaz
+    private val colorTitulo = Color.RED
+    private val colorSombra = Color.BLACK
+    private val colorPuntos = Color.WHITE
+    private val colorTesoros = Color.YELLOW
+    private val colorTiempo = Color.CYAN
+    private val colorReintentar = Color.WHITE
 
     init {
         font.data.setScale(2.5f) // Más grande para el título
@@ -36,38 +44,19 @@ class GameOverScreen(val game: SubmarinistGame, val score: Int, val time: Float,
 
         game.batch.begin()
         
-        // Hago las sombras manualmente dibujando en negro un poco desplazado
-        // y luego dibujo el texto normal encima con color
-        
+        // Título de la pantalla
         font.data.setScale(3f)
-        font.color = Color.BLACK
-        font.draw(game.batch, "GAME OVER", 3f, 477f, 800f, Align.center, false)
-        font.color = Color.RED
-        font.draw(game.batch, "GAME OVER", 0f, 480f, 800f, Align.center, false)
+        drawTextWithShadow("GAME OVER", 480f, colorTitulo)
 
+        // Estadísticas de la partida
         font.data.setScale(1.8f)
-        
-        font.color = Color.BLACK
-        font.draw(game.batch, "Puntuación final: $score", 3f, 347f, 800f, Align.center, false)
-        font.color = Color.WHITE
-        font.draw(game.batch, "Puntuación final: $score", 0f, 350f, 800f, Align.center, false)
-        
-        font.color = Color.BLACK
-        font.draw(game.batch, "Tesoros recogidos: $treasures", 3f, 297f, 800f, Align.center, false)
-        font.color = Color.YELLOW
-        font.draw(game.batch, "Tesoros recogidos: $treasures", 0f, 300f, 800f, Align.center, false)
-        
-        font.color = Color.BLACK
-        font.draw(game.batch, "Tiempo sobrevivido: ${time.toInt()} segundos", 3f, 247f, 800f, Align.center, false)
-        font.color = Color.CYAN
-        font.draw(game.batch, "Tiempo sobrevivido: ${time.toInt()} segundos", 0f, 250f, 800f, Align.center, false)
-        
+        drawTextWithShadow("Puntuación final: $score", 350f, colorPuntos)
+        drawTextWithShadow("Tesoros recogidos: $treasures", 300f, colorTesoros)
+        drawTextWithShadow("Tiempo sobrevivido: ${time.toInt()} segundos", 250f, colorTiempo)
+
         if (timer > 3f) {
             font.data.setScale(1.5f)
-            font.color = Color.BLACK
-            font.draw(game.batch, "Toca para reintentar", 3f, 97f, 800f, Align.center, false)
-            font.color = Color.WHITE
-            font.draw(game.batch, "Toca para reintentar", 0f, 100f, 800f, Align.center, false)
+            drawTextWithShadow("Toca para reintentar", 100f, colorReintentar)
         }
         game.batch.end()
 
@@ -76,10 +65,27 @@ class GameOverScreen(val game: SubmarinistGame, val score: Int, val time: Float,
         }
     }
 
+    /**
+     * Función auxiliar para dibujar texto con un efecto de sombra (negro desplazado).
+     * Evita tener que repetir el código de dibujado y los strings.
+     */
+    private fun drawTextWithShadow(text: String, y: Float, colorPrincipal: Color) {
+        // Dibujamos la sombra (negro) un poco desplazada
+        font.color = colorSombra
+        font.draw(game.batch, text, 3f, y - 3f, 800f, Align.center, false)
+        
+        // Dibujamos el texto real encima
+        font.color = colorPrincipal
+        font.draw(game.batch, text, 0f, y, 800f, Align.center, false)
+    }
+
+    // Estos métodos son obligatorios por la interfaz Screen de LibGDX, aunque no los usemos en esta pantalla
     override fun show() {}
+    
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height, true)
     }
+
     override fun pause() {}
     override fun resume() {}
     override fun hide() {}

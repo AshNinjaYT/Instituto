@@ -59,6 +59,13 @@ class GameScreen(val game: SubmarinistGame) : Screen {
     // Nuestro objeto jugador
     private lateinit var player: Player
     private lateinit var debugRenderer: com.badlogic.gdx.graphics.glutils.ShapeRenderer
+    
+    // Colores para el HUD
+    private val colorFondoHUD = Color(0f, 0f, 0f, 0.6f)
+    private val colorTextoHUD = Color.YELLOW
+    private val colorSombraHUD = Color.BLACK
+    private val colorOxigenoOk = Color.CYAN
+    private val colorOxigenoCritico = Color.RED
 
     init {
         // --- INICIALIZACIÓN ---
@@ -285,23 +292,30 @@ class GameScreen(val game: SubmarinistGame) : Screen {
     private fun drawHUD() {
         game.batch.projectionMatrix = hudCamera.combined
         game.batch.begin()
-        game.batch.setColor(0f, 0f, 0f, 0.6f)
+        game.batch.setColor(colorFondoHUD.r, colorFondoHUD.g, colorFondoHUD.b, colorFondoHUD.a)
         game.batch.draw(whitePixel, 0f, hudViewport.worldHeight - 60f, hudViewport.worldWidth, 60f)
-        game.batch.setColor(1f, 1f, 1f, 1f)
+        game.batch.setColor(Color.WHITE) // Reseteamos el color del batch
 
-        font.color = Color.BLACK
-        font.draw(game.batch, "PUNTOS: ${player.score}", 32f, hudViewport.worldHeight - 17f)
-        font.color = Color.YELLOW
-        font.draw(game.batch, "PUNTOS: ${player.score}", 30f, hudViewport.worldHeight - 15f)
+        drawTextWithShadowHUD("PUNTOS: ${player.score}", 32f, hudViewport.worldHeight - 15f, colorTextoHUD)
         
-        val oxyColor = if (player.oxygen > 30) Color.CYAN else Color.RED
-        font.color = Color.BLACK
-        font.draw(game.batch, "OXÍGENO: ${player.oxygen.toInt()}%", hudViewport.worldWidth - 248f, hudViewport.worldHeight - 17f)
-        font.color = oxyColor
-        font.draw(game.batch, "OXÍGENO: ${player.oxygen.toInt()}%", hudViewport.worldWidth - 250f, hudViewport.worldHeight - 15f)
+        val oxyColor = if (player.oxygen > 30) colorOxigenoOk else colorOxigenoCritico
+        drawTextWithShadowHUD("OXÍGENO: ${player.oxygen.toInt()}%", hudViewport.worldWidth - 250f, hudViewport.worldHeight - 15f, oxyColor)
+        
         game.batch.end()
     }
 
+    /**
+     * Función auxiliar para el HUD que dibuja texto con sombra.
+     * Nota: En el HUD no centramos, usamos coordenadas directas.
+     */
+    private fun drawTextWithShadowHUD(text: String, x: Float, y: Float, colorPrincipal: Color) {
+        font.color = colorSombraHUD
+        font.draw(game.batch, text, x + 2f, y - 2f)
+        font.color = colorPrincipal
+        font.draw(game.batch, text, x, y)
+    }
+
+    // Métodos obligatorios de la interfaz Screen
     override fun show() {}
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height)
