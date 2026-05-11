@@ -1,0 +1,94 @@
+{
+    "activeFile": "SubmarinistGame/assets/map.tmx",
+    "expandedProjectPaths": [
+        "SubmarinistGame/assets",
+        ".",
+        "SubmarinistGame"
+    ],
+    "file.lastUsedOpenFilter": "Todos los archivos (*)",
+    "fileStates": {
+        "SubmarinistGame/assets/background.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "SubmarinistGame/assets/bubbles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "SubmarinistGame/assets/map.tmx": {
+            "scale": 1,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 683.5,
+                "y": 165
+            }
+        },
+        "SubmarinistGame/assets/midground.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "SubmarinistGame/assets/mine.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "SubmarinistGame/assets/props.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "SubmarinistGame/assets/tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "background.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "midground.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        },
+        "props.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "sin nombre.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1483.3333333333335,
+                "y": 103.030303030303
+            }
+        },
+        "tileset.tsx": {
+            "scaleInDock": 0.75,
+            "scaleInEditor": 1
+        }
+    },
+    "last.imagePath": "D:/Users/Achraf/Documents/Instituto/Achraf/Programacio_Multimedia/EAC3/SubmarinistGame/assets",
+    "map.height": 20,
+    "map.lastUsedFormat": "tmx",
+    "map.width": 100,
+    "openFiles": [
+        "SubmarinistGame/assets/map.tmx"
+    ],
+    "project": "map.tiled-project",
+    "recentFiles": [
+        "SubmarinistGame/assets/mine.tsx",
+        "SubmarinistGame/assets/bubbles.tsx",
+        "SubmarinistGame/assets/map.tmx",
+        "SubmarinistGame/assets/midground.tsx",
+        "SubmarinistGame/assets/tileset.tsx",
+        "SubmarinistGame/assets/props.tsx",
+        "SubmarinistGame/assets/background.tsx",
+        "props.tsx",
+        "tileset.tsx",
+        "sin nombre.tmx",
+        "midground.tsx",
+        "background.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    }
+}
