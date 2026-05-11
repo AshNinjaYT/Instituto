@@ -28,6 +28,7 @@ class GameOverScreen(val game: SubmarinistGame, val score: Int, val time: Float,
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
         viewport.apply()
+        camera.update() // Muy importante para que la cámara sepa su posición
         game.batch.projectionMatrix = camera.combined
 
         timer += delta // Acumulamos tiempo
@@ -71,7 +72,6 @@ class GameOverScreen(val game: SubmarinistGame, val score: Int, val time: Float,
 
         if (timer > 3f && Gdx.input.isTouched) {
             game.screen = MenuScreen(game)
-            dispose()
         }
     }
 

@@ -22,6 +22,8 @@ class Mina(val startPosition: Vector2, val region: TextureRegion) {
     val speed = MathUtils.random(1f, 2f)
     val offset = MathUtils.random(0f, 6.28f)
 
+    private val bounds = Rectangle()
+
     fun update(delta: Float, explosionAnim: Animation<TextureRegion>) {
         stateTime += delta
         
@@ -38,6 +40,7 @@ class Mina(val startPosition: Vector2, val region: TextureRegion) {
     }
     
     fun getBoundingRectangle(): Rectangle {
-        return Rectangle(position.x, position.y, size, size)
+        bounds.set(position.x, position.y, size, size)
+        return bounds
     }
 }

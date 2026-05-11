@@ -28,6 +28,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
     private lateinit var hudCamera: OrthographicCamera
     private lateinit var hudViewport: Viewport
     private lateinit var font: BitmapFont
+    private lateinit var whitePixel: Texture
     
     // Variables para el mapa de Tiled que he hecho
     private lateinit var map: TiledMap
@@ -64,7 +65,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         viewport = FitViewport(400f, 300f, camera)
 
         hudCamera = OrthographicCamera()
-        hudViewport = FitViewport(Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat(), hudCamera)
+        hudViewport = FitViewport(800f, 600f, hudCamera) // Dimensiones base, se ajustan en resize
         
         font = BitmapFont()
         font.data.setScale(1.8f)
@@ -100,6 +101,13 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         
         animIdle.playMode = com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP
         animSwimming.playMode = com.badlogic.gdx.graphics.g2d.Animation.PlayMode.LOOP
+
+        // Creamos una textura blanca de 1x1 para dibujar rectángulos de colores (como el fondo del HUD)
+        val pixmap = com.badlogic.gdx.graphics.Pixmap(1, 1, com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888)
+        pixmap.setColor(com.badlogic.gdx.graphics.Color.WHITE)
+        pixmap.fill()
+        whitePixel = Texture(pixmap)
+        pixmap.dispose()
 
         // Texturas de items
         treasureTexture = Texture("treasure.png")
@@ -197,14 +205,12 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         
         if (player.oxygen <= 0) {
             game.screen = GameOverScreen(game, player.score, player.timeSurvived, player.treasuresCollected)
-            dispose()
             return
         }
         
         val mapaAnchoPixeles = mapLayer.width * mapLayer.tileWidth
         if (player.position.x > mapaAnchoPixeles - 100f) {
             game.screen = VictoryScreen(game, player.score, player.timeSurvived, player.treasuresCollected)
-            dispose()
             return
         }
 
@@ -272,7 +278,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         game.batch.projectionMatrix = hudCamera.combined
         game.batch.begin()
         game.batch.setColor(0f, 0f, 0f, 0.6f)
-        game.batch.draw(idleSheet, 0f, hudViewport.worldHeight - 60f, hudViewport.worldWidth, 60f, 0, 0, 1, 1, false, false)
+        game.batch.draw(whitePixel, 0f, hudViewport.worldHeight - 60f, hudViewport.worldWidth, 60f)
         game.batch.setColor(1f, 1f, 1f, 1f)
 
         font.color = com.badlogic.gdx.graphics.Color.BLACK
@@ -301,6 +307,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         map.dispose()
         mapRenderer.dispose()
         idleSheet.dispose()
+        whitePixel.dispose()
         swimmingSheet.dispose()
         backgroundTexture.dispose()
         treasureTexture.dispose()
