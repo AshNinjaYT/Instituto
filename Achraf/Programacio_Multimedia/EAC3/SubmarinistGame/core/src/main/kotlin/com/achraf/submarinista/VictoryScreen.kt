@@ -9,9 +9,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 
-/**
- * Pantalla que se muestra al llegar al final del mapa.
- */
+// Pantalla que sale cuando ganas la partida (llegas al final)
 class VictoryScreen(val game: SubmarinistGame, val score: Int, val time: Float, val treasures: Int) : Screen {
 
     private val camera = OrthographicCamera()
@@ -33,23 +31,43 @@ class VictoryScreen(val game: SubmarinistGame, val score: Int, val time: Float, 
         timer += delta
         game.batch.begin()
 
-        // Función interna para sombra
-        fun drawShadowText(text: String, x: Float, y: Float, color: com.badlogic.gdx.graphics.Color, scale: Float = 1.8f) {
-            font.data.setScale(scale)
-            font.color = com.badlogic.gdx.graphics.Color.BLACK
-            font.draw(game.batch, text, x + 3, y - 3, 800f, Align.center, false)
-            font.color = color
-            font.draw(game.batch, text, x, y, 800f, Align.center, false)
-        }
+        // Hago las sombras manualmente dibujando en negro un poco desplazado
+        // y luego dibujo el texto normal encima con color
+        
+        font.data.setScale(3.5f)
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "¡VICTORIA!", 3f, 497f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.GOLD
+        font.draw(game.batch, "¡VICTORIA!", 0f, 500f, 800f, Align.center, false)
 
-        drawShadowText("¡VICTORIA!", 0f, 500f, com.badlogic.gdx.graphics.Color.GOLD, 3.5f)
-        drawShadowText("Has explorado todo el océano", 0f, 400f, com.badlogic.gdx.graphics.Color.WHITE)
-        drawShadowText("Puntuación final: $score", 0f, 320f, com.badlogic.gdx.graphics.Color.YELLOW)
-        drawShadowText("Tesoros recogidos: $treasures", 0f, 270f, com.badlogic.gdx.graphics.Color.YELLOW)
-        drawShadowText("Tiempo total: ${time.toInt()} segundos", 0f, 220f, com.badlogic.gdx.graphics.Color.CYAN)
+        font.data.setScale(1.8f)
+        
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "Has explorado todo el océano", 3f, 397f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.WHITE
+        font.draw(game.batch, "Has explorado todo el océano", 0f, 400f, 800f, Align.center, false)
+        
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "Puntuación final: $score", 3f, 317f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.YELLOW
+        font.draw(game.batch, "Puntuación final: $score", 0f, 320f, 800f, Align.center, false)
+        
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "Tesoros recogidos: $treasures", 3f, 267f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.YELLOW
+        font.draw(game.batch, "Tesoros recogidos: $treasures", 0f, 270f, 800f, Align.center, false)
+        
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "Tiempo total: ${time.toInt()} segundos", 3f, 217f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.CYAN
+        font.draw(game.batch, "Tiempo total: ${time.toInt()} segundos", 0f, 220f, 800f, Align.center, false)
         
         if (timer > 3f) {
-            drawShadowText("Toca para volver al menú", 0f, 80f, com.badlogic.gdx.graphics.Color.WHITE, 1.5f)
+            font.data.setScale(1.5f)
+            font.color = com.badlogic.gdx.graphics.Color.BLACK
+            font.draw(game.batch, "Toca para volver al menú", 3f, 77f, 800f, Align.center, false)
+            font.color = com.badlogic.gdx.graphics.Color.WHITE
+            font.draw(game.batch, "Toca para volver al menú", 0f, 80f, 800f, Align.center, false)
         }
         game.batch.end()
 

@@ -9,9 +9,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 
-/**
- * Pantalla que se muestra al perder (sin oxígeno).
- */
+// Pantalla que sale cuando mueres por falta de oxígeno
 class GameOverScreen(val game: SubmarinistGame, val score: Int, val time: Float, val treasures: Int) : Screen {
 
     private val camera = OrthographicCamera()
@@ -34,22 +32,38 @@ class GameOverScreen(val game: SubmarinistGame, val score: Int, val time: Float,
 
         game.batch.begin()
         
-        // Función interna para sombra
-        fun drawShadowText(text: String, x: Float, y: Float, color: com.badlogic.gdx.graphics.Color, scale: Float = 1.8f) {
-            font.data.setScale(scale)
-            font.color = com.badlogic.gdx.graphics.Color.BLACK
-            font.draw(game.batch, text, x + 3, y - 3, 800f, Align.center, false)
-            font.color = color
-            font.draw(game.batch, text, x, y, 800f, Align.center, false)
-        }
+        // Hago las sombras manualmente dibujando en negro un poco desplazado
+        // y luego dibujo el texto normal encima con color
+        
+        font.data.setScale(3f)
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "GAME OVER", 3f, 477f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.RED
+        font.draw(game.batch, "GAME OVER", 0f, 480f, 800f, Align.center, false)
 
-        drawShadowText("GAME OVER", 0f, 480f, com.badlogic.gdx.graphics.Color.RED, 3f)
-        drawShadowText("Puntuación final: $score", 0f, 350f, com.badlogic.gdx.graphics.Color.WHITE)
-        drawShadowText("Tesoros recogidos: $treasures", 0f, 300f, com.badlogic.gdx.graphics.Color.YELLOW)
-        drawShadowText("Tiempo sobrevivido: ${time.toInt()} segundos", 0f, 250f, com.badlogic.gdx.graphics.Color.CYAN)
+        font.data.setScale(1.8f)
+        
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "Puntuación final: $score", 3f, 347f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.WHITE
+        font.draw(game.batch, "Puntuación final: $score", 0f, 350f, 800f, Align.center, false)
+        
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "Tesoros recogidos: $treasures", 3f, 297f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.YELLOW
+        font.draw(game.batch, "Tesoros recogidos: $treasures", 0f, 300f, 800f, Align.center, false)
+        
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "Tiempo sobrevivido: ${time.toInt()} segundos", 3f, 247f, 800f, Align.center, false)
+        font.color = com.badlogic.gdx.graphics.Color.CYAN
+        font.draw(game.batch, "Tiempo sobrevivido: ${time.toInt()} segundos", 0f, 250f, 800f, Align.center, false)
         
         if (timer > 3f) {
-            drawShadowText("Toca para reintentar", 0f, 100f, com.badlogic.gdx.graphics.Color.WHITE, 1.5f)
+            font.data.setScale(1.5f)
+            font.color = com.badlogic.gdx.graphics.Color.BLACK
+            font.draw(game.batch, "Toca para reintentar", 3f, 97f, 800f, Align.center, false)
+            font.color = com.badlogic.gdx.graphics.Color.WHITE
+            font.draw(game.batch, "Toca para reintentar", 0f, 100f, 800f, Align.center, false)
         }
         game.batch.end()
 

@@ -18,10 +18,8 @@ import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 
-/**
- * Pantalla principal donde ocurre el juego.
- * Implementa 'Screen' para que LibGDX sepa cómo mostrarla y ocultarla.
- */
+// Esta es la pantalla principal donde jugamos
+// Implemento Screen de LibGDX para poder cambiar entre menús y juego
 class GameScreen(val game: SubmarinistGame) : Screen {
 
     // 1. VARIABLES BÁSICAS
@@ -32,24 +30,22 @@ class GameScreen(val game: SubmarinistGame) : Screen {
     private lateinit var hudViewport: Viewport
     private lateinit var font: BitmapFont
     
-    // El mapa hecho en Tiled (nuestro fondo y paredes)
+    // Variables para el mapa de Tiled que he hecho
     private lateinit var map: TiledMap
-    
-    // El encargado de dibujar el mapa de Tiled en pantalla
     private lateinit var mapRenderer: OrthogonalTiledMapRenderer
     private lateinit var mapLayer: TiledMapTileLayer
     private lateinit var mapLayer2: TiledMapTileLayer
     private lateinit var obstaclesLayer: TiledMapTileLayer
-    private val rectBloque = Rectangle() // Para reutilizar en colisiones y evitar lag
+    private val rectBloque = Rectangle() // Guardo esto aquí para no crear muchos objetos nuevos y que el juego vaya lento
     
-    // Las imágenes y animaciones de nuestro submarinista (assets externos)
+    // Variables para los sprites del personaje
     private lateinit var idleSheet: Texture
     private lateinit var swimmingSheet: Texture
     private lateinit var backgroundTexture: Texture
     private lateinit var animIdle: com.badlogic.gdx.graphics.g2d.Animation<com.badlogic.gdx.graphics.g2d.TextureRegion>
     private lateinit var animSwimming: com.badlogic.gdx.graphics.g2d.Animation<com.badlogic.gdx.graphics.g2d.TextureRegion>
     
-    // --- ELEMENTOS DEL APARTADO 3 (Objetos) ---
+    // --- APARTADO 3: Cosas de los objetos recogibles ---
     private lateinit var treasureTexture: Texture
     private lateinit var oxygenTexture: Texture
     
@@ -61,7 +57,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         fun getBoundingRectangle() = bounds
     }
     
-    // --- ELEMENTOS DEL APARTADO 4 (Minas) ---
+    // --- APARTADO 4: Las minas que flotan ---
     private lateinit var explosionTexture: Texture
     private lateinit var explosionAnim: com.badlogic.gdx.graphics.g2d.Animation<com.badlogic.gdx.graphics.g2d.TextureRegion>
     
@@ -74,10 +70,10 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         var stateTime = 0f
         var explosionTime = 0f
         
-        // El balanceo arriba/abajo
+        // Hago que se balanceen arriba y abajo
         val range = 60f
         val speed = MathUtils.random(1f, 2f)
-        val offset = MathUtils.random(0f, 6.28f) // Para que no todas se muevan igual
+        val offset = MathUtils.random(0f, 6.28f) // Para que empiecen en distinto sitio del balanceo
 
         fun update(delta: Float) {
             stateTime += delta
@@ -408,30 +404,35 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         drawHUD()
     }
 
-    /**
-     * Dibuja la información de puntuación y oxígeno en una capa fija.
-     */
+    // Metodo para dibujar los textos en pantalla (el HUD)
     private fun drawHUD() {
         game.batch.projectionMatrix = hudCamera.combined
         game.batch.begin()
         
-        // Barra negra de fondo arriba para que se lea bien
+        // Pongo un fondo oscuro transparente arriba para que se lea bien el texto blanco o amarillo
         game.batch.setColor(0f, 0f, 0f, 0.6f)
         game.batch.draw(idleSheet, 0f, hudViewport.worldHeight - 60f, hudViewport.worldWidth, 60f, 0, 0, 1, 1, false, false)
         game.batch.setColor(1f, 1f, 1f, 1f)
 
-        // Función interna para sombra
-        fun drawText(text: String, x: Float, y: Float, color: com.badlogic.gdx.graphics.Color) {
-            font.color = com.badlogic.gdx.graphics.Color.BLACK
-            font.draw(game.batch, text, x + 2, y - 2)
-            font.color = color
-            font.draw(game.batch, text, x, y)
-        }
-
-        drawText("PUNTOS: ${player.score}", 30f, hudViewport.worldHeight - 15f, com.badlogic.gdx.graphics.Color.YELLOW)
+        // Dibujo primero los textos en negro un poco movidos para hacer el efecto de sombra
+        // y luego en color normal encima. Es un truco que aprendí para que resalte.
         
+        // Puntos (Sombra)
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "PUNTOS: ${player.score}", 32f, hudViewport.worldHeight - 17f)
+        // Puntos (Normal)
+        font.color = com.badlogic.gdx.graphics.Color.YELLOW
+        font.draw(game.batch, "PUNTOS: ${player.score}", 30f, hudViewport.worldHeight - 15f)
+        
+        // Oxígeno (cambia de color si hay menos del 30%)
         val oxyColor = if (player.oxygen > 30) com.badlogic.gdx.graphics.Color.CYAN else com.badlogic.gdx.graphics.Color.RED
-        drawText("OXÍGENO: ${player.oxygen.toInt()}%", hudViewport.worldWidth - 250f, hudViewport.worldHeight - 15f, oxyColor)
+        
+        // Oxígeno (Sombra)
+        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.draw(game.batch, "OXÍGENO: ${player.oxygen.toInt()}%", hudViewport.worldWidth - 248f, hudViewport.worldHeight - 17f)
+        // Oxígeno (Normal)
+        font.color = oxyColor
+        font.draw(game.batch, "OXÍGENO: ${player.oxygen.toInt()}%", hudViewport.worldWidth - 250f, hudViewport.worldHeight - 15f)
         
         game.batch.end()
     }
