@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2
 // Tipos de objetos que podemos recoger
 enum class ItemType { TREASURE, OXYGEN }
 
-// Clase para los items (monedas y burbujas)
+// Esta clase sirve para crear las monedas y el aire en el mapa
 class Item(val type: ItemType, val position: Vector2, val region: TextureRegion) {
     val size = 32f
     private val bounds = Rectangle(position.x, position.y, size, size)
