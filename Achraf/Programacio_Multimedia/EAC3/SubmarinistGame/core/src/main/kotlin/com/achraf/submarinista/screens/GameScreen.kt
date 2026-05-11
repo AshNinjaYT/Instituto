@@ -233,6 +233,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
             return
         }
 
+        val mapaAnchoPixeles = mapLayer.width * mapLayer.tileWidth
         val mapaAltoPixeles = mapLayer.height * mapLayer.tileHeight
         camera.position.x = MathUtils.clamp(camera.position.x, camera.viewportWidth / 2f, mapaAnchoPixeles - camera.viewportWidth / 2f)
         camera.position.y = MathUtils.clamp(camera.position.y, camera.viewportHeight / 2f, mapaAltoPixeles - camera.viewportHeight / 2f)
