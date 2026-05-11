@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.utils.viewport.Viewport
 
 // Pantalla que sale cuando mueres por falta de oxígeno
@@ -39,33 +40,33 @@ class GameOverScreen(val game: SubmarinistGame, val score: Int, val time: Float,
         // y luego dibujo el texto normal encima con color
         
         font.data.setScale(3f)
-        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.color = Color.BLACK
         font.draw(game.batch, "GAME OVER", 3f, 477f, 800f, Align.center, false)
-        font.color = com.badlogic.gdx.graphics.Color.RED
+        font.color = Color.RED
         font.draw(game.batch, "GAME OVER", 0f, 480f, 800f, Align.center, false)
 
         font.data.setScale(1.8f)
         
-        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.color = Color.BLACK
         font.draw(game.batch, "Puntuación final: $score", 3f, 347f, 800f, Align.center, false)
-        font.color = com.badlogic.gdx.graphics.Color.WHITE
+        font.color = Color.WHITE
         font.draw(game.batch, "Puntuación final: $score", 0f, 350f, 800f, Align.center, false)
         
-        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.color = Color.BLACK
         font.draw(game.batch, "Tesoros recogidos: $treasures", 3f, 297f, 800f, Align.center, false)
-        font.color = com.badlogic.gdx.graphics.Color.YELLOW
+        font.color = Color.YELLOW
         font.draw(game.batch, "Tesoros recogidos: $treasures", 0f, 300f, 800f, Align.center, false)
         
-        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.color = Color.BLACK
         font.draw(game.batch, "Tiempo sobrevivido: ${time.toInt()} segundos", 3f, 247f, 800f, Align.center, false)
-        font.color = com.badlogic.gdx.graphics.Color.CYAN
+        font.color = Color.CYAN
         font.draw(game.batch, "Tiempo sobrevivido: ${time.toInt()} segundos", 0f, 250f, 800f, Align.center, false)
         
         if (timer > 3f) {
             font.data.setScale(1.5f)
-            font.color = com.badlogic.gdx.graphics.Color.BLACK
+            font.color = Color.BLACK
             font.draw(game.batch, "Toca para reintentar", 3f, 97f, 800f, Align.center, false)
-            font.color = com.badlogic.gdx.graphics.Color.WHITE
+            font.color = Color.WHITE
             font.draw(game.batch, "Toca para reintentar", 0f, 100f, 800f, Align.center, false)
         }
         game.batch.end()

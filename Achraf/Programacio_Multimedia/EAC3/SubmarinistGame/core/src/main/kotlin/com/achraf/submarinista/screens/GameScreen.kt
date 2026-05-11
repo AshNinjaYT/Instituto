@@ -4,6 +4,7 @@ import com.achraf.submarinista.SubmarinistGame
 import com.achraf.submarinista.entities.*
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
@@ -69,7 +70,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         
         font = BitmapFont()
         font.data.setScale(1.8f)
-        font.color = com.badlogic.gdx.graphics.Color.WHITE
+        font.color = Color.WHITE
 
         // Cargamos el mapa
         map = TmxMapLoader().load("map.tmx")
@@ -107,7 +108,7 @@ class GameScreen(val game: SubmarinistGame) : Screen {
 
         // Creamos una textura blanca de 1x1 para dibujar rectángulos de colores (como el fondo del HUD)
         val pixmap = com.badlogic.gdx.graphics.Pixmap(1, 1, com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888)
-        pixmap.setColor(com.badlogic.gdx.graphics.Color.WHITE)
+        pixmap.setColor(Color.WHITE)
         pixmap.fill()
         whitePixel = Texture(pixmap)
         pixmap.dispose()
@@ -288,13 +289,13 @@ class GameScreen(val game: SubmarinistGame) : Screen {
         game.batch.draw(whitePixel, 0f, hudViewport.worldHeight - 60f, hudViewport.worldWidth, 60f)
         game.batch.setColor(1f, 1f, 1f, 1f)
 
-        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        font.color = Color.BLACK
         font.draw(game.batch, "PUNTOS: ${player.score}", 32f, hudViewport.worldHeight - 17f)
-        font.color = com.badlogic.gdx.graphics.Color.YELLOW
+        font.color = Color.YELLOW
         font.draw(game.batch, "PUNTOS: ${player.score}", 30f, hudViewport.worldHeight - 15f)
         
-        val oxyColor = if (player.oxygen > 30) com.badlogic.gdx.graphics.Color.CYAN else com.badlogic.gdx.graphics.Color.RED
-        font.color = com.badlogic.gdx.graphics.Color.BLACK
+        val oxyColor = if (player.oxygen > 30) Color.CYAN else Color.RED
+        font.color = Color.BLACK
         font.draw(game.batch, "OXÍGENO: ${player.oxygen.toInt()}%", hudViewport.worldWidth - 248f, hudViewport.worldHeight - 17f)
         font.color = oxyColor
         font.draw(game.batch, "OXÍGENO: ${player.oxygen.toInt()}%", hudViewport.worldWidth - 250f, hudViewport.worldHeight - 15f)
