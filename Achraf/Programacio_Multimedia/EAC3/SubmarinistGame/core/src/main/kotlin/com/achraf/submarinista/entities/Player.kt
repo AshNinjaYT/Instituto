@@ -1,4 +1,4 @@
-package com.achraf.submarinista
+package com.achraf.submarinista.entities
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input

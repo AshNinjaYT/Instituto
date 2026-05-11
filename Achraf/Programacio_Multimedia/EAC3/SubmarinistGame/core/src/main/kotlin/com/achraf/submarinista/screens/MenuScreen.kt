@@ -1,4 +1,6 @@
-package com.achraf.submarinista
+package com.achraf.submarinista.screens
+
+import com.achraf.submarinista.SubmarinistGame
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen

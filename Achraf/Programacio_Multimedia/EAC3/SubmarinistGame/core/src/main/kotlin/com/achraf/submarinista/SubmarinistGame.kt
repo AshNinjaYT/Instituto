@@ -2,6 +2,7 @@ package com.achraf.submarinista
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.achraf.submarinista.screens.MenuScreen
 
 /** 
  * Clase principal del juego. Hereda de Game para poder usar múltiples pantallas (Screens).
