@@ -5,11 +5,21 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-//TODO Posar les anotacions de Spring i/o Lombok
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Estacio {
 
+    @Id
     private String id;
     private String nom;
     private String comarca;
@@ -19,6 +29,8 @@ public class Estacio {
     private double percentatgePistesObertes;
 
     @OneToMany(mappedBy = "estacio", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ToString.Exclude // Evita recursividad infinita por relación bidireccional
+    @EqualsAndHashCode.Exclude
     private List<Pista> pistes = new ArrayList<>();
 
     public Estacio(String id, String nom, String comarca, int altitudMaxima,
@@ -44,57 +56,5 @@ public class Estacio {
         return percentatge;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 59 * hash + Objects.hashCode(this.id);
-        hash = 59 * hash + Objects.hashCode(this.nom);
-        hash = 59 * hash + Objects.hashCode(this.comarca);
-        hash = 59 * hash + this.altitudMaxima;
-        hash = 59 * hash + Objects.hashCode(this.web);
-        hash = 59 * hash + Objects.hashCode(this.qualificacio);
-        hash = 59 * hash + (int) (Double.doubleToLongBits(this.percentatgePistesObertes) ^ (Double.doubleToLongBits(this.percentatgePistesObertes) >>> 32));
-        hash = 59 * hash + Objects.hashCode(this.pistes);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Estacio other = (Estacio) obj;
-        if (this.altitudMaxima != other.altitudMaxima) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.percentatgePistesObertes) != Double.doubleToLongBits(other.percentatgePistesObertes)) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.nom, other.nom)) {
-            return false;
-        }
-        if (!Objects.equals(this.comarca, other.comarca)) {
-            return false;
-        }
-        if (!Objects.equals(this.web, other.web)) {
-            return false;
-        }
-        if (!Objects.equals(this.qualificacio, other.qualificacio)) {
-            return false;
-        }
-
-        boolean result = this.pistes.size() == other.pistes.size() && this.pistes.containsAll(other.pistes);
-        return result;
-
-    }
 
 }

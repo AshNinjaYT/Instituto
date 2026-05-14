@@ -1,11 +1,15 @@
 package eac3.model;
 
 
-import java.util.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
 
-
-
-//TODO Posar les anotacions de Spring i/o Lombok
+@Entity
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class PistaNordica extends Pista {
 
     private String estil;
@@ -19,34 +23,4 @@ public class PistaNordica extends Pista {
         this.trepitjada = trepitjada;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.estil);
-        hash = 37 * hash + (this.trepitjada ? 1 : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-
-        if (!super.equals(obj)) {
-            return false;
-        }
-
-        final PistaNordica other = (PistaNordica) obj;
-        if (this.trepitjada != other.trepitjada) {
-            return false;
-        }
-        return Objects.equals(this.estil, other.estil);
-    }
 }

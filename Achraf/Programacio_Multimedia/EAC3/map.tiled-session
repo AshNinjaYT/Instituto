@@ -2,8 +2,8 @@
     "activeFile": "SubmarinistGame/assets/map.tmx",
     "expandedProjectPaths": [
         "SubmarinistGame/assets",
-        ".",
-        "SubmarinistGame"
+        "SubmarinistGame",
+        "."
     ],
     "file.lastUsedOpenFilter": "Todos los archivos (*)",
     "fileStates": {
@@ -16,11 +16,14 @@
             "scaleInEditor": 1
         },
         "SubmarinistGame/assets/map.tmx": {
-            "scale": 1,
-            "selectedLayer": 5,
+            "expandedGroupLayers": [
+                8
+            ],
+            "scale": 4,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 683.5,
-                "y": 165
+                "x": 2932.625,
+                "y": 341.25
             }
         },
         "SubmarinistGame/assets/midground.tsx": {
@@ -31,11 +34,19 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "SubmarinistGame/assets/oxygen.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "SubmarinistGame/assets/props.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "SubmarinistGame/assets/tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "SubmarinistGame/assets/treasure.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -69,22 +80,25 @@
     "map.lastUsedFormat": "tmx",
     "map.width": 100,
     "openFiles": [
-        "SubmarinistGame/assets/map.tmx"
+        "SubmarinistGame/assets/map.tmx",
+        "SubmarinistGame/assets/mine.tsx",
+        "SubmarinistGame/assets/treasure.tsx",
+        "SubmarinistGame/assets/oxygen.tsx"
     ],
     "project": "map.tiled-project",
     "recentFiles": [
+        "SubmarinistGame/assets/oxygen.tsx",
+        "SubmarinistGame/assets/treasure.tsx",
         "SubmarinistGame/assets/mine.tsx",
-        "SubmarinistGame/assets/bubbles.tsx",
         "SubmarinistGame/assets/map.tmx",
+        "SubmarinistGame/assets/bubbles.tsx",
         "SubmarinistGame/assets/midground.tsx",
         "SubmarinistGame/assets/tileset.tsx",
         "SubmarinistGame/assets/props.tsx",
         "SubmarinistGame/assets/background.tsx",
         "props.tsx",
         "tileset.tsx",
-        "sin nombre.tmx",
-        "midground.tsx",
-        "background.tsx"
+        "sin nombre.tmx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

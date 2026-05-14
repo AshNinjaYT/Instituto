@@ -1,9 +1,14 @@
 package eac3.model;
 
-import java.util.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
 
-//TODO Posar les anotacions de Spring i/o Lombok
+@Entity
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class ItinerariRaquetes extends Pista {
 
     private String dificultat;
@@ -20,43 +25,6 @@ public class ItinerariRaquetes extends Pista {
         this.circular = circular;
         this.senyalitzat = senyalitzat;
         this.tempsEstimat = tempsEstimat;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.dificultat);
-        hash = 53 * hash + (this.circular ? 1 : 0);
-        hash = 53 * hash + (this.senyalitzat ? 1 : 0);
-        hash = 53 * hash + this.tempsEstimat;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        final ItinerariRaquetes other = (ItinerariRaquetes) obj;
-        if (this.circular != other.circular) {
-            return false;
-        }
-        if (this.senyalitzat != other.senyalitzat) {
-            return false;
-        }
-        if (this.tempsEstimat != other.tempsEstimat) {
-            return false;
-        }
-        return Objects.equals(this.dificultat, other.dificultat);
     }
 
 }

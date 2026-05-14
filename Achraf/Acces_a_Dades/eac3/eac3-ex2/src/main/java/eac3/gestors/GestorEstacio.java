@@ -5,15 +5,19 @@ import eac3.dao.PistaDao;
 import eac3.model.Estacio;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 /**
  * Gestor CRUD per a l'entitat Estacio.
  */
-
-//TODO Posar les anotacions de Spring i/o Lombok
+@Service
 public class GestorEstacio {
 
+    @Autowired
     private EstacioDao estacioDao;
 
+    @Autowired
     private PistaDao pistaDao;
 
     /**

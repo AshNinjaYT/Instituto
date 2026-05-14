@@ -1,0 +1,234 @@
+﻿
+DAM CFGS Desenvolupament d'Aplicacions Multiplataforma
+EAC3
+(Curs 2025â€“26 / 2n semestre)
+
+
+PresentaciÃ³ i resultats d'aprenentatge
+
+Aquest exercici dâ€™avaluaciÃ³ continuada (EAC) es correspon amb els continguts treballats a la unitat3, PersistÃ¨ncia en BD documentals. Components dâ€™accÃ©s a dades.
+
+Els resultats d'aprenentatge que es plantegen sÃ³n:
+5. Desenvolupa aplicacions que gestionen la informaciÃ³ emmagatzemada en bases de dades documentals natives avaluant i utilitzant classes especÃ­fiques.
+Valora els avantatges i inconvenients d'utilitzar bases de dades documentals natives.
+Estableix la connexiÃ³ amb la base de dades.
+Desenvolupa aplicacions que fan consultes sobre el contingut de la base de dades.
+Afegeix i elimina colÂ·leccions de la base de dades.
+Desenvolupa aplicacions per afegir, modificar i eliminar documents de la base de dades.
+6. Programa components d'accÃ©s a dades identificant les caracterÃ­stiques que ha de posseir un component i utilitzant eines de desenvolupament.
+Valora els avantatges i inconvenients d'utilitzar programaciÃ³ orientada a components.
+Identifica eines de desenvolupament de components.
+Programa components que gestionen informaciÃ³ emmagatzemada en fitxers.
+Programa components que gestionen mitjanÃ§ant connectors informaciÃ³ emmagatzemada en bases de dades.
+Programa components que gestionen informaciÃ³ usant mapatge objecte-relacional.
+Programa components que gestionen informaciÃ³ emmagatzemada a bases de dades objecte-relacionals i orientades a objectes.
+Programa components que gestionen informaciÃ³ emmagatzemada a una base de dades documental nativa.
+Prova i documenta els components desenvolupats.
+Integra els components desenvolupats en aplicacions.
+
+
+
+Criteris dâ€™avaluaciÃ³
+
+La puntuaciÃ³ mÃ xima assignada a cada activitat sâ€™indica a lâ€™enunciat.
+
+Els criteris que es tindran en compte per avaluar el treball de lâ€™alumnat sÃ³n els segÃ¼ents:
+UtilitzaciÃ³ de les classes per a la gestiÃ³ de les bases de dades.
+Ãšs de les excepcions.
+DocumentaciÃ³ del codi.
+Funcionament correcte del programa.
+
+
+Forma i data de lliurament
+
+Un cop finalitzat lâ€™exercici dâ€™avaluaciÃ³ continuada heu dâ€™enviar el document des de l'apartat LliuramentEAC3 de l'aula, dins del termini establert. Tingueu en compte que el sistema no permetrÃ  fer lliuraments desprÃ©s de la data i hora indicades.
+
+El nom del fitxer serÃ  el segÃ¼ent: DAM_0486_EAC3_Cognom1_Inicial del cognom2.ZIP Els cognoms sâ€™escriuran sense accents. Per exemple, lâ€™estudiant Joan GarcÃ­a Santos posaria el segÃ¼ent nom al seu fitxer de lâ€™EAC2: DAM_0486_EAC3_Garcia_S.ZIP.
+
+Aquest fitxer aplegarÃ  comprimits els resultats que es demanen a cada exercici.
+
+El termini de lliurament finalitza a les 23:55 h del dia 14/05/2026. La proposta de soluciÃ³ de lâ€™EAC es publicarÃ  el dia 15/05/2026 i les qualificacions, el dia 20/05/2026.
+
+
+Enunciat
+
+A cada exercici sâ€™indica la seva qualificaciÃ³ mÃ xima i com es distribueix entre les diferents tasques que heu de fer.
+
+
+
+
+
+
+EXERCICI 1 â€“ Bases de dades documentals (4 punts)
+
+Completeu el codi de la biblioteca proporcionada en el fitxer EAC3_ex1_2526S2.zip. Aquesta biblioteca realitza la gestiÃ³ dâ€™una versiÃ³ simplificada de la base de dades de lâ€™EAC2, on nomÃ©s apareix lâ€™entitat Pista, perÃ² amb BaseX.
+
+Cada Pista estÃ  formada per les segÃ¼ents dades:
+id: cadena que identifica cada pista
+nom: cadena amb el nom de la pista
+longitud: enter amb la longitud en metres
+desnivelll: enter amb el desnivell en metres
+color: cadena amb el nom del color
+oberta: booleÃ  que indica si estÃ  oberta o no
+gruix: enter amb el gruix en metres
+qualitat: cadena amb el nom de la qualitat de neu
+remuntadors: llista de cadenes amb els noms dels tipus de remuntadors
+
+El codi proporcionat contÃ© la segÃ¼ent estructura:
+model amb la classe a fer persistent (Pista).
+gestors amb la classe PistaManager, que contÃ© els mÃ¨todes per fer-la persistent, la classe ExceptionManager, que representa lâ€™excepciÃ³ que llencen aquests mÃ¨todes si es produeix algun errori, per Ãºltim, la classe Utilitats que tÃ© mÃ¨todes que transformen objectes a format XML i creen objectes a partir de la seva representaciÃ³ en format XML. Ja estÃ  implementada. Ho fa amb la biblioteca de Java JAXB. Per aquest motiu, la classe model.Pista contÃ© anotacions de JAXB.
+
+Sâ€™inclou una carpeta test amb proves unitÃ ries JUnit sobre la classe PistaManager, que treballa amb una connexiÃ³ amb dades per defecte de BaseX (especificades a sota).
+
+El projecte proporcionat inclou les biblioteques necessÃ ries per a treballar amb BaseX i XQJ, les biblioteques necessÃ ries per utilitzar JUnit, aixÃ­ com totes les que calien en l'EAC1 per a usarJAXB. Per a que el projecte funcioni correctament cal que useu la versiÃ³ de Java JDK 11.
+
+Es demana completar la biblioteca amb les funcionalitats no implementades en PistaManager:
+afegir una Pista
+eliminar una Pista
+obtenir una Pista
+obtenir totes les Pista que tenen un tipus de remuntador concret
+
+Codi a lliurar:
+NomÃ©s heu de fer canvis al fitxer PistaManager: cal completar els seus mÃ¨todes insert,delete,getPistaigetPistesAmbRemuntador. Aquests mÃ¨todes es comunicaran amb la base de dades per a realitzar les consultes i actualitzacions adients. L'especificaciÃ³ exacta de cada mÃ¨tode es troba al propi codi.
+
+Per facilitar-vos la feina, els mÃ¨todes que cal completar es troben marcats amb //TODO per indicar on sâ€™ha dâ€™escriure codi. Si seleccioneu lâ€™opciÃ³ de menÃº Windows â†’ Action Items, us apareixerÃ  una finestra amb tots els //TODO que falten per completar als projectes oberts.
+
+Un cop acabat l'exercici, afegiu el fitxer PistaManager.java al fitxer comprimit que heu de lliurar.
+
+A TestGestor us trobareu 4 tests. Cadascun d'ells compta 1 punt.
+
+Cal tenir en compte les restriccions reflectides a la taula segÃ¼ent i, tambÃ©, les indicacions que s'expressen a continuaciÃ³ dâ€™aquesta.
+
+
+
+CaracterÃ­stica
+Valor
+Usuari (per defecte)
+admin
+Contrasenya (per defecte)
+Es posa en inicar-se el servidor i serÃ  admin
+API
+BaseX estÃ ndard XQJ API 1.4
+Llenguatge d'actualitzacions
+XQUF
+AdreÃ§a del servidor
+localhost
+Port (s'utilitza el port per defecte)
+1984
+Base de dades
+No cal especificar-la
+
+
+ComenÃ§ar a treballar amb BaseX:
+
+Us podeu baixar el fitxer BaseX120.zip dela web de BaseX (a la mÃ quina virtual trobareu la versiÃ³ 10.7, que era la mÃ©s recent quan es va crear; si treballeu amb la mÃ quina virtual, podeu utilitzar aquesta versiÃ³; en principi no hi hauria d'haver cap diferÃ¨ncia -la documentaciÃ³ Ã©s la mateixa). Si descomprimiu el fitxer BaseX120.zip, en la carpeta bin hi trobareu el fitxer basexgui. Si executeu aquest fitxer, us apareixerÃ  un entorn grÃ fic per treballar de manera interactiva amb la base de dades. Us serÃ  bastant Ãºtil per a fer el desenvolupament.
+Heu de crear una base de dades ("colÂ·lecciÃ³" en BaseX) i importar-hi el fitxer adjunt, pistes.xml. AixÃ² es fa des de l'opciÃ³ Database > New. Des d'allÃ­ heu de posar el camÃ­ sencer del fitxer a â€œInput file or directoryâ€ i el nom de la colÂ·lecciÃ³ a â€œName of databaseâ€ i fer clic a â€œOKâ€. En aquest cas, la colÂ·lecciÃ³ sâ€™anomenarÃ  pistes.
+Per Ãºltim, abans de comenÃ§ar a provar el programa, cal que poseu en marxa el servidor. Encara que tingueu l'entorn grÃ fic obert, el servidor roman aturat. Es posa en marxa amb un fitxer de la carpeta bin (que ve a BaseX120.zip). Concretament, basexserver (o basexserver.bat a Windows). El servidor sâ€™atura bÃ© prement la combinaciÃ³ de tecles Ctrl-C, bÃ© executant en una altra consola dâ€™ordres el fitxerbasexserverstop (o basexserverstop.bat a Windows).
+Lâ€™usuari admin no tÃ© cap contrasenya. Cal posar-la en iniciar el servidor amb l'ordre (recordeu: poseu admin com a contrasenya):
+basexserver -c PASSWORD
+
+Important! encara que tingueu en marxa el servidor, si teniu obert l'entorn grÃ fic, quan proveu el vostre programa rebreu errors de connexiÃ³. El motiu Ã©s que l'entorn grÃ fic obre en exclusiva la base de dades. Per tant, abans de provar el programa cal que tanqueu l'entorn grÃ fic. 
+
+Remarques importants:
+
+No Ã©s necessari utilitzar doc(â€œ....â€) al comenÃ§ament de les consultes, ja que nomÃ©s hi haurÃ  un document a la base de dades. Si n'hi haguÃ©s mÃ©s d'un i no posÃ©ssim doc(â€œ...â€), la consulta retornaria resultats de tots els documents. No obstant, si es posa tambÃ© Ã©s correcte; de fet, ho Ã©s mÃ©s encara perquÃ¨ el programa continuarÃ  funcionant inclÃºs si sâ€™afegeix a la base de dades un nou document dâ€™estructura similar.
+
+Si decidiu utilitzar doc(â€œ...â€) al comenÃ§ament de les consultes, cal tenir present que a BaseX caldrÃ  que poseu davant del nom del document el nom de la colÂ·lecciÃ³. AixÃ² es deu a que a BaseX nomÃ©s hi ha una base de dades (no cal especificar-la en fer la connexiÃ³) i es treballa amb les colÂ·leccions com si fossin bases de dades (es seleccionen en fer la consulta). Al nostre cas, dins de doc caldria posar la cadena de carÃ cters "pistes/pistes.xml". Com sâ€™ha dit, aquesta manera Ã©s mÃ©s correcta, perÃ², tambÃ©, mÃ©s farragosa. Una manera mÃ©s senzilla dâ€™usar-la Ã©s amb la variable estÃ tica i final PistaManager.ARREL. Podeu comenÃ§ar els vostres camins amb aquesta variable i concatenar-hi la resta del camÃ­. El mÃ¨todedeleteAll ho fa, encara que per a una expressiÃ³ molt senzilla (totes lescanÃ§ons).
+
+Ã‰s possible que algunes classes no siguin al paquet que indica el material. El motiu Ã©s que a la versiÃ³ actual sâ€™han pogut canviar de paquet. Quan aixÃ² passi, rebreu un error de compilaciÃ³. El que heu de fer en aquest cas Ã©s deixar que el propi entorn posi lâ€™import adient (utilitzant la bombeta que apareix al costat de l'error).
+
+Per simplificaciÃ³, no Ã©s necessari que utilitzeu ni variables lligades ni sentÃ¨ncies preparades. SÃ­ que haureu de fer servir expressions XQuery, que es fan mitjanÃ§ant la classe XQExpression.
+
+Lâ€™SGBD no realitza cap control d'integritat a les dades. Ho heu de controlar vosaltres.
+
+A XQuery hi ha moltes funcions que poden utilitzar-se i moltes conversions de tipus que es poden fer. Podeu trobar la documentaciÃ³ oficial en aquest enllaÃ§: https://www.w3.org/TR/xpath-functions-30/
+EXERCICI 2 â€“ Components dâ€™accÃ©s a dades (6 punts)
+
+
+El fitxer EAC3_ex2_2526S2.zip, que acompanya aquest enunciat, Ã©s un projecte Maven, que contÃ© un fitxer pom.xmlamb les dependÃ¨ncies necessÃ ries per treballar amb Lombok, Spring dataJPA i Junit5 (aquest Ãºltim per fer els tests de comprovaciÃ³ del vostre codi). A mÃ©s, contÃ© la carpeta src amb la prova que cal executar (carpeta test,paquet eac3) i el codi dâ€™una biblioteca similar a la de lâ€™exercici 2 de lâ€™EAC2 (carpeta main,paquet eac3i subpaquets dâ€™aquest), perÃ² que sâ€™haurÃ  de desenvolupar utilitzant Loombok i Spring data JPA. TreballarÃ  sobre la base de dades PostgreSQL anomenada spring2526s2. L'haureu de crear abans de l'execuciÃ³ del programari amb permisos per a l'usuariioc, que tÃ© la contrasenyaioc.
+
+El contingut dels diferents paquets Ã©s el segÃ¼ent:
+Paquet eac3: NomÃ©s contÃ© la classe amb el programa main. Com es tracta de desenvolupar una biblioteca, aquest main no fa res, perÃ² Ã©s adient tenir-lo per facilitar la cÃ rrega del context dâ€™Spring. No cal que modifiqueu el seu codi.
+Paquet eac3.gestors: Ã‰s similar al que vÃ reu elaborar a lâ€™EAC2. ContÃ© les classes que permeten fer persistents els objectes de les classes del paquet eac3.model. Al codi es troba documentat quÃ¨ fa exactament cada mÃ¨tode. La codificaciÃ³ de les classes dâ€™aquest paquet tambÃ© Ã©s completa i utilitza les classes del paquet eac3.dao, perÃ² hi falten les anotacions dâ€™Spring de totes les classes. De fet, Ã©s un paquet prescindible (es podria treballar directament amb el paquet eac3.dao), perÃ² sâ€™ha mantingut perquÃ¨ lâ€™utilitzava el joc de proves de lâ€™EAC2. Tampoc cal que modifiqueu el seu codi.
+Paquet eac3.dao: ContÃ© les classes DAO que utilitzen les classes del paquet eac3.gestors. Estan gairebÃ© completament codificats, perÃ² hi falten les anotacions dâ€™Spring de totes les classes, excepte la classe PistaNordicaDao, que sâ€™ha deixat a tall dâ€™exemple. Utilitzen les interfÃ­cies del paquet eac3.repository.Cal que poseu les anotacions a totes les classes del paquet, excepte PistaNordicaDao. En diverses classes hi trobareu alguns mÃ¨todes que sâ€™han de completar, estan marcats amb //TODO.
+Paquet eac3.repository:ContÃ© les interfÃ­cies necessÃ ries per a implementar els repositoris de les classes del model. Per tant, hi ha un repositori per a cada classe del model. Veureu que a aquestes interfÃ­cies els falta encara codi per a poder utilitzar els repositoris corresponents i tenir implementats tots els mÃ¨todes que utilitzen les classes del paquet eac3.dao.Cal que completeu totes les interfÃ­cies del paquet perquÃ¨ les classes del paquet eac3.dao puguin utilitzar-les com a repositoris, excepte la classe EstacioRepository, que sâ€™ha deixat a tall dâ€™exemple.
+Paquet eac3.model: ContÃ© les classes del model els objectes de les quals cal fer persistents. El seu codi no estÃ  complet. Cal que completeu el codi de les classes del paquet eac3.model amb anotacions deLombok. Cal que utilitzeu aquestes Ãºltimes sempre que us sigui possible i que nomÃ©s escriviu directament els constructors i mÃ¨todes quan no hi veieu alternativa.
+
+Cal distingir quan parlem d'Spring data JPA (part del marc de treball d'Spring que treballa amb les bases de dades utilitzant JPA), d'Spring data (part del marc de treball d'Spring que treballa amb la base de dades i que inclou totes les maneres disponibles de treballar amb la base de dades -per exemple, JPA o JDBC) o d'Spring (marc de treball sencer; usarem aquest mot "sense cognoms" per referir-nos a aquest marc de treball en general; inclou moltes mÃ©s parts com, per exemple, anotacions per a construir serveis web).
+
+
+Classes del model:
+
+
+
+
+
+
+
+Existeix una relaciÃ³ entre Estacio i Pistade1 a N i navegable en tots dos sentits. Sâ€™entÃ©n que una pista no pot estar en mÃ©s dâ€™una estaciÃ³ i no hi poden haver pistes que no estiguin en cap estaciÃ³.
+
+La biblioteca permetrÃ ,una vegada implementada, altes, consultes, baixes i modificacions deles entitatsEstacio i Pista:
+Inserir:
+UnaestaciÃ³
+Unapista a una estaciÃ³. AixÃ² implica actualitzar el percentatge de pistes obertes de lâ€™estaciÃ³.
+Eliminar:
+Una estaciÃ³ i totes les seves pistes
+Unapista. AixÃ² implica actualitzar el percentatge de pistes obertes de lâ€™estaciÃ³.
+Consultar:
+Totes les estacions
+Lespistes alpines dâ€™una estaciÃ³ segons el seu color
+Les pistes nÃ²rdiques segons si la neu Ã©s trepitjada o no
+Els itineraris de raquetes amb un tempsEstimat menor o igual que un de determinat
+Modificar:
+Actualitzarel gruix de neudâ€™una pista indicant un increment com a parÃ metre.
+Actualitzar lâ€™atribut obert dâ€™una pista.AixÃ² implica actualitzar el percentatge de pistes obertes de lâ€™estaciÃ³.
+
+
+Ordre recomanat dâ€™implementaciÃ³:
+Crear la base de dades anomenada spring2526s2. L'usuariioc, que tÃ© la contrasenyaioc. haurÃ  de tenir prou permisos sobre la mateixa.
+Completar les classes del paquet eac3.model.
+Completar els repositoris amb les operacions per defecte de la interfÃ­cie JpaRepository(aixÃ², sobretot, significa posar-hi les anotacions d'Spring dataJPAnecessÃ ries).
+Completar les classes del paquet eac3.dao.
+
+
+Important. Coses a tenir en compte:
+No heu de variar el fitxer application.properties (Ã©s a la carpeta src/main/resources).
+A les classes del model: com, grÃ cies a Lombok, no declarareu explÃ­citament els setters, les anotacions de JPA, com haureu vist, van directament a les dades declarades dins de les classes.
+A les subclasses, lâ€™anotaciÃ³ de Lombok@AllArgsConstructorno us funcionarÃ  bÃ© (no tÃ© en compte les dades i constructors de la superclasse). Per aixÃ², veureu que s'ha escrit explÃ­citament el constructor amb tots els parÃ metres a totes les subclasses. A les subclasses, per tant, no hi heu dâ€™utilitzar aquesta anotaciÃ³.
+Quan implementeu els repositoris de les subclasses del model, heu de tenir present que la seva clau Ã©s la mateixa que la de la seva classe mare.
+Als repositoris, si heu de definir un mÃ¨tode que faci actualitzacions, cal posar just a sobre de lâ€™anotaciÃ³ @Queryles segÃ¼ents (una en cada lÃ­nia): @Transactional i @Modifiying.
+No heu de modificar les anotacions JPA que us trobareu al codi.
+
+Per a provar la biblioteca, heu d'utilitzar la classe eac3.TestGestors, que trobareu a la "carpeta" Test Packages. Per a realitzar la prova directament, nomÃ©s heu de seleccionar l'opciÃ³ Test File del menÃº contextual que apareix en posar el ratolÃ­ a sobre de la classe TestGestors, a la pestanya Projects, al requadre superior esquerra de la pantalla. TambÃ© podeu utilitzar aquesta classe per a depurar el vostre programa seleccionant l'opciÃ³ Debug Test File(en lloc de l'anterior, Test File). Tot seguit teniu una imatge que mostra com s'ha de veure la classe abans d'activar el menÃº secundari:
+
+
+
+Com a resultat d'aquest exercici, heu de comprimir la carpetasrcen un fitxer anomenat exercici2.zip i afegir aquest fitxer al comprimit que contindrÃ  tot el lliurament d'aquest EAC.
+
+
+
+
+PuntuaciÃ³:
+Cada test passat correctament comptarÃ  0,55punts, ja quenâ€™hi ha escrits10 en total (alguns s'executen mÃ©s d'una vegada) i tots compten igual.
+
+Posar les mÃ ximes anotacionsLombokpossibles a les classes del paquet eac3.model, 0,5 punts.
+
+
+
+
+
+
+
+Els projectes que trobareu adjunts a aquest enunciat sÃ³n Maven. NetBeans els obre directament des de l'opciÃ³ File â†’ Open Project... (des d'aquesta opciÃ³ nomÃ©s cal seleccionar la carpeta principal del projecte). En aquesta carpeta trobareu, entre altres elements, el fitxer pom.xml. Aquest contÃ© l'especificaciÃ³ Maven de totes les biblioteques necessÃ ries per a usar JUnit5, PostgreSQL(en els dos) iEclipseLink(nomÃ©s al segon). Quan obriu el projecte amb Netbeans, trobareu les biblioteques de PostgresSQL i EclipseLink a la carpeta Dependencies en lâ€™arbre del projecte, i les biblioteques de JUnit5 a la carpeta TestDependencies.
+A tots els exercicis sâ€™inclou, a la carpeta test del comprimit, una classe, TestGestor que cal utilitzar per comprovar el funcionament correcte de la biblioteca tot utilitzant JUnit5. A lâ€™entorn NetBeans apareixerÃ  dins de TestPackages.
+
+Per a fer la prova de la biblioteca amb JUnit, nomÃ©s heu de seleccionar l'opciÃ³ Test File del menÃº contextual que es mostra en posar el ratolÃ­ a sobre de la classe TestGestor, que apareix dins del paquet gestors, aTestPackages. TambÃ© podeu utilitzar aquesta classe per a depurar el vostre programa seleccionant l'opciÃ³ Debug Test File (en lloc de lâ€™opciÃ³ Test File). A continuaciÃ³ teniu una imatge que mostra com s'ha de veure la classe abans d'activar el menÃº contextual:
+
+
+
+Restriccions per a tots dos exercicis:
+
+Cal elaborar la soluciÃ³ en Java, utilitzar l'entorn NetBeans i la base de dades PostgreSQL.
+No es pot utilitzar cap biblioteca no inclosa en aquestes eines i JUnit.
+
+

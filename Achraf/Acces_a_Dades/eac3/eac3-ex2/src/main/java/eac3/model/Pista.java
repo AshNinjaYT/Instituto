@@ -7,14 +7,18 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.util.Objects;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * Representa una pista d'esquí de la taula 'pistes' Conté informació sobre les
  * característiques físiques, condicions de neu i remuntadors
  */
 @Entity
-//TODO Posar les anotacions de Spring i/o Lombok
+@Data
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 
 public abstract class Pista {
@@ -31,6 +35,8 @@ public abstract class Pista {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn
+    @ToString.Exclude // Evita recursividad infinita por relación bidireccional
+    @EqualsAndHashCode.Exclude
     private Estacio estacio;
 
     // ==================== CONSTRUCTORS ====================
@@ -46,58 +52,5 @@ public abstract class Pista {
         this.iluminada = iluminada;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 53 * hash + Objects.hashCode(this.id);
-        hash = 53 * hash + Objects.hashCode(this.nom);
-        hash = 53 * hash + this.longitud;
-        hash = 53 * hash + (this.oberta ? 1 : 0);
-        hash = 53 * hash + this.desnivell;
-        hash = 53 * hash + this.gruixNeu;
-        hash = 53 * hash + Objects.hashCode(this.qualitatNeu);
-        hash = 53 * hash + (this.iluminada ? 1 : 0);
-        hash = 53 * hash + Objects.hashCode(this.estacio);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Pista other = (Pista) obj;
-        if (this.longitud != other.longitud) {
-            return false;
-        }
-        if (this.oberta != other.oberta) {
-            return false;
-        }
-        if (this.desnivell != other.desnivell) {
-            return false;
-        }
-        if (this.gruixNeu != other.gruixNeu) {
-            return false;
-        }
-        if (this.iluminada != other.iluminada) {
-            return false;
-        }
-        if (!Objects.equals(this.id, other.id)) {
-            return false;
-        }
-        if (!Objects.equals(this.nom, other.nom)) {
-            return false;
-        }
-        if (!Objects.equals(this.qualitatNeu, other.qualitatNeu)) {
-            return false;
-        }
-        return Objects.equals(this.estacio.getId(), other.estacio.getId());
-    }
 
 }

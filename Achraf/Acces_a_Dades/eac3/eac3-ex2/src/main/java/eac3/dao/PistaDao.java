@@ -12,23 +12,25 @@ import eac3.repository.PistaRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 /**
  * Component DAO per manegar els objectes de la classe Pista la base de dades
+ * Data Access Object for Pista entity management in the database.
  *
  * @author professor
  */
-
-//TODO Posar les anotacions de Spring i/o Lombok
+@Repository
 public class PistaDao {
 
+    @Autowired
     private PistaRepository pistaRepository;
 
+    @Autowired
     private EstacioRepository estacioRepository;
 
     /**
-     * Insereix una pista
-     *
-     * @param pista una pista
      * @throws GestorExcepcio si la pista ja existeix
      */
     public void inserir(Pista pista) throws GestorExcepcio {
@@ -52,8 +54,7 @@ public class PistaDao {
             Estacio estacio = pista.getEstacio();
             estacio.getPistes().remove(pista);
             estacioRepository.save(estacio);
-
-            //TODO Posar les instruccions que falten
+            pistaRepository.delete(pista);
         } else {
             throw new GestorExcepcio("La pista no existeix");
         }
@@ -105,6 +106,7 @@ public class PistaDao {
     public void setObertura(String idPista, Boolean obertura) throws GestorExcepcio {
         Pista pista = pistaRepository.findById(idPista).orElse(null);
         if (pista != null) {
+            // Sincronización de estado y recálculo de consistencia
             Estacio estacio = pista.getEstacio();
             pista.setOberta(obertura);
             estacio.calcularPercentatgeObertura();
@@ -125,12 +127,17 @@ public class PistaDao {
      */
     @Transactional
     public void esborra(String idPista) throws GestorExcepcio {
-        Pista pista = pistaRepository.findById(idPista).orElse(null);
-        if (pista != null) {
-            pista.getEstacio().getPistes().remove(pista);
-            estacioRepository.save(pista.getEstacio());
-            //TODO Posar les instruccions que falten
-
+        Pista p = pistaRepository.findById(idPista).orElse(null);
+        if (p != null) {
+            // Desvinculación de la entidad para mantener integridad referencial
+            Estacio estacio = p.getEstacio();
+            if (estacio != null) {
+                estacio.getPistes().remove(p);
+                estacio.calcularPercentatgeObertura();
+                estacioRepository.save(estacio);
+            }
+            // Y ahora sí, borramos la pista de la BD
+            pistaRepository.delete(p);
         } else {
             throw new GestorExcepcio("La pista no existeix");
         }

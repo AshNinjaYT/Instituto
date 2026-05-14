@@ -8,16 +8,19 @@ import eac3.model.ItinerariRaquetes;
 import java.util.List;
 import eac3.repository.ItinerariRaquetesRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 /**
  * Component DAO per manegar els objectes de la classe ItinerariRaquetes a la
  * base de dades
  *
  * @author professor
  */
-
-//TODO Posar les anotacions de Spring i/o Lombok
+@Repository
 public class ItinerariRaquetesDao {
-    
+
+    @Autowired
     private ItinerariRaquetesRepository itinerariRaquetesRepository;
 
     /**

@@ -7,7 +7,7 @@ package eac3.dao;
 import eac3.model.PistaNordica;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import eac3.repository.PistaNordicaRepository;
 
 /**
@@ -16,7 +16,7 @@ import eac3.repository.PistaNordicaRepository;
  *
  * @author professor
  */
-@Component
+@Repository
 public class PistaNordicaDao {
 
     @Autowired

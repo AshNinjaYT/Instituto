@@ -17,9 +17,7 @@ import eac3.model.ItinerariRaquetes;
 import eac3.model.Pista;
 import eac3.model.PistaAlpina;
 import eac3.model.PistaNordica;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -30,7 +28,6 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest(classes = {eac3.MainClass.class})
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)

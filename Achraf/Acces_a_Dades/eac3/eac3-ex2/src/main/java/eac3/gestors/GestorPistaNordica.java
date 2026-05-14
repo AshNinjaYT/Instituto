@@ -4,14 +4,19 @@ import eac3.dao.PistaNordicaDao;
 import eac3.model.PistaNordica;
 import java.util.List;
 
-/**
- * Gestor CRUD per a l'entitat PistaNordica.
- */
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-//TODO Posar les anotacions de Spring i/o Lombok
+/**
+ * Component gestor per manegar les pistes nòrdiques
+ *
+ * @author professor
+ */
+@Service
 public class GestorPistaNordica {
 
-    PistaNordicaDao pistaNordicaDao;
+    @Autowired
+    private PistaNordicaDao pistaNordicaDao;
 
     /**
      * Recupera les pistes nòrdiques filtrades segons si són trepitjades.

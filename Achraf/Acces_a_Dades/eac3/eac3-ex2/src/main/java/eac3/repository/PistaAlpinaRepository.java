@@ -9,13 +9,15 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * Repositori per manegar els objectes de la classe PistaAlpina a la base de
  * dades
  *
  * @author professor
  */
-//TODO Posar les anotacions de Spring i/o Lombok
+@Repository
 public interface PistaAlpinaRepository extends JpaRepository<PistaAlpina, String> {
 
     /**
