@@ -5,19 +5,18 @@ import java.util.List;
 
 import eac3.model.ItinerariRaquetes;
 
-import org.springframework.beans.factory.annotation.Autowired;
+/**
+ * Gestor CRUD per a l'entitat ItinerariRaquetes.
+ */
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * Component gestor per manegar els itineraris de raquetes
- *
- * @author professor
- */
 @Service
+@RequiredArgsConstructor
 public class GestorItinerariRaquetes {
 
-    @Autowired
-    private ItinerariRaquetesDao itinerariRaquetesDao;
+    private final ItinerariRaquetesDao itinerariRaquetesDao;
 
     /**
      * Recupera els itineraris de raquetes amb un temps estimat menor o igual al

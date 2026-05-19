@@ -12,25 +12,27 @@ import eac3.repository.PistaRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 /**
  * Component DAO per manegar els objectes de la classe Pista la base de dades
- * Data Access Object for Pista entity management in the database.
  *
  * @author professor
  */
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
 @Repository
+@RequiredArgsConstructor
 public class PistaDao {
 
-    @Autowired
-    private PistaRepository pistaRepository;
+    private final PistaRepository pistaRepository;
 
-    @Autowired
-    private EstacioRepository estacioRepository;
+    private final EstacioRepository estacioRepository;
 
     /**
+     * Insereix una pista
+     *
+     * @param pista una pista
      * @throws GestorExcepcio si la pista ja existeix
      */
     public void inserir(Pista pista) throws GestorExcepcio {
@@ -48,13 +50,16 @@ public class PistaDao {
      * @param idPista de la pista
      * @throws GestorExcepcio si la pista no existeix
      */
+    @Transactional
     public void delete(String idPista) throws GestorExcepcio {
         Pista pista = pistaRepository.findById(idPista).orElse(null);
         if (pista != null) {
             Estacio estacio = pista.getEstacio();
             estacio.getPistes().remove(pista);
-            estacioRepository.save(estacio);
+            estacio.calcularPercentatgeObertura();
+            
             pistaRepository.delete(pista);
+            estacioRepository.save(estacio);
         } else {
             throw new GestorExcepcio("La pista no existeix");
         }
@@ -106,7 +111,6 @@ public class PistaDao {
     public void setObertura(String idPista, Boolean obertura) throws GestorExcepcio {
         Pista pista = pistaRepository.findById(idPista).orElse(null);
         if (pista != null) {
-            // Sincronización de estado y recálculo de consistencia
             Estacio estacio = pista.getEstacio();
             pista.setOberta(obertura);
             estacio.calcularPercentatgeObertura();
@@ -127,17 +131,15 @@ public class PistaDao {
      */
     @Transactional
     public void esborra(String idPista) throws GestorExcepcio {
-        Pista p = pistaRepository.findById(idPista).orElse(null);
-        if (p != null) {
-            // Desvinculación de la entidad para mantener integridad referencial
-            Estacio estacio = p.getEstacio();
-            if (estacio != null) {
-                estacio.getPistes().remove(p);
-                estacio.calcularPercentatgeObertura();
-                estacioRepository.save(estacio);
-            }
-            // Y ahora sí, borramos la pista de la BD
-            pistaRepository.delete(p);
+        Pista pista = pistaRepository.findById(idPista).orElse(null);
+        if (pista != null) {
+            Estacio estacio = pista.getEstacio();
+            estacio.getPistes().remove(pista);
+            estacio.calcularPercentatgeObertura();
+            
+            pistaRepository.delete(pista);
+            estacioRepository.save(estacio);
+
         } else {
             throw new GestorExcepcio("La pista no existeix");
         }

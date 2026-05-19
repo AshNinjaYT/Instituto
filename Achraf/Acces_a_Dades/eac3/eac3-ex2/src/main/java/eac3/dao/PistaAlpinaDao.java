@@ -11,23 +11,23 @@ import eac3.repository.EstacioRepository;
 import eac3.repository.PistaAlpinaRepository;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 /**
  * Component DAO per manegar els objectes de la classe PistaAlpina a la base de
  * dades
  *
  * @author professor
  */
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
 @Repository
+@RequiredArgsConstructor
 public class PistaAlpinaDao {
 
-    @Autowired
-    private PistaAlpinaRepository pistaAlpinaRepository;
+    private final PistaAlpinaRepository pistaAlpinaRepository;
 
-    @Autowired
-    private EstacioRepository estacioRepository;
+    private final EstacioRepository estacioRepository;
 
     /**
      * Consulta totes les pistes alpines

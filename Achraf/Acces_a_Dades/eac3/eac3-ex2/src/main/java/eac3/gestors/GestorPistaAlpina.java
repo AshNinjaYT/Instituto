@@ -3,19 +3,15 @@ package eac3.gestors;
 import eac3.dao.PistaAlpinaDao;
 import eac3.model.PistaAlpina;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-/**
- * Component gestor per manegar les pistes alpines
- *
- * @author professor
- */
 @Service
+@RequiredArgsConstructor
 public class GestorPistaAlpina {
 
-    @Autowired
-    private PistaAlpinaDao pistaAlpinaDao;
+    private final PistaAlpinaDao pistaAlpinaDao;
 
     /**
      * Obté les pistes alpines d'una estació filtrades per color.

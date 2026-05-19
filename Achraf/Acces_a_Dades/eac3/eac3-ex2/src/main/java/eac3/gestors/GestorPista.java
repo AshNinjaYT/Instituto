@@ -8,21 +8,21 @@ import eac3.dao.EstacioDao;
 import eac3.dao.PistaDao;
 import eac3.model.Pista;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 /**
  *
  * @author professor
  */
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 @Service
+@RequiredArgsConstructor
 public class GestorPista {
 
-    @Autowired
-    private PistaDao pistaDao;
+    private final PistaDao pistaDao;
 
-    @Autowired
-    private EstacioDao estacioDao;
+    private final EstacioDao estacioDao;
 
     /**
      * Afegeix una pista a una estació existent.

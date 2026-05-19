@@ -12,23 +12,23 @@ import eac3.repository.PistaRepository;
 import jakarta.transaction.Transactional;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-
 /**
  * Component DAO per manegar els objectes de la classe Estacio a la base de
  * dades
  *
  * @author professor
  */
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
 @Repository
+@RequiredArgsConstructor
 public class EstacioDao {
+    
+    private final EstacioRepository estacioRepository;
 
-    @Autowired
-    private EstacioRepository estacioRepository;
-
-    @Autowired
-    private PistaRepository pistaRepository;
+    private final PistaRepository pistaRepository;
 
     /**
      * Elimina totes les estacions de la base de dades
@@ -83,7 +83,7 @@ public class EstacioDao {
      * @throws GestorExcepcio
      */
     public Estacio findById(String idEstacio) throws GestorExcepcio {
-        return estacioRepository.findById(idEstacio).orElseThrow(() -> new GestorExcepcio(""));
+        return estacioRepository.findById(idEstacio).orElseThrow(() -> new GestorExcepcio("L'estació no existeix"));
     }
 
     /**
@@ -96,18 +96,17 @@ public class EstacioDao {
      */
     @Transactional
     public void addPista(String idEstacio, Pista pista) throws GestorExcepcio {
-        // Validación de existencia de la entidad base
         Estacio estacio = estacioRepository.findById(idEstacio).orElse(null);
+
         if (estacio == null) {
-            throw new GestorExcepcio("No existe la estación con ID: " + idEstacio);
+            throw new GestorExcepcio("L'estació amb id " + idEstacio + " no existeix");
         }
 
         if (estacio.getPistes().contains(pista)) {
             throw new GestorExcepcio("La pista amb id " + pista.getId() + " ja és a l'estació" + idEstacio);
         }
 
-        // Sincronización de la relación y actualización de estadísticas
-        pistaRepository.save(pista);
+        pista.setEstacio(estacio);
         estacio.getPistes().add(pista);
         estacio.calcularPercentatgeObertura();
 
@@ -122,6 +121,7 @@ public class EstacioDao {
      * @throws GestorExcepcio si la pista o estació no existeixen, o la pista no
      * és a l'estació
      */
+    @Transactional
     public void removePista(String idEstacio, String idPista) throws GestorExcepcio {
         Estacio estacio = estacioRepository.findById(idEstacio).orElse(null);
         Pista pista = pistaRepository.findById(idPista).orElse(null);
@@ -136,10 +136,7 @@ public class EstacioDao {
             throw new GestorExcepcio("La pista amb codi " + idPista + " no és a l'estació " + idEstacio);
         }
 
-        // Actualización de consistencia tras eliminación
-        estacio.getPistes().remove(pista);
         estacio.calcularPercentatgeObertura();
-
         pistaRepository.delete(pista);
         estacioRepository.save(estacio);
 

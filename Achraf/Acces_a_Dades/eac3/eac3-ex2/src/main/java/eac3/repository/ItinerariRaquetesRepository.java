@@ -9,13 +9,13 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
-
 /**
  *
  * @author professor
  */
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
 @Repository
 public interface ItinerariRaquetesRepository extends JpaRepository<ItinerariRaquetes, String> {
 
@@ -25,6 +25,6 @@ public interface ItinerariRaquetesRepository extends JpaRepository<ItinerariRaqu
      * @param tempsEstimat temps estimat màxim
      * @return la llista d'itineraris de raquetes
      */
-    @Query("SELECT i FROM ItinerariRaquetes i WHERE i.tempsEstimat <= :tempsEstimat") // Consulta personalizada para soportar el operador <=
+    @Query("SELECT i FROM ItinerariRaquetes i WHERE i.tempsEstimat <= :tempsEstimat")
     public List<ItinerariRaquetes> getByTempsEstimat(@Param("tempsEstimat") int tempsEstimat);
 }

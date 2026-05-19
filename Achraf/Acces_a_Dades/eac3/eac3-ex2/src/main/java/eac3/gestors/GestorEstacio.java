@@ -5,20 +5,20 @@ import eac3.dao.PistaDao;
 import eac3.model.Estacio;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 /**
  * Gestor CRUD per a l'entitat Estacio.
  */
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 @Service
+@RequiredArgsConstructor
 public class GestorEstacio {
 
-    @Autowired
-    private EstacioDao estacioDao;
+    private final EstacioDao estacioDao;
 
-    @Autowired
-    private PistaDao pistaDao;
+    private final PistaDao pistaDao;
 
     /**
      * Afegeix una estació a la base de dades.

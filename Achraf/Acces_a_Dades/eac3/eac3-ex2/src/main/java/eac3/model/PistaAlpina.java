@@ -1,14 +1,15 @@
 package eac3.model;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.Entity;
+import java.util.Objects;
+
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)
 public class PistaAlpina extends Pista {
 
     private String color;
@@ -22,5 +23,35 @@ public class PistaAlpina extends Pista {
         this.pendentMax = pendentMax;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Objects.hashCode(this.color);
+        hash = 89 * hash + this.pendentMax;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        if (!super.equals(obj)) {
+            return false;
+        }
+
+        final PistaAlpina other = (PistaAlpina) obj;
+        if (this.pendentMax != other.pendentMax) {
+            return false;
+        }
+        return Objects.equals(this.color, other.color);
+    }
 
 }

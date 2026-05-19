@@ -7,14 +7,14 @@ package eac3.repository;
 import eac3.model.Pista;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.stereotype.Repository;
-
 /**
  * Repository per manegar els objectes de la classe Track que son a la base de
  * dades
  *
  * @author professor
  */
+import org.springframework.stereotype.Repository;
+
 @Repository
 public interface PistaRepository extends JpaRepository<Pista, String> {
 
