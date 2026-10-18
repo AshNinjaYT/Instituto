@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador PAF - Acceso a Datos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .simulator-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        @media (max-width: 992px) {
+            .simulator-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        .timer-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(99, 102, 241, 0.05) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            position: sticky;
+            top: 2rem;
+            text-align: center;
+        }
+        .timer-display {
+            font-size: 3rem;
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            color: #fca5a5;
+            margin: 1rem 0;
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+        }
+        .tracker-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tracker-dot {
+            width: 100%;
+            padding: 0.5rem 0;
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .tracker-dot.active {
+            border-color: var(--primary);
+            color: white;
+            background-color: var(--primary-light);
+        }
+        .tracker-dot.answered {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #34d399;
+        }
+        .sim-question-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            transition: border-color 0.3s ease;
+        }
+        .sim-question-card.active-focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.1);
+        }
+        .sim-question-num {
+            display: inline-block;
+            background-color: var(--primary-light);
+            color: #a5b4fc;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+        .sim-question-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 1.25rem;
+        }
+        .sim-options-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .sim-option-item {
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            background-color: rgba(255, 255, 255, 0.01);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .sim-option-item:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+        .sim-option-item.selected {
+            border-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+        .sim-option-item.selected .option-radio {
+            border-color: var(--primary);
+            background-color: var(--primary);
+        }
+        .sim-option-item.selected .option-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        .practical-textarea {
+            width: 100%;
+            min-height: 180px;
+            background-color: #111827;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+            outline: none;
+            transition: border-color 0.25s;
+        }
+        .practical-textarea:focus {
+            border-color: var(--primary);
+        }
+        .history-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 0.9rem;
+        }
+        .history-item:last-child {
+            border-bottom: none;
+        }
+        .sim-option-item.correct {
+            border-color: var(--success);
+            background-color: var(--success-light);
+        }
+        .sim-option-item.correct .option-radio {
+            border-color: var(--success);
+            background-color: var(--success);
+        }
+        .sim-option-item.incorrect {
+            border-color: var(--error);
+            background-color: var(--error-light);
+        }
+        .sim-option-item.incorrect .option-radio {
+            border-color: var(--error);
+            background-color: var(--error);
+        }
+        .criterio-block {
+            background-color: rgba(99, 102, 241, 0.04);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        .self-eval-container {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+        .btn-eval {
+            flex: 1;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-eval:hover {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        .btn-eval.selected-correct {
+            background-color: var(--success-light);
+            border-color: var(--success);
+            color: #34d399;
+        }
+        .btn-eval.selected-half {
+            background-color: rgba(245, 158, 11, 0.15);
+            border-color: var(--warning);
+            color: #fbbf24;
+        }
+        .btn-eval.selected-incorrect {
+            background-color: var(--error-light);
+            border-color: var(--error);
+            color: #f87171;
+        }
+    </style>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">AD</div>
+                <div class="logo-text">Acceso a Datos</div>
+            </div>
+            
+            <nav>
+                <div class="nav-section-title">General</div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link"><span class="nav-link-icon">📊</span> Dashboard</a></li>
+                </ul>
+                
+                <div class="nav-section-title">Módulos de Teoría</div>
+                <ul class="nav-links">
+                    <li><a href="modulo1.html" class="nav-link"><span class="nav-link-icon">📁</span> M1: Ficheros (UF1)</a></li>
+                    <li><a href="modulo2.html" class="nav-link"><span class="nav-link-icon">🔌</span> M2: JDBC / Postgres</a></li>
+                    <li><a href="modulo3.html" class="nav-link"><span class="nav-link-icon">🏛️</span> M3: JPA / Objetos</a></li>
+                    <li><a href="modulo4.html" class="nav-link"><span class="nav-link-icon">🍃</span> M4: BaseX / Spring</a></li>
+                </ul>
+
+                <div class="nav-section-title">Evaluación</div>
+                <ul class="nav-links">
+                    <li><a href="simulador.html" class="nav-link active"><span class="nav-link-icon">⏱️</span> PAF Simulator</a></li>
+                </ul>
+            </nav>
+            
+            <div style="margin-top: auto; padding-top: 2rem;">
+                <div class="nav-section-title">Utilidades</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="resetAllProgress()" class="nav-link" style="color: var(--error);"><span class="nav-link-icon">🔄</span> Reiniciar Progreso</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="header-bar">
+                <div>
+                    <span class="badge">Simulación Oficial</span>
+                    <h1 class="title-large">Simulador de Examen PAF</h1>
+                    <p class="description-large">Pon a prueba tus conocimientos con un examen aleatorio de 10 preguntas tipo test y 2 casos de código prácticos con cronómetro.</p>
+                </div>
+            </header>
+
+            <!-- INITIAL MENU -->
+            <div id="setup-panel" class="theory-card">
+                <h3 style="color: white; font-size: 1.4rem; margin-bottom: 1rem;">Instrucciones del Simulador</h3>
+                <p>
+                    Este simulador genera una PAF personalizada con preguntas extraídas aleatoriamente de un banco oficial. El examen cuenta con las siguientes características:
+                </p>
+                <ul class="custom-list">
+                    <li><strong>10 preguntas teóricas tipo test</strong> (cada acierto suma 0.7 puntos, no restan fallos).</li>
+                    <li><strong>2 casos prácticos de desarrollo de código</strong> (evaluables mediante rúbrica interactiva hasta 1.5 puntos cada uno).</li>
+                    <li><strong>Cronómetro de 90 minutos</strong> (el examen se entregará automáticamente si el tiempo expira).</li>
+                    <li>El progreso se guarda en tu historial personal para medir tu curva de mejora.</li>
+                </ul>
+                
+                <div class="alert alert-warning" style="margin: 1.5rem 0;">
+                    <span class="alert-icon">💡</span>
+                    <div class="alert-content">
+                        <h4>Recomendación del Profesor</h4>
+                        <p style="margin-bottom: 0; font-size: 0.9rem;">
+                            Realiza la simulación sin ayuda de apuntes ni IDE externo. Esto te dará una estimación real de tus capacidades de cara al sábado.
+                        </p>
+                    </div>
+                </div>
+
+                <button id="btn-start-exam" class="btn-submit-quiz" style="width: 100%; text-align: center; font-size: 1.1rem; padding: 1.25rem;">🚀 Generar y Comenzar Examen</button>
+            </div>
+
+            <!-- EXAM INTERFACE (HIDDEN BY DEFAULT) -->
+            <div id="exam-panel" class="simulator-layout" style="display: none;">
+                <!-- Questions Container -->
+                <div id="questions-container">
+                    <!-- Questions will be injected here dynamically -->
+                </div>
+
+                <!-- Sticky Sidebar Status -->
+                <div>
+                    <div class="timer-card">
+                        <h4 style="color: white; margin-bottom: 0.25rem;">Tiempo Restante</h4>
+                        <div class="timer-display" id="timer-clock">90:00</div>
+                        <button id="btn-pause" class="btn-eval" style="margin-bottom: 1.5rem; width: 100%;">⏸️ Pausar</button>
+                        
+                        <h4 style="color: white; margin-bottom: 0.5rem; text-align: left;">Navegador</h4>
+                        <div class="tracker-grid" id="tracker-dots">
+                            <!-- Tracker dots will be injected here -->
+                        </div>
+
+                        <button id="btn-submit-exam" class="btn-submit-quiz" style="width: 100%; margin-top: 1.5rem; background-color: var(--success);">📥 Finalizar Examen</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RESULTS PANEL (HIDDEN BY DEFAULT) -->
+            <div id="results-panel" class="theory-card" style="display: none; background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.9) 100%);">
+                <div style="text-align: center; margin-bottom: 2rem;">
+                    <span class="badge" style="background-color: var(--primary-light); color: #a5b4fc;" id="results-grade-label">Resultado Final</span>
+                    <h2 style="font-size: 3.5rem; font-weight: 800; color: white;" id="results-grade-number">0.0 / 10</h2>
+                    <p class="description-large" style="margin: 0 auto 1.5rem auto;" id="results-feedback-comment">Buen intento. Sigue repasando los temas con fallos.</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button id="btn-new-simulation" class="btn-submit-quiz">🔄 Nueva Simulación</button>
+                        <button id="btn-show-revision" class="btn-eval" style="padding: 0.85rem 2rem; font-size: 1rem;">🔍 Revisar Respuestas Detalladas</button>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 2rem;">
+                    <div style="background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                        <h4 style="color: white; margin-bottom: 0.5rem;">Cuestionario Teórico</h4>
+                        <p style="font-size: 1.25rem; font-weight: 600; color: var(--success);" id="results-theory-score">0 / 7 Puntos</p>
+                        <p style="font-size: 0.85rem; margin-bottom: 0;" id="results-theory-details">Preguntas correctas: 0 de 10.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.02); padding: 1.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                        <h4 style="color: white; margin-bottom: 0.5rem;">Desarrollo Práctico</h4>
+                        <p style="font-size: 1.25rem; font-weight: 600; color: var(--warning);" id="results-practical-score">0 / 3 Puntos</p>
+                        <p style="font-size: 0.85rem; margin-bottom: 0;">Evaluado individualmente con el solucionario oficial.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HISTORIAL CARD -->
+            <div id="history-panel" class="history-card">
+                <h3 style="color: white; font-size: 1.15rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">⏱️ Historial de Simulación</h3>
+                <div id="history-list">
+                    <p style="font-size: 0.9rem; font-style: italic; color: var(--text-muted); margin-bottom: 0;">Aún no has completado ninguna simulación de examen. ¡Tu puntuación aparecerá aquí!</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- SCRIPT FOR SIMULATOR ENGINE -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // DATABASE OF MULTIPLE CHOICE QUESTIONS (32 questions)
+            const QUESTIONS_POOL = [
+                // MODULE 1: Ficheros (8 questions)
+                {
+                    module: 1,
+                    text: 'Si en un programa de consola intentas acceder a args[0] sin validar args.length, ¿qué excepción lanzará la JVM si no se proporcionan argumentos?',
+                    options: [
+                        { value: 'A', text: 'NullPointerException' },
+                        { value: 'B', text: 'ArrayIndexOutOfBoundsException' },
+                        { value: 'C', text: 'FileNotFoundException' },
+                        { value: 'D', text: 'IOException' }
+                    ],
+                    correct: 'B',
+                    explanation: 'El vector args almacena los argumentos pasados por consola. Acceder a cualquier índice sin comprobar args.length lanzará ArrayIndexOutOfBoundsException si está vacío.'
+                },
+                {
+                    module: 1,
+                    text: '¿Cuál es la función del método flush() en un flujo de escritura con buffer (BufferedWriter o BufferedOutputStream)?',
+                    options: [
+                        { value: 'A', text: 'Eliminar el contenido del fichero en el disco.' },
+                        { value: 'B', text: 'Cerrar la conexión del stream con el sistema operativo.' },
+                        { value: 'C', text: 'Forzar la escritura inmediata en el soporte físico de los bytes retenidos en la memoria intermedia.' },
+                        { value: 'D', text: 'Limpiar la memoria RAM y destruir el buffer.' }
+                    ],
+                    correct: 'C',
+                    explanation: 'flush() vuelca (escribe físicamente) los datos almacenados en el buffer intermedio en el flujo físico subyacente sin tener que cerrar el flujo.'
+                },
+                {
+                    module: 1,
+                    text: '¿Qué método de la clase java.io.File devuelve el tamaño de un archivo en bytes?',
+                    options: [
+                        { value: 'A', text: 'size()' },
+                        { value: 'B', text: 'length()' },
+                        { value: 'C', text: 'getFileSize()' },
+                        { value: 'D', text: 'capacity()' }
+                    ],
+                    correct: 'B',
+                    explanation: 'El método length() de la clase File devuelve un tipo long con el tamaño del fichero medido en Bytes.'
+                },
+                {
+                    module: 1,
+                    text: '¿Qué clase abstracta se utiliza como base para leer flujos de datos basados exclusivamente en caracteres (texto)?',
+                    options: [
+                        { value: 'A', text: 'InputStream' },
+                        { value: 'B', text: 'BufferedReader' },
+                        { value: 'C', text: 'Reader' },
+                        { value: 'D', text: 'FileReader' }
+                    ],
+                    correct: 'C',
+                    explanation: 'Reader es la clase abstracta raíz de Java para todos los flujos de lectura orientados a caracteres.'
+                },
+                {
+                    module: 1,
+                    text: '¿Qué anotación de JAXB permite cambiar el orden de generación de las propiedades de clase en el documento XML?',
+                    options: [
+                        { value: 'A', text: '@XmlRootElement' },
+                        { value: 'B', text: '@XmlType(propOrder = {...})' },
+                        { value: 'C', text: '@XmlElementWrapper' },
+                        { value: 'D', text: '@XmlAttribute' }
+                    ],
+                    correct: 'B',
+                    explanation: '@XmlType con el parámetro propOrder especifica el orden exacto en el que las propiedades miembro se serializan como elementos XML.'
+                },
+                {
+                    module: 1,
+                    text: 'En JAXB, si queremos mapear una propiedad a un atributo de la etiqueta raíz del nodo en lugar de a un tag hijo, ¿qué anotación usaremos?',
+                    options: [
+                        { value: 'A', text: '@XmlElement' },
+                        { value: 'B', text: '@XmlTransient' },
+                        { value: 'C', text: '@XmlAttribute' },
+                        { value: 'D', text: '@XmlElementWrapper' }
+                    ],
+                    correct: 'C',
+                    explanation: '@XmlAttribute mapea el atributo directamente dentro del tag inicial (ej. <estacio id="1">).'
+                },
+                {
+                    module: 1,
+                    text: 'En la librería Gson para JSON, ¿qué anotación permite declarar una denominación distinta para la clave JSON respecto al nombre de atributo en la clase Java?',
+                    options: [
+                        { value: 'A', text: '@SerializedName("clave")' },
+                        { value: 'B', text: '@JsonProperty("clave")' },
+                        { value: 'C', text: '@Alias("clave")' },
+                        { value: 'D', text: '@JsonField("clave")' }
+                    ],
+                    correct: 'A',
+                    explanation: 'La anotación @SerializedName de Gson sirve para enlazar campos de la clase Java con claves del documento JSON que tengan nombres distintos.'
+                },
+                {
+                    module: 1,
+                    text: '¿Qué interfaz funcional de Java se implementa para filtrar la lista de ficheros devueltos por carpetaOrigen.listFiles()?',
+                    options: [
+                        { value: 'A', text: 'FilenameFilter' },
+                        { value: 'B', text: 'Filter<File>' },
+                        { value: 'C', text: 'FileFilter' },
+                        { value: 'D', text: 'Predicate<File>' }
+                    ],
+                    correct: 'C',
+                    explanation: 'La interfaz FileFilter contiene el método accept(File pathname) y permite su paso directo al método listFiles(FileFilter).'
+                },
+
+                // MODULE 2: JDBC & Postgres (8 questions)
+                {
+                    module: 2,
+                    text: 'Al trabajar con PostgreSQL en Java, ¿cómo se crea y pasa un tipo array al PreparedStatement para evitar inyecciones?',
+                    options: [
+                        { value: 'A', text: 'Pasando un String formateado como {valor1, valor2}.' },
+                        { value: 'B', text: 'Utilizando connection.createArrayOf("tipo", arrayJava) y pasándolo con setArray().' },
+                        { value: 'C', text: 'Iterando en un bucle y añadiendo con addBatch().' },
+                        { value: 'D', text: 'No se puede, los arrays de base de datos solo se pueden rellenar escribiendo SQL directo.' }
+                    ],
+                    correct: 'B',
+                    explanation: 'El método createArrayOf(String typeName, Object[] elements) de Connection crea un objeto java.sql.Array seguro que se inyecta mediante setArray.'
+                },
+                {
+                    module: 2,
+                    text: '¿Qué operador de PostgreSQL permite buscar cómodamente si un valor coincide con cualquiera de los elementos almacenados en una columna tipo Array?',
+                    options: [
+                        { value: 'A', text: 'IN' },
+                        { value: 'B', text: 'ANY' },
+                        { value: 'C', text: 'CONTAINS' },
+                        { value: 'D', text: 'LIKE' }
+                    ],
+                    correct: 'B',
+                    explanation: 'El operador ANY permite comprobar coincidencia contra elementos de un array. Sintaxis: ? = ANY(nombre_columna_array).'
+                },
+                {
+                    module: 2,
+                    text: '¿Qué método debemos utilizar en el ResultSet para recuperar el array SQL y convertirlo en un array nativo de Java?',
+                    options: [
+                        { value: 'A', text: 'resultSet.getArray("columna").getArray()' },
+                        { value: 'B', text: 'resultSet.getStringArray("columna")' },
+                        { value: 'C', text: 'resultSet.getObject("columna") directamente' },
+                        { value: 'D', text: 'resultSet.getList("columna")' }
+                    ],
+                    correct: 'A',
+                    explanation: 'resultSet.getArray() obtiene un java.sql.Array. Sobre este objeto, llamar al método getArray() devuelve el array nativo de Java (ej: String[] o Object[]).'
+                },
+                {
+                    module: 2,
+                    text: '¿Cuál es la sintaxis correcta en PostgreSQL para insertar un registro con un tipo estructurado (ROW) definido por el usuario llamado "dades_tecniques"?',
+                    options: [
+                        { value: 'A', text: 'INSERT INTO tabla VALUES (?, ROW(?, ?)::dades_tecniques)' },
+                        { value: 'B', text: 'INSERT INTO tabla VALUES (?, (VAL1, VAL2))' },
+                        { value: 'C', text: 'INSERT INTO tabla VALUES (?, new dades_tecniques(?, ?))' },
+                        { value: 'D', text: 'INSERT INTO tabla VALUES (?, ROW(?, ?)) sin castear' }
+                    ],
+                    correct: 'A',
+                    explanation: 'El motor de PostgreSQL exige instanciar el tipo ROW indicando los campos y forzando el casting explícito a su tipo mediante ::nombre_tipo.'
+                },
+                {
+                    module: 2,
+                    text: 'Si creas una tabla en PostgreSQL mediante la query CREATE TABLE "Estacio" con mayúsculas y comillas dobles, ¿cómo debes hacer la select en JDBC?',
+                    options: [
+                        { value: 'A', text: 'SELECT * FROM estacio (en minúsculas)' },
+                        { value: 'B', text: 'SELECT * FROM "Estacio" (con comillas dobles explícitas escapadas)' },
+                        { value: 'C', text: 'PostgreSQL es insensible a mayúsculas, por lo que sirve cualquier forma' },
+                        { value: 'D', text: 'SELECT * FROM ESTACIO' }
+                    ],
+                    correct: 'B',
+                    explanation: 'Las comillas dobles en CREATE TABLE definen un identificador sensible a mayúsculas estrictas. Si no se usan comillas dobles, PostgreSQL reduce todo a minúsculas por defecto.'
+                },
+                {
+                    module: 2,
+                    text: '¿Qué interfaz de JDBC proporciona protección automática contra ataques de inyección SQL mediante la precompilación de la sentencia?',
+                    options: [
+                        { value: 'A', text: 'Statement' },
+                        { value: 'B', text: 'CallableStatement' },
+                        { value: 'C', text: 'PreparedStatement' },
+                        { value: 'D', text: 'SecureStatement' }
+                    ],
+                    correct: 'C',
+                    explanation: 'PreparedStatement precompila la estructura SQL y trata los parámetros insertados mediante comodines (?) como datos puros, impidiendo la inyección.'
+                },
+                {
+                    module: 2,
+                    text: '¿Cuál es la diferencia de ejecución entre executeQuery() y executeUpdate() en JDBC?',
+                    options: [
+                        { value: 'A', text: 'No hay diferencia, son alias del mismo método.' },
+                        { value: 'B', text: 'executeQuery() devuelve un entero y executeUpdate() un ResultSet.' },
+                        { value: 'C', text: 'executeQuery() se utiliza para sentencias SELECT (lectura) y devuelve un ResultSet, mientras que executeUpdate() es para INSERT/UPDATE/DELETE y devuelve el número de filas afectadas.' },
+                        { value: 'D', text: 'executeUpdate() se ejecuta de manera asíncrona.' }
+                    ],
+                    correct: 'C',
+                    explanation: 'Las consultas SELECT requieren ResultSet (lectura con executeQuery), mientras que la manipulación de datos (DML) devuelve un contador de registros modificados (executeUpdate).'
+                },
+                {
+                    module: 2,
+                    text: '¿Qué método abre una conexión física con la base de datos a partir de una URL de conexión, usuario y contraseña?',
+                    options: [
+                        { value: 'A', text: 'DriverManager.getConnection(url, user, password)' },
+                        { value: 'B', text: 'new Connection(url)' },
+                        { value: 'C', text: 'Database.open(url, user, password)' },
+                        { value: 'D', text: 'Connection.connect(url)' }
+                    ],
+                    correct: 'A',
+                    explanation: 'La clase estática DriverManager de JDBC utiliza getConnection() para instanciar el driver correspondiente y abrir la sesión física con la BD.'
+                },
+
+                // MODULE 3: JPA / ObjectDB (8 questions)
+                {
+                    module: 3,
+                    text: '¿Cuál de los siguientes NO es un requisito obligatorio para que una clase Java sea considerada una Entidad persistente de JPA?',
+                    options: [
+                        { value: 'A', text: 'Estar anotada con @Entity.' },
+                        { value: 'B', text: 'Implementar obligatoriamente la interfaz java.io.Serializable.' },
+                        { value: 'C', text: 'Disponer de un constructor público o protegido sin parámetros.' },
+                        { value: 'D', text: 'Tener todos sus métodos getter y setter anotados con @Persistent.' }
+                    ],
+                    correct: 'D',
+                    explanation: 'Los getters y setters no requieren anotaciones especiales. JPA exige obligatoriamente @Entity, constructor vacío y Serializable.'
+                },
+                {
+                    module: 3,
+                    text: 'En una relación 1 a N bidireccional mapeada con JPA, ¿en qué extremo se debe declarar el parámetro "mappedBy"?',
+                    options: [
+                        { value: 'A', text: 'En el lado N (muchos), acompañando a @ManyToOne.' },
+                        { value: 'B', text: 'En el lado 1 (padre), acompañando a @OneToMany.' },
+                        { value: 'C', text: 'Es indiferente, se puede poner en cualquiera de los dos lados.' },
+                        { value: 'D', text: 'Se debe poner obligatoriamente en ambos extremos de la relación.' }
+                    ],
+                    correct: 'B',
+                    explanation: 'mappedBy declara el lado no dominante de la relación y se coloca en la colección del lado "1" (@OneToMany), apuntando al atributo del extremo ManyToOne.'
+                },
+                {
+                    module: 3,
+                    text: '¿Qué método del EntityManager de JPA actualiza un objeto en base de datos si ya existe, y si no existe, lo inserta/crea automáticamente ("upsert")?',
+                    options: [
+                        { value: 'A', text: 'persist(objeto)' },
+                        { value: 'B', text: 'saveOrUpdate(objeto)' },
+                        { value: 'C', text: 'merge(objeto)' },
+                        { value: 'D', text: 'update(objeto)' }
+                    ],
+                    correct: 'C',
+                    explanation: 'El método merge() vincula un objeto detached al contexto de persistencia. Si su clave primaria no se encuentra en la base de datos, actúa guardando un nuevo registro.'
+                },
+                {
+                    module: 3,
+                    text: '¿Cuál es la URL de conexión correcta para configurar una conexión en modo Servidor en una base de datos orientada a objetos ObjectDB?',
+                    options: [
+                        { value: 'A', text: 'jdbc:objectdb://localhost:6136/basedades.odb' },
+                        { value: 'B', text: 'objectdb://localhost:6136/basedades.odb' },
+                        { value: 'C', text: 'objectdb:file:basedades.odb' },
+                        { value: 'D', text: 'db://localhost/basedades.odb' }
+                    ],
+                    correct: 'B',
+                    explanation: 'El formato de conexión de red de ObjectDB no es JDBC estándar, sino que empieza con el protocolo objectdb:// seguido de IP, puerto (6136 por defecto) y ruta de fichero.'
+                },
+                {
+                    module: 3,
+                    text: 'En JPA, ¿cuál es la diferencia principal entre persist() y find() respecto al control de transacciones?',
+                    options: [
+                        { value: 'A', text: 'Ambos métodos requieren obligatoriamente transacciones abiertas.' },
+                        { value: 'B', text: 'find() requiere transacción, pero persist() no.' },
+                        { value: 'C', text: 'persist() requiere ejecutarse bajo una transacción activa porque modifica el estado físico de la BD, mientras que find() es una lectura de consulta que no la necesita.' },
+                        { value: 'D', text: 'Ninguno de los dos requiere transacciones.' }
+                    ],
+                    correct: 'C',
+                    explanation: 'Las lecturas con find() no precisan abrir transacciones. Las modificaciones (persist, remove, merge) causarán una excepción TransactionRequiredException si no están envueltas en un begin/commit.'
+                },
+                {
+                    module: 3,
+                    text: 'Al mapear una relación bidireccional @OneToOne en JPA, ¿qué valor se debe indicar en la propiedad "mappedBy" del extremo no dominante?',
+                    options: [
+                        { value: 'A', text: 'El nombre de la columna física de clave ajena en la base de datos.' },
+                        { value: 'B', text: 'El nombre del atributo/propiedad Java de la clase dominante.' },
+                        { value: 'C', text: 'El nombre físico de la tabla asociada.' },
+                        { value: 'D', text: 'El tipo de datos de la clase dominante.' }
+                    ],
+                    correct: 'B',
+                    explanation: 'El valor de mappedBy siempre hace referencia al nombre del campo (variable de instancia) declarado en la entidad asociada de Java, no de la BD.'
+                },
+                {
+                    module: 3,
+                    text: '¿Contra qué elementos se escriben las consultas en el lenguaje JPQL?',
+                    options: [
+                        { value: 'A', text: 'Tablas físicas y columnas de la base de datos relacional.' },
+                        { value: 'B', text: 'Archivos XML de configuración persistentes.' },
+                        { value: 'C', text: 'Clases Java (Entidades) y sus atributos/propiedades.' },
+                        { value: 'D', text: 'Punteros de memoria RAM.' }
+                    ],
+                    correct: 'C',
+                    explanation: 'JPQL es un lenguaje orientado a objetos. Traduce las consultas dirigidas a clases e instancias de Java a sentencias de bases de datos de forma transparente.'
+                },
+                {
+                    module: 3,
+                    text: '¿Cómo se borra de manera segura una entidad mediante remove(objeto) en JPA?',
+                    options: [
+                        { value: 'A', text: 'Instanciando un objeto vacío con el ID deseado y llamando a em.remove().' },
+                        { value: 'B', text: 'Primero se debe buscar y sincronizar el objeto usando em.find() para que esté gestionado, y luego pasar esa instancia a em.remove().' },
+                        { value: 'C', text: 'Llamando directamente a em.remove(id).' },
+                        { value: 'D', text: 'El borrado con JPA se realiza automáticamente sin necesidad de transacciones.' }
+                    ],
+                    correct: 'B',
+                    explanation: 'El EntityManager solo puede borrar objetos que estén en estado "managed" (gestionados). Por ello se busca previamente con find() y luego se llama a remove().'
+                },
+
+                // MODULE 4: BaseX / Spring / Lombok (8 questions)
+                {
+                    module: 4,
+                    text: '¿Qué puerto utiliza por defecto una base de datos documental XML nativa BaseX en su configuración estándar?',
+                    options: [
+                        { value: 'A', text: '5432' },
+                        { value: 'B', text: '1984' },
+                        { value: 'C', text: '6136' },
+                        { value: 'D', text: '8080' }
+                    ],
+                    correct: 'B',
+                    explanation: 'BaseX abre por defecto su servidor de peticiones en el puerto 1984.'
+                },
+                {
+                    module: 4,
+                    text: '¿Qué credenciales de administración por defecto se configuran al iniciar un servidor de bases de datos BaseX?',
+                    options: [
+                        { value: 'A', text: 'user: root, password: (vacío)' },
+                        { value: 'B', text: 'user: admin, password: admin' },
+                        { value: 'C', text: 'user: basex, password: basex' },
+                        { value: 'D', text: 'user: postgres, password: root' }
+                    ],
+                    correct: 'B',
+                    explanation: 'El usuario por defecto de BaseX es admin con la contraseña admin.'
+                },
+                {
+                    module: 4,
+                    text: 'Al declarar consultas personalizadas de modificación (DML, ej: UPDATE o DELETE) en una interfaz JpaRepository de Spring Data, ¿qué dos anotaciones debemos añadir obligatoriamente sobre el método?',
+                    options: [
+                        { value: 'A', text: '@Repository y @Autowired' },
+                        { value: 'B', text: '@Modifying y @Transactional' },
+                        { value: 'C', text: '@Query y @Param' },
+                        { value: 'D', text: '@Update y @Delete' }
+                    ],
+                    correct: 'B',
+                    explanation: 'Spring Data JPA necesita @Modifying para saber que altera el estado físico, y @Transactional para abrir el flujo y comprometer (commit) los cambios.'
+                },
+                {
+                    module: 4,
+                    text: '¿Cómo provoca la librería Lombok un desbordamiento de pila (StackOverflowError) en entidades JPA?',
+                    options: [
+                        { value: 'A', text: 'Al generar demasiados constructores sobrecargados.' },
+                        { value: 'B', text: 'Si se coloca @Data en dos clases asociadas bidireccionalmente, creando un bucle infinito al invocar mutuamente a sus métodos toString(), equals() o hashCode().' },
+                        { value: 'C', text: 'Al compilar campos estáticos en la clase.' },
+                        { value: 'D', text: 'Por incompatibilidad directa con los conectores JDBC.' }
+                    ],
+                    correct: 'B',
+                    explanation: '@Data autogenera toString(), equals() y hashCode(). Si el padre llama al hijo, y el hijo al padre, entran en una recursión infinita en tiempo de ejecución.'
+                },
+                {
+                    module: 4,
+                    text: '¿Cómo se soluciona el StackOverflowError provocado por Lombok en una relación bidireccional?',
+                    options: [
+                        { value: 'A', text: 'Eliminando la anotación @Entity.' },
+                        { value: 'B', text: 'Colocando @ToString.Exclude y @EqualsAndHashCode.Exclude en el campo de enlace del extremo hijo (ManyToOne).' },
+                        { value: 'C', text: 'No usando Lombok y escribiendo todos los getters manualmente.' },
+                        { value: 'D', text: 'Declarando los atributos como final.' }
+                    ],
+                    correct: 'B',
+                    explanation: 'Excluir la propiedad de enlace rompe la recursión de llamadas cruzadas en los métodos generados por Lombok.'
+                },
+                {
+                    module: 4,
+                    text: 'En Spring Boot, si intentas inyectar una clase de acceso a datos personalizada mediante @Autowired y falla indicando que "no es un tipo adecuado para la inyección automática", ¿cuál suele ser el motivo?',
+                    options: [
+                        { value: 'A', text: 'Falta registrar la clase en el contenedor de inversión de control (IoC) mediante una anotación como @Component, @Repository o @Service.' },
+                        { value: 'B', text: 'El puerto 8080 está ocupado por otro servicio.' },
+                        { value: 'C', text: 'La base de datos está desconectada.' },
+                        { value: 'D', text: 'La inyección con @Autowired solo funciona sobre interfaces de Spring Data JPA.' }
+                    ],
+                    correct: 'A',
+                    explanation: 'Spring Boot requiere registrar explícitamente los componentes de software en su contenedor IoC. Sin anotaciones como @Component o @Repository, la inyección automática fallará.'
+                },
+                {
+                    module: 4,
+                    text: '¿Qué tecnología se utiliza para la modificación física de nodos XML (inserciones, borrados, actualizaciones) en BaseX?',
+                    options: [
+                        { value: 'A', text: 'XUpdate' },
+                        { value: 'B', text: 'XQuery estándar' },
+                        { value: 'C', text: 'XQUF (XQuery Update Facility)' },
+                        { value: 'D', text: 'JAXB Marshaller' }
+                    ],
+                    correct: 'C',
+                    explanation: 'XQUF es la extensión que define comandos de actualización como "insert node" o "delete node" en almacenes XML.'
+                },
+                {
+                    module: 4,
+                    text: '¿Qué objeto de la API XQJ permite procesar la secuencia de nodos devueltos e iterar sobre ellos en Java?',
+                    options: [
+                        { value: 'A', text: 'XQExpression' },
+                        { value: 'B', text: 'XQResultSequence' },
+                        { value: 'C', text: 'ResultSet' },
+                        { value: 'D', text: 'XQItem' }
+                    ],
+                    correct: 'B',
+                    explanation: 'XQResultSequence contiene la lista de elementos XML resultantes de la ejecución y se recorre mediante el método next().'
+                }
+            ];
+
+            // BANCO DE CASOS PRÁCTICOS DE DESARROLLO (8 challenges)
+            const PRACTICAL_POOL = [
+                {
+                    id: 1,
+                    title: 'Caso Práctico 1: Filtro de Ficheros con Lambdas (M1)',
+                    description: 'Escribe un método en Java llamado <code>obtenerFicherosLogsGrandes(File directorio)</code> que devuelva un array de objetos <code>File</code>. El método debe utilizar un <code>FileFilter</code> definido mediante expresión lambda. El filtro debe cumplir las siguientes condiciones: \n1. No debe aceptar directorios.\n2. Solo debe aceptar archivos cuyo nombre termine con la extensión ".log".\n3. Solo debe aceptar archivos cuyo tamaño sea estrictamente superior a 2 Megabytes (2 * 1024 * 1024 bytes).',
+                    criteria: '• Uso correcto de FileFilter con expresión lambda (0.5 pt)\n• Exclusión correcta de directorios usando !archivo.isDirectory() (0.3 pt)\n• Validación de extensión .endsWith(".log") (0.3 pt)\n• Validación correcta del tamaño > 2097152 bytes (2MB) (0.4 pt)',
+                    solution: 'public File[] obtenerFicherosLogsGrandes(File directorio) {\n    FileFilter filtro = archivo -> {\n        if (archivo.isDirectory()) return false;\n        return archivo.getName().endsWith(".log") && archivo.length() > (2 * 1024 * 1024);\n    };\n    return directorio.listFiles(filtro);\n}'
+                },
+                {
+                    id: 2,
+                    title: 'Caso Práctico 2: Deserialización XML con JAXB (M1)',
+                    description: 'Implementa un método Java llamado <code>cargarEstacioDesdeXML(String rutaArchivo)</code> que lea un archivo XML ubicado en la ruta proporcionada y lo transforme en un objeto de la clase <code>Estacio</code> (que está correctamente anotada con JAXB). Controla las excepciones posibles imprimiendo la traza del error y devolviendo <code>null</code> en caso de fallo.',
+                    criteria: '• Creación correcta del JAXBContext.newInstance(Estacio.class) (0.5 pt)\n• Creación del Unmarshaller con createUnmarshaller() (0.4 pt)\n• Invocación del método unmarshal(new File(...)) y conversión de tipo (0.4 pt)\n• Control de JAXBException y retorno de null en catch (0.2 pt)',
+                    solution: 'public Estacio cargarEstacioDesdeXML(String rutaArchivo) {\n    try {\n        JAXBContext context = JAXBContext.newInstance(Estacio.class);\n        Unmarshaller unmarshaller = context.createUnmarshaller();\n        return (Estacio) unmarshaller.unmarshal(new File(rutaArchivo));\n    } catch (JAXBException e) {\n        e.printStackTrace();\n        return null;\n    }\n}'
+                },
+                {
+                    id: 3,
+                    title: 'Caso Práctico 3: Inserción de Arrays SQL en JDBC (M2)',
+                    description: 'Escribe un método Java llamado <code>insertarRemontesPista(Connection conn, String idPista, List&lt;String&gt; remontes)</code>. El método debe insertar o actualizar la lista de remontes de una pista en una tabla PostgreSQL. La columna de la base de datos se llama <code>remuntadors_acces</code> y es de tipo <code>varchar[]</code>. Recuerda utilizar <code>conn.createArrayOf</code> y un <code>PreparedStatement</code> seguro para evitar ataques.',
+                    criteria: '• Uso de PreparedStatement con parámetros "?" (0.4 pt)\n• Conversión correcta de List a Array de Java mediante remontes.toArray() (0.3 pt)\n• Creación del objeto sqlArray usando conn.createArrayOf("varchar", ...) (0.5 pt)\n• Invocación de setArray() y ejecución correcta de executeUpdate() (0.3 pt)',
+                    solution: 'public void insertarRemontesPista(Connection conn, String idPista, List<String> remontes) throws SQLException {\n    String sql = "UPDATE pista SET remuntadors_acces = ? WHERE id = ?";\n    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {\n        java.sql.Array sqlArray = conn.createArrayOf("varchar", remontes.toArray());\n        pstmt.setArray(1, sqlArray);\n        pstmt.setString(2, idPista);\n        pstmt.executeUpdate();\n    }\n}'
+                },
+                {
+                    id: 4,
+                    title: 'Caso Práctico 4: Consulta de Arrays en JDBC (M2)',
+                    description: 'Desarrolla el fragmento de código Java necesario para ejecutar una consulta que busque todas las pistas que tengan acceso al remonte especificado por un parámetro String <code>nombreRemonte</code>. La base de datos es PostgreSQL y la tabla es <code>pista</code>. La columna que almacena los remontes en formato de array se llama <code>remuntadors_acces</code>. Usa el operador <code>ANY</code> de Postgres y un <code>PreparedStatement</code>.',
+                    criteria: '• Sentencia SQL correcta usando el operador ANY: ? = ANY(remuntadors_acces) (0.6 pt)\n• Enlace del parámetro con setString() (0.4 pt)\n• Ejecución de executeQuery() e iteración del ResultSet de forma segura (0.5 pt)',
+                    solution: 'String sql = "SELECT id, nom FROM pista WHERE ? = ANY(remuntadors_acces)";\ntry (PreparedStatement pstmt = conn.prepareStatement(sql)) {\n    pstmt.setString(1, nombreRemonte);\n    try (ResultSet rs = pstmt.executeQuery()) {\n        while (rs.next()) {\n            System.out.println("ID: " + rs.getString("id") + ", Nombre: " + rs.getString("nom"));\n        }\n    }\n}'
+                },
+                {
+                    id: 5,
+                    title: 'Caso Práctico 5: Modificación con JPA EntityManager (M3)',
+                    description: 'Escribe un método en Java llamado <code>cambiarEstadoPista(EntityManager em, String idPista, boolean nuevoEstado)</code>. El método debe buscar la pista con el identificador proporcionado en la base de datos, modificar su atributo <code>oberta</code> con el valor de <code>nuevoEstado</code>, y confirmar los cambios en la base de datos de manera transaccional. En caso de producirse un error, debes hacer un rollback.',
+                    criteria: '• Gestión correcta de la transacción: begin() antes y commit() al final (0.5 pt)\n• Uso correcto de em.find(Pista.class, idPista) para recuperar la entidad managed (0.4 pt)\n• Modificación del estado llamando al setter de la clase (0.3 pt)\n• Captura de excepciones con bloque catch y ejecución de rollback() (0.3 pt)',
+                    solution: 'public void cambiarEstadoPista(EntityManager em, String idPista, boolean nuevoEstado) {\n    try {\n        em.getTransaction().begin();\n        Pista pista = em.find(Pista.class, idPista);\n        if (pista != null) {\n            pista.setOberta(nuevoEstado);\n        }\n        em.getTransaction().commit();\n    } catch (Exception e) {\n        if (em.getTransaction().isActive()) {\n            em.getTransaction().rollback();\n        }\n        e.printStackTrace();\n    }\n}'
+                },
+                {
+                    id: 6,
+                    title: 'Caso Práctico 6: Consulta JPQL Personalizada (M3)',
+                    description: 'Dispones de un objeto <code>EntityManager em</code>. Escribe el código necesario para ejecutar una consulta JPQL que devuelva un listado de objetos de tipo <code>Estacio</code> cuya altitud máxima sea mayor que un parámetro entero <code>limiteAltitud</code> y que pertenezcan a la comarca de "Cerdanya". Pasa los parámetros de manera segura.',
+                    criteria: '• Redacción correcta de la query JPQL haciendo referencia a la clase y atributos Java (0.6 pt)\n• Uso de createQuery con paso de parámetros con nombre (:limite, :comarca) (0.4 pt)\n• Llamadas correctas a setParameter() y obtención de la lista con getResultList() (0.5 pt)',
+                    solution: 'String jpql = "SELECT e FROM Estacio e WHERE e.altitudMaxima > :limite AND e.comarca = :comarca";\nList<Estacio> estaciones = em.createQuery(jpql, Estacio.class)\n    .setParameter("limite", limiteAltitud)\n    .setParameter("comarca", "Cerdanya")\n    .getResultList();'
+                },
+                {
+                    id: 7,
+                    title: 'Caso Práctico 7: Modificación en Spring Data JPA (M4)',
+                    description: 'Define un método en una interfaz de repositorio de Spring Data JPA (llamado <code>PistaRepository</code> que extiende <code>JpaRepository&lt;Pista, String&gt;</code>) para incrementar el espesor de nieve (<code>gruixNeu</code>) de todas las pistas que pertenecen a una estación determinada (<code>idEstacio</code>). El incremento se pasa como parámetro. Declara todas las anotaciones de Spring obligatorias.',
+                    criteria: '• Definición de la anotación @Query con sentencia UPDATE de JPQL (0.5 pt)\n• Declaración obligatoria de las anotaciones @Modifying y @Transactional (0.6 pt)\n• Uso de la anotación @Param para enlazar los argumentos en la interfaz (0.4 pt)',
+                    solution: '@Repository\npublic interface PistaRepository extends JpaRepository<Pista, String> {\n    @Transactional\n    @Modifying\n    @Query("UPDATE Pista p SET p.gruixNeu = p.gruixNeu + :incremento WHERE p.estacio.id = :idEstacio")\n    int incrementarEspesorEstacion(@Param("idEstacio") String idEstacio, @Param("incremento") int incremento);\n}'
+                },
+                {
+                    id: 8,
+                    title: 'Caso Práctico 8: Borrado con XQUF en BaseX (M4)',
+                    description: 'Escribe el código Java necesario para eliminar un nodo de un documento XML mediante la API XQJ de BaseX. La consulta de borrado debe eliminar el nodo de la pista cuyo identificador (<code>idPista</code>) coincida con el recibido. El documento XML se encuentra en la ruta <code>pistes/pistes.xml</code>. La estructura del XML es: <code>&lt;pistes&gt;&lt;pista id="P-001"&gt;...&lt;/pista&gt;&lt;/pistes&gt;</code>.',
+                    criteria: '• Consulta XQUF correcta usando la cláusula "delete node" (0.6 pt)\n• Apuntar correctamente a la ruta del nodo pista con filtro de atributo [@id=\'val\'] (0.4 pt)\n• Creación del objeto XQExpression y ejecución con executeQuery() (0.5 pt)',
+                    solution: 'String xq = "delete node doc(\'pistes/pistes.xml\')/pistes/pista[@id=\'" + idPista + "\']";\ntry (XQExpression exp = conn.createExpression()) {\n    exp.executeQuery(xq);\n}'
+                }
+            ];
+
+            // STATE VARIABLES
+            let examQuestions = [];
+            let examPracticals = [];
+            let userAnswers = {}; // { questionIndex: optionValue }
+            let userPracticalAnswers = {}; // { practicalIndex: textValue }
+            let practicalGrades = {}; // { practicalIndex: score }
+            let timerInterval = null;
+            let totalSeconds = 90 * 60; // 90 minutes
+            let isPaused = false;
+
+            // DOM ELEMENTS
+            const setupPanel = document.getElementById('setup-panel');
+            const examPanel = document.getElementById('exam-panel');
+            const resultsPanel = document.getElementById('results-panel');
+            const questionsContainer = document.getElementById('questions-container');
+            const trackerDots = document.getElementById('tracker-dots');
+            const timerClock = document.getElementById('timer-clock');
+            const btnStart = document.getElementById('btn-start-exam');
+            const btnPause = document.getElementById('btn-pause');
+            const btnSubmit = document.getElementById('btn-submit-exam');
+            const btnNewSimulation = document.getElementById('btn-new-simulation');
+            const btnShowRevision = document.getElementById('btn-show-revision');
+            const historyList = document.getElementById('history-list');
+
+            // EVENT LISTENERS
+            btnStart.addEventListener('click', startExam);
+            btnPause.addEventListener('click', togglePause);
+            btnSubmit.addEventListener('click', confirmSubmit);
+            btnNewSimulation.addEventListener('click', resetSimulator);
+            btnShowRevision.addEventListener('click', scrollToFirstQuestion);
+
+            // Load historical logs at start
+            renderHistory();
+
+            // FUNCTION 1: Start Exam
+            function startExam() {
+                // Generate random questions (10 questions, from different modules if possible)
+                examQuestions = getRandomElements(QUESTIONS_POOL, 10);
+                // Generate random practical challenges (2 challenges)
+                examPracticals = getRandomElements(PRACTICAL_POOL, 2);
+
+                userAnswers = {};
+                userPracticalAnswers = {};
+                practicalGrades = {};
+                totalSeconds = 90 * 60;
+                isPaused = false;
+                btnPause.textContent = "⏸️ Pausar";
+
+                setupPanel.style.display = 'none';
+                examPanel.style.display = 'grid';
+
+                // Render questions to DOM
+                renderExam();
+                // Start timer ticking
+                startTimer();
+            }
+
+            // Helper to get random elements from array
+            function getRandomElements(arr, n) {
+                const shuffled = [...arr].sort(() => 0.5 - Math.random());
+                return shuffled.slice(0, n);
+            }
+
+            // FUNCTION 2: Render Exam UI
+            function renderExam() {
+                questionsContainer.innerHTML = '';
+                trackerDots.innerHTML = '';
+
+                // Render multiple choice questions
+                examQuestions.forEach((q, idx) => {
+                    const card = document.createElement('article');
+                    card.className = 'sim-question-card';
+                    card.id = `q-card-${idx}`;
+                    
+                    const qNum = document.createElement('span');
+                    qNum.className = 'sim-question-num';
+                    qNum.textContent = `Pregunta Teórica ${idx + 1} / Módulo ${q.module}`;
+                    card.appendChild(qNum);
+
+                    const qTitle = document.createElement('h3');
+                    qTitle.className = 'sim-question-title';
+                    qTitle.textContent = q.text;
+                    card.appendChild(qTitle);
+
+                    const optionsList = document.createElement('ul');
+                    optionsList.className = 'sim-options-list';
+
+                    q.options.forEach(opt => {
+                        const optItem = document.createElement('li');
+                        optItem.className = 'sim-option-item';
+                        optItem.setAttribute('data-value', opt.value);
+
+                        const radio = document.createElement('div');
+                        radio.className = 'option-radio';
+                        optItem.appendChild(radio);
+
+                        const textSpan = document.createElement('span');
+                        textSpan.textContent = `${opt.value}) ${opt.text}`;
+                        optItem.appendChild(textSpan);
+
+                        optItem.addEventListener('click', () => {
+                            if (isPaused) return;
+                            card.querySelectorAll('.sim-option-item').forEach(el => el.classList.remove('selected'));
+                            optItem.classList.add('selected');
+                            userAnswers[idx] = opt.value;
+                            updateTracker();
+                        });
+
+                        optionsList.appendChild(optItem);
+                    });
+
+                    card.appendChild(optionsList);
+                    questionsContainer.appendChild(card);
+
+                    // Add tracker dot
+                    const dot = document.createElement('button');
+                    dot.className = 'tracker-dot';
+                    dot.textContent = idx + 1;
+                    dot.addEventListener('click', () => {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        highlightFocusCard(card);
+                    });
+                    trackerDots.appendChild(dot);
+                });
+
+                // Render practical coding challenges
+                examPracticals.forEach((p, idx) => {
+                    const pIdx = idx + 10;
+                    const card = document.createElement('article');
+                    card.className = 'sim-question-card';
+                    card.id = `q-card-${pIdx}`;
+
+                    const qNum = document.createElement('span');
+                    qNum.className = 'sim-question-num';
+                    qNum.style.background = 'rgba(245, 158, 11, 0.15)';
+                    qNum.style.color = '#fbbf24';
+                    qNum.style.borderColor = 'rgba(245, 158, 11, 0.3)';
+                    qNum.textContent = `Caso Práctico ${idx + 1} (Desarrollo)`;
+                    card.appendChild(qNum);
+
+                    const qTitle = document.createElement('h3');
+                    qTitle.className = 'sim-question-title';
+                    qTitle.textContent = p.title;
+                    card.appendChild(qTitle);
+
+                    const desc = document.createElement('p');
+                    desc.style.whiteSpace = 'pre-wrap';
+                    desc.innerHTML = p.description;
+                    card.appendChild(desc);
+
+                    const textarea = document.createElement('textarea');
+                    textarea.className = 'practical-textarea';
+                    textarea.placeholder = '// Escribe tu código Java o SQL aquí...';
+                    textarea.addEventListener('input', (e) => {
+                        userPracticalAnswers[idx] = e.target.value;
+                        updateTracker();
+                    });
+                    card.appendChild(textarea);
+
+                    questionsContainer.appendChild(card);
+
+                    // Add tracker dot
+                    const dot = document.createElement('button');
+                    dot.className = 'tracker-dot';
+                    dot.textContent = `P${idx + 1}`;
+                    dot.addEventListener('click', () => {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        highlightFocusCard(card);
+                    });
+                    trackerDots.appendChild(dot);
+                });
+            }
+
+            function highlightFocusCard(card) {
+                document.querySelectorAll('.sim-question-card').forEach(c => c.classList.remove('active-focus'));
+                card.classList.add('active-focus');
+            }
+
+            // FUNCTION 3: Tracker dots color updates
+            function updateTracker() {
+                const dots = document.querySelectorAll('.tracker-dot');
+                
+                // Theory questions (0-9)
+                for (let i = 0; i < 10; i++) {
+                    if (userAnswers[i] !== undefined) {
+                        dots[i].className = 'tracker-dot answered';
+                    } else {
+                        dots[i].className = 'tracker-dot';
+                    }
+                }
+
+                // Practical questions (10-11)
+                for (let i = 0; i < 2; i++) {
+                    const ans = userPracticalAnswers[i];
+                    if (ans && ans.trim().length > 0) {
+                        dots[i + 10].className = 'tracker-dot answered';
+                    } else {
+                        dots[i + 10].className = 'tracker-dot';
+                    }
+                }
+            }
+
+            // FUNCTION 4: Timer ticking system
+            function startTimer() {
+                timerInterval = setInterval(() => {
+                    if (isPaused) return;
+
+                    totalSeconds--;
+                    if (totalSeconds <= 0) {
+                        clearInterval(timerInterval);
+                        alert("¡Se ha agotado el tiempo de examen! Se procederá a guardar el examen con las respuestas dadas.");
+                        finishExam();
+                        return;
+                    }
+
+                    const min = Math.floor(totalSeconds / 60);
+                    const sec = totalSeconds % 60;
+                    timerClock.textContent = `${min.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
+
+                    if (totalSeconds < 5 * 60) { // Under 5 minutes remaining, warning color
+                        timerClock.style.color = '#ef4444';
+                    } else {
+                        timerClock.style.color = '';
+                    }
+                }, 1000);
+            }
+
+            function togglePause() {
+                isPaused = !isPaused;
+                if (isPaused) {
+                    btnPause.textContent = "▶️ Reanudar";
+                    btnPause.style.background = 'rgba(99, 102, 241, 0.2)';
+                    document.querySelectorAll('.practical-textarea').forEach(el => el.disabled = true);
+                } else {
+                    btnPause.textContent = "⏸️ Pausar";
+                    btnPause.style.background = '';
+                    document.querySelectorAll('.practical-textarea').forEach(el => el.disabled = false);
+                }
+            }
+
+            // FUNCTION 5: Confirmation submit
+            function confirmSubmit() {
+                // Count unanswered
+                let unansweredCount = 0;
+                for (let i = 0; i < 10; i++) {
+                    if (userAnswers[i] === undefined) unansweredCount++;
+                }
+                for (let i = 0; i < 2; i++) {
+                    const ans = userPracticalAnswers[i];
+                    if (!ans || ans.trim().length === 0) unansweredCount++;
+                }
+
+                let message = "¿Estás seguro de que quieres finalizar el examen?";
+                if (unansweredCount > 0) {
+                    message += ` Tienes ${unansweredCount} pregunta(s) sin contestar.`;
+                }
+
+                if (confirm(message)) {
+                    finishExam();
+                }
+            }
+
+            // FUNCTION 6: Compute grade and show correction view
+            function finishExam() {
+                clearInterval(timerInterval);
+
+                // Calculate theory score (max 7 points, 10 questions * 0.7)
+                let theoryCorrect = 0;
+                examQuestions.forEach((q, idx) => {
+                    if (userAnswers[idx] === q.correct) {
+                        theoryCorrect++;
+                    }
+                });
+                const theoryPoints = theoryCorrect * 0.7;
+
+                // Stop inputs
+                document.querySelectorAll('.practical-textarea').forEach(el => el.disabled = true);
+                
+                // Show correction details in questions cards
+                examQuestions.forEach((q, idx) => {
+                    const card = document.getElementById(`q-card-${idx}`);
+                    const selectedOpt = userAnswers[idx];
+
+                    card.querySelectorAll('.sim-option-item').forEach(optItem => {
+                        const optVal = optItem.getAttribute('data-value');
+                        
+                        if (optVal === q.correct) {
+                            optItem.classList.add('correct'); // green highlight
+                        } else if (optVal === selectedOpt) {
+                            optItem.classList.add('incorrect'); // red highlight
+                        }
+                    });
+
+                    // Append explanation box
+                    const explBox = document.createElement('div');
+                    explBox.className = 'feedback-text show';
+                    explBox.style.marginTop = '1rem';
+                    explBox.style.color = (selectedOpt === q.correct) ? 'var(--success)' : 'var(--error)';
+                    explBox.innerHTML = `<strong>Explicación:</strong> ${q.explanation}`;
+                    card.appendChild(explBox);
+                });
+
+                // Display grading rubric for practicals
+                examPracticals.forEach((p, idx) => {
+                    const pIdx = idx + 10;
+                    const card = document.getElementById(`q-card-${pIdx}`);
+
+                    // Create explanation block
+                    const evalBlock = document.createElement('div');
+                    evalBlock.className = 'criterio-block';
+                    
+                    const titleSol = document.createElement('h4');
+                    titleSol.style.color = 'white';
+                    titleSol.style.marginBottom = '0.5rem';
+                    titleSol.textContent = 'Solución Sugerida por el Profesor:';
+                    evalBlock.appendChild(titleSol);
+
+                    const codeContainer = document.createElement('div');
+                    codeContainer.className = 'code-container';
+                    codeContainer.style.marginBottom = '1rem';
+                    const pre = document.createElement('pre');
+                    const code = document.createElement('code');
+                    code.textContent = p.solution;
+                    pre.appendChild(code);
+                    codeContainer.appendChild(pre);
+                    evalBlock.appendChild(codeContainer);
+
+                    const titleCrit = document.createElement('h4');
+                    titleCrit.style.color = 'white';
+                    titleCrit.style.marginBottom = '0.25rem';
+                    titleCrit.textContent = 'Criterios de Corrección:';
+                    evalBlock.appendChild(titleCrit);
+
+                    const criteriaText = document.createElement('p');
+                    criteriaText.style.fontSize = '0.85rem';
+                    criteriaText.style.whiteSpace = 'pre-wrap';
+                    criteriaText.textContent = p.criteria;
+                    evalBlock.appendChild(criteriaText);
+
+                    // Self evaluation buttons
+                    const selfEvalTitle = document.createElement('h4');
+                    selfEvalTitle.style.color = '#fbbf24';
+                    selfEvalTitle.style.marginTop = '1rem';
+                    selfEvalTitle.style.marginBottom = '0.5rem';
+                    selfEvalTitle.textContent = 'Autoevaluación: Selecciona tu nota para esta pregunta';
+                    evalBlock.appendChild(selfEvalTitle);
+
+                    const buttonGroup = document.createElement('div');
+                    buttonGroup.className = 'self-eval-container';
+
+                    const btnCorrect = document.createElement('button');
+                    btnCorrect.className = 'btn-eval';
+                    btnCorrect.textContent = 'Completa (1.5 pts)';
+                    btnCorrect.addEventListener('click', () => setPracticalScore(idx, 1.5, btnCorrect, buttonGroup));
+
+                    const btnHalf = document.createElement('button');
+                    btnHalf.className = 'btn-eval';
+                    btnHalf.textContent = 'Parcial (0.75 pts)';
+                    btnHalf.addEventListener('click', () => setPracticalScore(idx, 0.75, btnHalf, buttonGroup));
+
+                    const btnWrong = document.createElement('button');
+                    btnWrong.className = 'btn-eval';
+                    btnWrong.textContent = 'Incorrecta (0.0 pts)';
+                    btnWrong.addEventListener('click', () => setPracticalScore(idx, 0.0, btnWrong, buttonGroup));
+
+                    buttonGroup.appendChild(btnCorrect);
+                    buttonGroup.appendChild(btnHalf);
+                    buttonGroup.appendChild(btnWrong);
+                    evalBlock.appendChild(buttonGroup);
+
+                    card.appendChild(evalBlock);
+                });
+
+                // Show top results box
+                examPanel.style.display = 'none';
+                resultsPanel.style.display = 'block';
+
+                // Initial total points computation (assuming 0 for practicals initially until selected)
+                updateGlobalScoreText(theoryPoints, 0, theoryCorrect);
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            function setPracticalScore(idx, points, btn, container) {
+                container.querySelectorAll('.btn-eval').forEach(b => {
+                    b.classList.remove('selected-correct', 'selected-half', 'selected-incorrect');
+                });
+                if (points === 1.5) btn.classList.add('selected-correct');
+                else if (points === 0.75) btn.classList.add('selected-half');
+                else btn.classList.add('selected-incorrect');
+
+                practicalGrades[idx] = points;
+
+                // Re-evaluate global score
+                let theoryCorrect = 0;
+                examQuestions.forEach((q, qidx) => {
+                    if (userAnswers[qidx] === q.correct) {
+                        theoryCorrect++;
+                    }
+                });
+                const theoryPoints = theoryCorrect * 0.7;
+
+                let practicalPoints = 0;
+                Object.values(practicalGrades).forEach(val => {
+                    practicalPoints += val;
+                });
+
+                updateGlobalScoreText(theoryPoints, practicalPoints, theoryCorrect);
+            }
+
+            function updateGlobalScoreText(theoryPoints, practicalPoints, theoryCorrect) {
+                const totalScore = Math.min(10, theoryPoints + practicalPoints);
+                const resultsGradeNumber = document.getElementById('results-grade-number');
+                resultsGradeNumber.textContent = `${totalScore.toFixed(1)} / 10`;
+
+                const resultsTheoryScore = document.getElementById('results-theory-score');
+                resultsTheoryScore.textContent = `${theoryPoints.toFixed(2)} / 7.0 Puntos`;
+
+                const resultsTheoryDetails = document.getElementById('results-theory-details');
+                resultsTheoryDetails.textContent = `Preguntas correctas: ${theoryCorrect} de 10.`;
+
+                const resultsPracticalScore = document.getElementById('results-practical-score');
+                resultsPracticalScore.textContent = `${practicalPoints.toFixed(2)} / 3.0 Puntos`;
+
+                // Set feedback text based on grade
+                const resultsFeedbackComment = document.getElementById('results-feedback-comment');
+                const resultsGradeLabel = document.getElementById('results-grade-label');
+                
+                if (totalScore >= 8.5) {
+                    resultsFeedbackComment.textContent = "¡Excelente! Tienes los conceptos dominados para el examen. ¡Sigue así!";
+                    resultsGradeLabel.style.backgroundColor = 'var(--success-light)';
+                    resultsGradeLabel.style.color = '#34d399';
+                } else if (totalScore >= 5.0) {
+                    resultsFeedbackComment.textContent = "¡Aprobado! Has conseguido superar la PAF, pero te recomendamos repasar los fallos detectados.";
+                    resultsGradeLabel.style.backgroundColor = 'rgba(245, 158, 11, 0.15)';
+                    resultsGradeLabel.style.color = '#fbbf24';
+                } else {
+                    resultsFeedbackComment.textContent = "Insuficiente. Debes repasar la teoría y practicar la escritura de código en papel para el sábado.";
+                    resultsGradeLabel.style.backgroundColor = 'var(--error-light)';
+                    resultsGradeLabel.style.color = '#f87171';
+                }
+
+                // Save this attempt to localStorage history
+                saveExamAttempt(totalScore);
+            }
+
+            function saveExamAttempt(score) {
+                let history = JSON.parse(localStorage.getItem('paf_sim_history')) || [];
+                // Only write if not already logged at the very end of evaluation (throttle by saving last grade)
+                const now = new Date();
+                const timeString = `${now.getDate()}/${now.getMonth() + 1} ${now.getHours()}:${now.getMinutes().toString().padStart(2, '0')}`;
+                
+                // To avoid duplicate logs for the same attempt when changing self-evaluation, we update or add
+                if (history.length > 0 && (now.getTime() - new Date(history[0].timestamp).getTime() < 10 * 60 * 1000)) {
+                    history[0].score = score;
+                } else {
+                    history.unshift({
+                        date: timeString,
+                        score: score,
+                        timestamp: now.getTime()
+                    });
+                }
+
+                // Limit to 5 logs
+                if (history.length > 5) history.pop();
+
+                localStorage.setItem('paf_sim_history', JSON.stringify(history));
+                renderHistory();
+            }
+
+            function renderHistory() {
+                const history = JSON.parse(localStorage.getItem('paf_sim_history')) || [];
+                if (history.length === 0) {
+                    historyList.innerHTML = `<p style="font-size: 0.9rem; font-style: italic; color: var(--text-muted); margin-bottom: 0;">Aún no has completado ninguna simulación de examen. ¡Tu puntuación aparecerá aquí!</p>`;
+                    return;
+                }
+
+                let html = '<div style="display: flex; flex-direction: column; gap: 0.75rem;">';
+                history.forEach((h, idx) => {
+                    const gradeColor = h.score >= 5.0 ? 'var(--success)' : 'var(--error)';
+                    html += `
+                        <div class="history-item">
+                            <div>
+                                <span style="color: white; font-weight: 600;">Simulación #${history.length - idx}</span>
+                                <span style="color: var(--text-muted); font-size: 0.8rem; margin-left: 0.5rem;">(${h.date})</span>
+                            </div>
+                            <span style="font-family: 'Fira Code', monospace; font-weight: 700; color: ${gradeColor}; font-size: 1.05rem;">${h.score.toFixed(1)} / 10</span>
+                        </div>
+                    `;
+                });
+                html += '</div>';
+                historyList.innerHTML = html;
+            }
+
+            function scrollToFirstQuestion() {
+                resultsPanel.style.display = 'none';
+                examPanel.style.display = 'grid';
+                questionsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            function resetSimulator() {
+                clearInterval(timerInterval);
+                resultsPanel.style.display = 'none';
+                examPanel.style.display = 'none';
+                setupPanel.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

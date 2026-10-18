@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<estacio  id="ST-001">
+    <nom>Neu Gran</nom>
+    <comarca>Cerdanya</comarca>
+    <web>https://www.neugran.cat</web>
+    <altitud-maxima>2535</altitud-maxima>
+    <qualificacio>Molt bona</qualificacio>
+    <estat-obertura-percentatge>80</estat-obertura-percentatge>
+
+
+    <pistes>
+        <pista id="A101">
+            <nom>La Canal</nom>
+            <longitud>1500</longitud>
+            <desnivell>450</desnivell>
+            <color>Negra</color>
+            <oberta>true</oberta>
+            <gruix-neu>60</gruix-neu>
+            <qualitat-neu>Pols</qualitat-neu>
+        </pista>
+        <pista id="A102">
+            <nom>Pista del Bosc</nom>
+            <longitud>2100</longitud>
+            <desnivell>200</desnivell>
+            <color>Blava</color>
+            <oberta>true</oberta>
+            <gruix-neu>45</gruix-neu>
+            <qualitat-neu>Pols-Dura</qualitat-neu>
+        </pista>
+        <pista id="A103">
+            <nom>Debutants I</nom>
+            <longitud>500</longitud>
+            <desnivell>50</desnivell>
+            <color>Verda</color>
+            <oberta>true</oberta>
+            <gruix-neu>30</gruix-neu>
+            <qualitat-neu>Dura</qualitat-neu>
+        </pista>
+        <pista id="A104">
+            <nom>Muro de les Àligues</nom>
+            <longitud>1800</longitud>
+            <desnivell>600</desnivell>
+            <color>Negra</color>
+            <oberta>false</oberta>
+            <gruix-neu>0</gruix-neu>
+            <qualitat-neu>Sense neu</qualitat-neu>
+        </pista>
+        <pista id="A105">
+            <nom>Camí Ral</nom>
+            <longitud>3200</longitud>
+            <desnivell>150</desnivell>
+            <color>Verda</color>
+            <oberta>true</oberta>
+            <gruix-neu>40</gruix-neu>
+            <qualitat-neu>Primavera</qualitat-neu>
+        </pista>
+        <pista id="A106">
+            <nom>La Directa</nom>
+            <longitud>1200</longitud>
+            <desnivell>380</desnivell>
+            <color>Vermella</color>
+            <oberta>true</oberta>
+            <gruix-neu>55</gruix-neu>
+            <qualitat-neu>Pols</qualitat-neu>
+        </pista>
+        <pista id="A107">
+            <nom>Costa dels Avets</nom>
+            <longitud>2400</longitud>
+            <desnivell>310</desnivell>
+            <color>Vermella</color>
+            <oberta>false</oberta>
+            <gruix-neu>10</gruix-neu>
+            <qualitat-neu>Dura</qualitat-neu>
+        </pista>
+        <pista id="A108">
+            <nom>Pala Central</nom>
+            <longitud>900</longitud>
+            <desnivell>250</desnivell>
+            <color>Vermella</color>
+            <oberta>true</oberta>
+            <gruix-neu>50</gruix-neu>
+            <qualitat-neu>Pols-Dura</qualitat-neu>
+        </pista>
+        <pista id="A109">
+            <nom>Passeig de la Neu</nom>
+            <longitud>4100</longitud>
+            <desnivell>120</desnivell>
+            <color>Blava</color>
+            <oberta>true</oberta>
+            <gruix-neu>35</gruix-neu>
+            <qualitat-neu>Primavera</qualitat-neu>
+        </pista>
+        <pista id="A110">
+            <nom>Tub de la Coma</nom>
+            <longitud>1350</longitud>
+            <desnivell>410</desnivell>
+            <color>Negra</color>
+            <oberta>true</oberta>
+            <gruix-neu>70</gruix-neu>
+            <qualitat-neu>Pols</qualitat-neu>
+        </pista>
+
+    </pistes>
+</estacio>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M4: BaseX XML y Spring Data JPA - Acceso a Datos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">AD</div>
+                <div class="logo-text">Acceso a Datos</div>
+            </div>
+            
+            <nav>
+                <div class="nav-section-title">General</div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link"><span class="nav-link-icon">📊</span> Dashboard</a></li>
+                </ul>
+                
+                <div class="nav-section-title">Módulos de Teoría</div>
+                <ul class="nav-links">
+                    <li><a href="modulo1.html" class="nav-link"><span class="nav-link-icon">📁</span> M1: Ficheros (UF1)</a></li>
+                    <li><a href="modulo2.html" class="nav-link"><span class="nav-link-icon">🔌</span> M2: JDBC / Postgres</a></li>
+                    <li><a href="modulo3.html" class="nav-link"><span class="nav-link-icon">🏛️</span> M3: JPA / Objetos</a></li>
+                    <li><a href="modulo4.html" class="nav-link active"><span class="nav-link-icon">🍃</span> M4: BaseX / Spring</a></li>
+                </ul>
+                
+                <div class="nav-section-title">Evaluación</div>
+                <ul class="nav-links">
+                    <li><a href="simulador.html" class="nav-link"><span class="nav-link-icon">⏱️</span> PAF Simulator</a></li>
+                </ul>
+            </nav>
+            
+            <div style="margin-top: auto; padding-top: 2rem;">
+                <div class="nav-section-title">Utilidades</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="resetAllProgress()" class="nav-link" style="color: var(--error);"><span class="nav-link-icon">🔄</span> Reiniciar Progreso</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="header-bar">
+                <div>
+                    <span class="badge">Unidad Formativa 3</span>
+                    <h1 class="title-large">M4: BaseX XML y Spring Data JPA</h1>
+                    <p class="description-large">Persistencia en XML nativo con XQuery/XQUF e integración mediante Spring Data JPA y Lombok</p>
+                </div>
+                <div class="progress-widget">
+                    <span>Progreso Global:</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="main-progress-bar-fill"></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="tabs-container">
+                <!-- Inner Module Tabs -->
+                <div class="module-tabs">
+                    <button class="module-tab active" data-target="tab-teoria">📖 Teoría</button>
+                    <button class="module-tab" data-target="tab-codi">💻 Códigos Clave</button>
+                    <button class="module-tab" data-target="tab-flashcards">🎴 Flashcards</button>
+                    <button class="module-tab" data-target="tab-quiz">❓ Autoevaluación</button>
+                </div>
+
+                <!-- PANEL 1: THEORY -->
+                <div class="tab-content-panel active" id="tab-teoria">
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">1</span> Bases de datos XML nativas (BaseX, XQJ y Escapado)</h2>
+                        <p>
+                            Las bases de datos documentales XML nativas almacenan documentos XML de forma jerárquica y permiten consultarlos mediante lenguajes específicos como <strong>XQuery</strong>. En este examen se evalúa el motor **BaseX** y la API de integración Java **XQJ**.
+                        </p>
+                        <div class="alert alert-info" style="margin-bottom: 1.5rem;">
+                            <span class="alert-icon">⚙️</span>
+                            <div class="alert-content">
+                                <h4>Configuración del Servidor BaseX</h4>
+                                <p style="margin-bottom: 0; font-size: 0.9rem;">
+                                    Para conectar con BaseX mediante XQJ, se definen los parámetros del <code>XQDataSource</code>:
+                                    <br>• El puerto por defecto es <strong><code>1984</code></strong>.
+                                    <br>• Las credenciales obligatorias por defecto son el usuario <strong><code>admin</code></strong> y la contraseña <strong><code>admin</code></strong>.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning" style="margin-bottom: 1.5rem;">
+                            <span class="alert-icon">⚠️</span>
+                            <div class="alert-content">
+                                <h4>Escapado de Comillas en XQuery</h4>
+                                <p style="margin-bottom: 0; font-size: 0.9rem;">
+                                    <strong>Trampa de examen:</strong> Al concatenar cadenas Java en consultas XQuery, si la variable contiene comillas simples o dobles, la consulta fallará. 
+                                    <br>• Si usas comillas dobles en el filtro XQuery, debes escaparlas en Java usando la barra invertida (ej: <code>"[/canal[nom=\"" + nombre + "\"]]"</code>).
+                                    <br>• Para evitar problemas, es recomendable usar comillas simples internas en XQuery (ej: <code>"[/canal[nom='" + nombre + "']]"</code>) que no requieren escapado en las cadenas de Java.
+                                </p>
+                            </div>
+                        </div>
+                        <p><strong>Flujo de conexión y consulta con XQJ:</strong></p>
+                        <ul class="custom-list">
+                            <li>Obtener una conexión mediante un <code>XQDataSource</code>.</li>
+                            <li>Crear un intérprete de expresiones con <code>conn.createExpression()</code>.</li>
+                            <li>Ejecutar consultas de lectura XQuery directas con <code>executeQuery(consulta)</code>.</li>
+                            <li>Recorrer el flujo de nodos devueltos (<code>XQResultSequence</code>) con <code>seq.next()</code> y extraerlos en formato texto con <code>seq.getItemAsString(null)</code>.</li>
+                        </ul>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">2</span> Sentencias de actualización: XQUF</h2>
+                        <p>
+                            Para modificar el contenido de los documentos XML en BaseX se utiliza **XQUF (XQuery Update Facility)**. Las operaciones básicas de actualización son:
+                        </p>
+                        <ul class="custom-list">
+                            <li><strong>Inserción de nodos:</strong> <code>insert node &lt;nuevo_nodo/&gt; into /ruta/padre</code>.</li>
+                            <li><strong>Eliminación de nodos:</strong> <code>delete node /ruta/nodo[@id='valor']</code>.</li>
+                        </ul>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">3</span> Spring Data JPA y Registro de Beans</h2>
+                        <p>
+                            Spring Data JPA reduce el código repetitivo de persistencia. Únicamente se definen interfaces que extiendan de <code>JpaRepository&lt;Entidad, TipoClave&gt;</code>.
+                        </p>
+                        <div class="alert alert-danger" style="margin-bottom: 1.5rem;">
+                            <span class="alert-icon">🚨</span>
+                            <div class="alert-content">
+                                <h4>Inyección con @Autowired y Componentes de Spring</h4>
+                                <p style="margin-bottom: 0; font-size: 0.9rem;">
+                                    <strong>Error grave de examen:</strong> Si intentas inyectar una clase personalizada (como un DAO manual o un gestor intermedio) utilizando la anotación <code>@Autowired</code>, la clase de destino <strong>debe estar registrada como un Bean en el contenedor IoC de Spring</strong>.
+                                    <br>Si la clase de destino carece de anotaciones como <strong><code>@Component</code></strong>, <code>@Repository</code>, o <code>@Service</code>, Spring no sabrá cómo gestionarla y lanzará un error de compilación o arranque indicando que el tipo de datos no es adecuado para la inyección automática.
+                                </p>
+                            </div>
+                        </div>
+                        <p><strong>Métodos heredados de JpaRepository evaluados:</strong></p>
+                        <p><code>save()</code>, <code>findById()</code>, <code>findAll()</code>, <code>deleteById()</code>, <code>existsById()</code>, <code>count()</code>, etc.</p>
+                        <p><strong>Consultas personalizadas en Spring Data:</strong></p>
+                        <ul class="custom-list">
+                            <li><strong>Métodos derivados (Query methods):</strong> Se autogeneran a partir del nombre del método (ej. <code>List&lt;Pista&gt; findByColorAndOberta(String color, boolean oberta)</code>).</li>
+                            <li><strong>Anotación @Query:</strong> Permite escribir consultas JPQL a medida en la interfaz. Se acompaña de <code>@Param("nombre")</code> para enlazar las variables.</li>
+                            <li><strong>Anotaciones de modificación:</strong> Si la consulta con `@Query` realiza operaciones de tipo <code>UPDATE</code> o <code>DELETE</code>, se deben añadir obligatoriamente las anotaciones **<code>@Modifying</code>** y **<code>@Transactional</code>**.</li>
+                        </ul>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">4</span> Lombok y recursión en relaciones bidireccionales</h2>
+                        <p>
+                            Lombok genera automáticamente getters, setters, constructores, toString y equals/hashCode mediante anotaciones (ej. <code>@Data</code>, <code>@NoArgsConstructor</code>).
+                        </p>
+                        <div class="alert alert-danger">
+                            <span class="alert-icon">💥</span>
+                            <div class="alert-content">
+                                <h4>Recursión Infinita con @Data</h4>
+                                <p style="margin-bottom: 0; font-size: 0.9rem;">
+                                    Si dos entidades tienen una relación bidireccional (ej: <code>Estacio</code> tiene una lista de <code>Pista</code>, y <code>Pista</code> apunta de vuelta a <code>Estacio</code>), el uso de `@Data` en ambas clases causará que los métodos autogenerados <code>toString()</code> o <code>hashCode()</code> se invoquen mutuamente de manera indefinida, arrojando un error **<code>StackOverflowError</code>**.
+                                    <br>**Solución de examen:** Excluir explícitamente el campo de referencia en la clase hija utilizando las anotaciones **<code>@ToString.Exclude</code>** y **<code>@EqualsAndHashCode.Exclude</code>**.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- PANEL 2: CODE SNIPPETS -->
+                <div class="tab-content-panel" id="tab-codi">
+                    <h3 style="margin-bottom: 1rem; color: white;">BaseX XQJ y XQUF CRUD</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-comment">// Borrar un nodo en BaseX XML</span>
+<span class="code-type">String</span> xq = <span class="code-string">"delete node doc('pistes/pistes.xml')/pistes/pista[@id='"</span> + id + <span class="code-string">"']"</span>;
+<span class="code-type">XQExpression</span> exp = conn.createExpression();
+exp.executeQuery(xq); <span class="code-comment">// Ejecuta la modificación física del XML</span></code></pre>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; color: white;">Repositorios Spring Data JPA con modificaciones</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-annotation">@Repository</span>
+<span class="code-keyword">public</span> <span class="code-keyword">interface</span> <span class="code-type">PistaRepository</span> <span class="code-keyword">extends</span> <span class="code-type">JpaRepository</span>&lt;<span class="code-type">Pista</span>, <span class="code-type">String</span>&gt; {
+    <span class="code-comment">// Método derivado automático por nombre</span>
+    <span class="code-type">List</span>&lt;<span class="code-type">Pista</span>&gt; findByColor(<span class="code-type">String</span> color);
+
+    <span class="code-comment">// Query de modificación personalizada</span>
+    <span class="code-annotation">@Transactional</span>
+    <span class="code-annotation">@Modifying</span>
+    <span class="code-annotation">@Query</span>(<span class="code-string">"UPDATE Pista p SET p.oberta = :estado WHERE p.id IN :ids"</span>)
+    <span class="code-type">int</span> actualitzaEstatPistes(<span class="code-annotation">@Param</span>(<span class="code-string">"ids"</span>) <span class="code-type">List</span>&lt;<span class="code-type">String</span>&gt; ids, <span class="code-annotation">@Param</span>(<span class="code-string">"estado"</span>) <span class="code-type">boolean</span> estado);
+}</code></pre>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; color: white;">Solución Lombok a la Relación Bidireccional</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-annotation">@Entity</span>
+<span class="code-annotation">@Data</span>
+<span class="code-annotation">@NoArgsConstructor</span>
+<span class="code-keyword">public</span> <span class="code-keyword">class</span> <span class="code-type">Pista</span> {
+    <span class="code-annotation">@Id</span>
+    <span class="code-keyword">private</span> <span class="code-type">String</span> id;
+
+    <span class="code-annotation">@ManyToOne</span>
+    <span class="code-annotation">@ToString.Exclude</span>            <span class="code-comment">// Evita bucle infinito en toString()</span>
+    <span class="code-annotation">@EqualsAndHashCode.Exclude</span>  <span class="code-comment">// Evita bucle infinito en hashCode() y equals()</span>
+    <span class="code-keyword">private</span> <span class="code-type">Estacio</span> estacio;
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- PANEL 3: FLASHCARDS -->
+                <div class="tab-content-panel" id="tab-flashcards">
+                    <p style="margin-bottom: 1.5rem;">Haz clic sobre las tarjetas para ver las respuestas de conceptos clave.</p>
+                    <div class="flashcards-grid">
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué diferencia hay entre XQuery y XQUF?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p><code>XQuery</code> se utiliza exclusivamente para realizar búsquedas y consultas de lectura, de forma análoga a un SELECT relacional.</p>
+                                    <p><code>XQUF</code> (XQuery Update Facility) es la extensión que permite insertar, modificar o borrar nodos del documento XML.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Cuál es la sintaxis de XQUF para insertar un nodo?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p><code>insert node {codigo_xml} into {ruta_padre}</code></p>
+                                    <p>Ejemplo: <code>insert node &lt;pista id="1"/&gt; into doc('pistes.xml')/pistes</code> añade el subnodo como hijo del tag pistes.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Por qué se requieren @Modifying y @Transactional en queries personalizadas?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Porque Spring Data necesita identificar que la operación no es de lectura, sino de alteración física de registros.</p>
+                                    <p>Sin <code>@Transactional</code>, la transacción no se abrirá y el servidor lanzará una excepción.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Cómo provoca Lombok un StackOverflowError?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Si el padre apunta a los hijos y los hijos apuntan de vuelta al padre, `@Data` crea un <code>toString()</code> recursivo en cadena que desborda la pila de ejecución de Java.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Cómo se elimina un nodo XML usando XQUF?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Utilizando la sentencia delete: <code>delete node {ruta_nodo}</code>.</p>
+                                    <p>Ejemplo: <code>delete node doc('pistes.xml')/pistes/pista[@id='1']</code>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué pasa si olvidamos anotar un Servicio con @Service?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Spring Boot no registrará la clase como un bean en su contexto IoC, por lo que fallará cualquier intento de inyección automática con <code>@Autowired</code>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿CrudRepository vs JpaRepository?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p><code>CrudRepository</code> provee funciones CRUD básicas. <code>JpaRepository</code> hereda de él y añade métodos específicos de JPA (paginación, ordenación y vaciado inmediato al disco).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Por qué inyección por constructor?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Es la recomendada sobre <code>@Autowired</code> en campo. Facilita los tests unitarios y permite declarar las dependencias como <code>final</code> asegurando inmutabilidad.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL 4: QUIZ -->
+                <div class="tab-content-panel" id="tab-quiz">
+                    <div class="quiz-container">
+                        <!-- Q1 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">1. ¿Cuál es el procedimiento correcto para extraer el XML en formato texto de una consulta en XQJ?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Leyéndolo de forma directa desde el objeto <code>XQExpression</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Usando la serialización JAXB directamente contra el origen de datos.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Iterando con <code>next()</code> la secuencia <code>XQResultSequence</code> y llamando al método <code>getItemAsString()</code>.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="XQResultSequence guarda la secuencia de nodos XML resultantes y permite extraerlos como String en formato XML."></div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">2. En Spring Data JPA, si definimos un método con la anotación @Query para ejecutar una sentencia UPDATE, ¿qué otras anotaciones son obligatorias?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Únicamente la anotación <code>@Repository</code> en la cabecera.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Las anotaciones <code>@Modifying</code> y <code>@Transactional</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>No se necesita ninguna anotación adicional si devuelve un entero.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="Las queries de modificación necesitan ser identificadas por Spring Data con @Modifying y ejecutarse en contexto transaccional con @Transactional."></div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">3. ¿Cómo se resuelve el bucle de recursión infinita en Lombok al mapear una relación bidireccional en JPA?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Colocando <code>@ToString.Exclude</code> y <code>@EqualsAndHashCode.Exclude</code> en la propiedad de referencia de la clase hija (lado ManyToOne).</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Eliminando la anotación <code>@Entity</code> en alguno de los dos extremos de la relación.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Reemplazando <code>@Data</code> por <code>@Getter</code> y <code>@Setter</code> en todas las clases.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="Excluir de los métodos toString, equals y hashCode la variable de enlace al padre en la clase filla rompe el bucle de llamadas."></div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">4. ¿Cuáles son el puerto por defecto y las credenciales por defecto al conectarse a un servidor BaseX nativo en XQJ?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Puerto 8080, usuario 'root', contraseña vacía.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Puerto 5432, usuario 'postgres', contraseña 'postgres'.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Puerto 1984, usuario 'admin', contraseña 'admin'.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="El puerto por defecto de BaseX es el 1984, y las credenciales iniciales por defecto son admin / admin."></div>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">5. ¿Qué anotación de Lombok permite generar un constructor que inicializa todos los campos marcados como final o no nulos (@NonNull)?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>@AllArgsConstructor</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>@RequiredArgsConstructor</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>@NoArgsConstructor</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="@RequiredArgsConstructor genera un constructor que recibe parámetros únicamente para los atributos declarados como final o anotados con @NonNull."></div>
+                        </div>
+
+                        <!-- Q6 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">6. ¿Qué clase/interfaz de la API XQJ representa la fuente de datos XML y se utiliza para configurar las conexiones hacia BaseX?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>XQDataSource</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>XQConnection</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>XQExpression</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="XQDataSource es el punto de partida estándar de XQJ para configurar los parámetros de conexión física con el gestor XML."></div>
+                        </div>
+
+                        <!-- Q7 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">7. ¿Qué anotación en Spring Data JPA permite definir consultas personalizadas sobre las interfaces que extienden JpaRepository?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>@SQLQuery</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>@Query</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>@Finder</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="La anotación @Query de Spring Data se coloca sobre el método del repositorio para definir una consulta JPQL o SQL nativa personalizada."></div>
+                        </div>
+
+                        <!-- Q8 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">8. ¿Qué método de XQConnection se utiliza para compilar y preparar una consulta XQuery antes de su ejecución periódica parametrizada?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>createExpression()</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>createQueryExpression()</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>prepareExpression()</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="prepareExpression() precompila la expresión de consulta en XQJ y devuelve un objeto de tipo XQPreparedExpression."></div>
+                        </div>
+
+                        <!-- Q9 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">9. ¿Cuál es el comando inicial correcto en la especificación XQUF para modificar el valor textual de un elemento o nodo XML?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>replace value of node</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>update node value</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>modify node content</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="En la especificación XQUF, la sustitución del valor o texto de un nodo se inicia con la instrucción: 'replace value of node [ruta] with [nuevo_valor]'."></div>
+                        </div>
+
+                        <button class="btn-submit-quiz" data-module="m4">Corregir Cuestionario</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

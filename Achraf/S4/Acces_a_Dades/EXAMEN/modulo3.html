@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M3: JPA y Bases de Datos de Objetos - Acceso a Datos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">AD</div>
+                <div class="logo-text">Acceso a Datos</div>
+            </div>
+            
+            <nav>
+                <div class="nav-section-title">General</div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link"><span class="nav-link-icon">📊</span> Dashboard</a></li>
+                </ul>
+                
+                <div class="nav-section-title">Módulos de Teoría</div>
+                <ul class="nav-links">
+                    <li><a href="modulo1.html" class="nav-link"><span class="nav-link-icon">📁</span> M1: Ficheros (UF1)</a></li>
+                    <li><a href="modulo2.html" class="nav-link"><span class="nav-link-icon">🔌</span> M2: JDBC / Postgres</a></li>
+                    <li><a href="modulo3.html" class="nav-link active"><span class="nav-link-icon">🏛️</span> M3: JPA / Objetos</a></li>
+                    <li><a href="modulo4.html" class="nav-link"><span class="nav-link-icon">🍃</span> M4: BaseX / Spring</a></li>
+                </ul>
+                
+                <div class="nav-section-title">Evaluación</div>
+                <ul class="nav-links">
+                    <li><a href="simulador.html" class="nav-link"><span class="nav-link-icon">⏱️</span> PAF Simulator</a></li>
+                </ul>
+            </nav>
+            
+            <div style="margin-top: auto; padding-top: 2rem;">
+                <div class="nav-section-title">Utilidades</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="resetAllProgress()" class="nav-link" style="color: var(--error);"><span class="nav-link-icon">🔄</span> Reiniciar Progreso</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="header-bar">
+                <div>
+                    <span class="badge">Unidad Formativa 2 - Parte 2</span>
+                    <h1 class="title-large">M3: JPA y Bases de Datos de Objetos</h1>
+                    <p class="description-large">Persistencia mediante ORM (JPA) y gestión del ciclo de vida de las entidades</p>
+                </div>
+                <div class="progress-widget">
+                    <span>Progreso Global:</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="main-progress-bar-fill"></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="tabs-container">
+                <!-- Inner Module Tabs -->
+                <div class="module-tabs">
+                    <button class="module-tab active" data-target="tab-teoria">📖 Teoría</button>
+                    <button class="module-tab" data-target="tab-codi">💻 Códigos Clave</button>
+                    <button class="module-tab" data-target="tab-flashcards">🎴 Flashcards</button>
+                    <button class="module-tab" data-target="tab-quiz">❓ Autoevaluación</button>
+                </div>
+
+                <!-- PANEL 1: THEORY -->
+                <div class="tab-content-panel active" id="tab-teoria">
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">1</span> El concepto de ORM y JPA</h2>
+                        <p>
+                            El mapeo objeto-relacional (**ORM**) es una técnica que permite guardar y recuperar objetos de una base de datos sin tener que escribir SQL nativo.
+                            <br>**JPA (Jakarta Persistence API)** es la especificación estándar de Java que define cómo se debe comportar un ORM, mientras que **EclipseLink** o **Hibernate** son implementaciones de esta API. También se utiliza en bases de datos de objetos nativas como **ObjectDB**.
+                        </p>
+                        <p><strong>Anotaciones de definición básicas:</strong></p>
+                        <ul class="custom-list">
+                            <li><code>@Entity</code>: Especifica que la clase representa una entidad de base de datos.</li>
+                            <li><code>@Table(name = "nombre")</code>: Permite cambiar el nombre físico de la tabla asociada.</li>
+                            <li><code>@Id</code>: Define el atributo que actúa como clave primaria.</li>
+                            <li><code>@Column(length = X, unique = true)</code>: Configura propiedades físicas del campo (longitud, restricciones).</li>
+                        </ul>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">2</span> Requisitos de Entidad y Relaciones</h2>
+                        <p>
+                            Para que una clase actúe como una entidad JPA persistente, debe cumplir con especificaciones estrictas:
+                        </p>
+                        <ul class="custom-list">
+                            <li><strong>Constructor vacío:</strong> Es obligatorio incluir un constructor público o protegido sin parámetros (sin argumentos). Si usas Lombok, se logra con la anotación <code>@NoArgsConstructor</code>.</li>
+                            <li><strong>Interfaz Serializable:</strong> La clase debe implementar la interfaz <code>java.io.Serializable</code> para permitir su transmisión o persistencia binaria.</li>
+                            <li>
+                                <strong>Relaciones Bidireccionales (1 a N):</strong>
+                                <br>En el lado <strong>1</strong> (padre, ej: <code>Estacio</code>), se declara <code>@OneToMany(mappedBy = "estacio", cascade = CascadeType.ALL, orphanRemoval = true)</code>.
+                                <br>En el lado <strong>N</strong> (hijo, ej: <code>Pista</code>), se declara el campo de referencia con <code>@ManyToOne</code>.
+                            </li>
+                            <li>
+                                <strong>Relación Uno a Uno (1 a 1 Bidireccional):</strong>
+                                <br>En el lado dominante de la relación (el que almacena físicamente la clave ajena en base de datos), se coloca la anotación <code>@OneToOne</code> acompañada de <code>@JoinColumn(name = "id_del_otro")</code>.
+                                <br>En el lado inverso (el no dominante), se coloca la anotación <code>@OneToOne(mappedBy = "campo_en_la_otra_clase")</code>. Fíjate en que el valor de <code>mappedBy</code> debe coincidir con el nombre de la propiedad en la clase dominante, no con el nombre de la columna física de la base de datos.
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">3</span> Ciclo de vida, EntityManager y ObjectDB</h2>
+                        <p>
+                            El <strong><code>EntityManager</code></strong> (gestor de persistencia) controla el estado de las entidades en memoria intermedia y gestiona las operaciones con la BD.
+                        </p>
+                        <div class="alert alert-info" style="margin-bottom: 1.5rem;">
+                            <span class="alert-icon">🌐</span>
+                            <div class="alert-content">
+                                <h4>Configuración y Modos en ObjectDB</h4>
+                                <p style="margin-bottom: 0; font-size: 0.9rem;">
+                                    ObjectDB es una base de datos orientada a objetos que implementa JPA. Se configura en el archivo <code>persistence.xml</code> con el proveedor <code>objectdb.jpa.Provider</code> y soporta dos modos de funcionamiento mediante el formato de la URL de conexión:
+                                    <br>• <strong>Modo Embebido (local):</strong> Se especifica una ruta de archivo local (ej: <code>db/persistencia.odb</code> o simplemente <code>persistencia.odb</code>). Los objetos se guardan directamente en este archivo.
+                                    <br>• <strong>Modo Servidor:</strong> Se especifica una dirección IP y puerto (ej: <code>objectdb://localhost:6136/persistencia.odb</code>). Requiere que el servidor ObjectDB esté ejecutándose por separado.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning" style="margin-bottom: 1.5rem;">
+                            <span class="alert-icon">⚠️</span>
+                            <div class="alert-content">
+                                <h4>Gestión de Transacciones</h4>
+                                <p style="margin-bottom: 0; font-size: 0.9rem;">
+                                    Todos los cambios que modifiquen la base de datos (<code>persist</code>, <code>remove</code>, <code>merge</code>) requieren ejecutarse dentro de una transacción. El patrón consiste en iniciar la transacción con <code>em.getTransaction().begin()</code>, aplicar los métodos de persistencia y finalizar con <code>em.getTransaction().commit()</code>. En caso de error, debe ejecutarse <code>em.getTransaction().rollback()</code> para restaurar el estado previo.
+                                </p>
+                            </div>
+                        </div>
+                        <ul class="custom-list">
+                            <li><code>find(Class, ID)</code>: Busca y devuelve un registro de la BD por su ID. **No requiere transacción**.</li>
+                            <li><code>persist(objeto)</code>: Guarda un objeto nuevo en la base de datos.</li>
+                            <li><code>remove(objeto)</code>: Elimina un registro de la base de datos. **Muy importante:** Primero debe buscarse con <code>find</code> (para que esté vinculado al EntityManager) y luego pasarse al <code>remove</code>.</li>
+                            <li><code>merge(objeto)</code>: Sincroniza un objeto modificado en memoria que se encuentra desvinculado (detached) del EntityManager actual. Si el objeto no existe todavía en la base de datos, el método <code>merge</code> lo dará de alta automáticamente (actúa como "upsert").</li>
+                        </ul>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">4</span> JPQL (Java Persistence Query Language)</h2>
+                        <p>
+                            JPQL es un lenguaje de consultas orientado a objetos. En lugar de realizar consultas SQL contra tablas físicas de la base de datos, se escriben consultas dirigidas a las **clases de Java** (entidades) y sus atributos.
+                        </p>
+                        <p>Ejemplo de JPQL: <code>SELECT e FROM Estacio e WHERE e.altitudMaxima > :altitud</code> (referencia directa a la clase <code>Estacio</code> y variable <code>altitudMaxima</code>).</p>
+                    </article>
+                </div>
+
+                <!-- PANEL 2: CODE SNIPPETS -->
+                <div class="tab-content-panel" id="tab-codi">
+                    <h3 style="margin-bottom: 1rem; color: white;">Definición de Entidades y Relaciones</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-annotation">@Entity</span>
+<span class="code-keyword">public</span> <span class="code-keyword">class</span> <span class="code-type">Estacio</span> {
+    <span class="code-annotation">@Id</span>
+    <span class="code-annotation">@Column</span>(length = <span class="code-keyword">14</span>)
+    <span class="code-keyword">private</span> <span class="code-type">String</span> id;
+    
+    <span class="code-annotation">@OneToMany</span>(mappedBy = <span class="code-string">"estacio"</span>, cascade = <span class="code-type">CascadeType</span>.ALL, orphanRemoval = <span class="code-keyword">true</span>)
+    <span class="code-keyword">private</span> <span class="code-type">List</span>&lt;<span class="code-type">Pista</span>&gt; pistes = <span class="code-keyword">new</span> <span class="code-type">ArrayList</span>&lt;&gt;();
+}
+
+<span class="code-annotation">@Entity</span>
+<span class="code-annotation">@Inheritance</span>(strategy = <span class="code-type">InheritanceType</span>.SINGLE_TABLE)
+<span class="code-keyword">public</span> <span class="code-keyword">abstract</span> <span class="code-keyword">class</span> <span class="code-type">Pista</span> {
+    <span class="code-annotation">@Id</span>
+    <span class="code-keyword">private</span> <span class="code-type">String</span> id;
+    
+    <span class="code-annotation">@ManyToOne</span>
+    <span class="code-keyword">private</span> <span class="code-type">Estacio</span> estacio;
+}</code></pre>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; color: white;">Operaciones de l'EntityManager (Transacciones)</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-comment">// Método para borrar una estación con su EntityManager</span>
+<span class="code-keyword">public</span> <span class="code-keyword">void</span> esborraEstacio(<span class="code-type">String</span> id) {
+    <span class="code-comment">// 1. Primero es necesario buscar el registro</span>
+    <span class="code-type">Estacio</span> estacio = em.find(<span class="code-type">Estacio</span>.class, id);
+    <span class="code-keyword">if</span> (estacio == null) <span class="code-keyword">return</span>;
+    
+    <span class="code-comment">// 2. Abrir transacción para realizar el borrado físico</span>
+    <span class="code-keyword">try</span> {
+        em.getTransaction().begin();
+        em.remove(estacio); <span class="code-comment">// Borrado físico (y por cascada, sus pistas hijas)</span>
+        em.getTransaction().commit();
+    } <span class="code-keyword">catch</span> (<span class="code-type">Exception</span> e) {
+        em.getTransaction().rollback(); <span class="code-comment">// Deshacer cambios en caso de fallo</span>
+        <span class="code-keyword">throw</span> e;
+    }
+}</code></pre>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; color: white;">Consultas JPQL con parámetros</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-comment">// Obtener pistas rojas de una estación concreta</span>
+<span class="code-type">String</span> query = <span class="code-string">"SELECT p FROM Pista p WHERE p.estacio.id = :idEstacio AND p.color = :color"</span>;
+<span class="code-type">List</span>&lt;<span class="code-type">Pista</span>&gt; pistas = em.createQuery(query, <span class="code-type">Pista</span>.class)
+    .setParameter(<span class="code-string">"idEstacio"</span>, <span class="code-string">"ST-A1"</span>)
+    .setParameter(<span class="code-string">"color"</span>, <span class="code-string">"roja"</span>)
+    .getResultList();</code></pre>
+                    </div>
+                </div>
+
+                <!-- PANEL 3: FLASHCARDS -->
+                <div class="tab-content-panel" id="tab-flashcards">
+                    <p style="margin-bottom: 1.5rem;">Haz clic sobre las tarjetas para ver las respuestas de conceptos clave.</p>
+                    <div class="flashcards-grid">
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué diferencia persist() de merge()?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p><code>persist()</code> sirve para guardar objetos nuevos en la base de datos (estados transitorios sin representación previa).</p>
+                                    <p><code>merge()</code> actualiza un objeto que se encuentra desvinculado (detached) del contexto persistente actual de JPA.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué hace la propiedad orphanRemoval = true?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Si se elimina una entidad hija de la lista de colección del padre (ej: borrar una pista de la lista <code>pistes</code> de <code>Estacio</code>), esta se borrará físicamente del disco duro.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Se puede borrar directamente un objeto nuevo instanciado?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>No. Para eliminar un registro con <code>remove()</code>, primero debe recuperarse mediante <code>find()</code>.</p>
+                                    <p>Si se crea un objeto en memoria únicamente con el ID y se pasa a remove, JPA lanzará un error.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Cuál es la diferencia entre JPQL y SQL?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>SQL realiza las consultas directamente sobre nombres de columnas y tablas físicas relacionales.</p>
+                                    <p>JPQL trabaja con los nombres de las **clases de entidad Java** y sus **atributos miembro** definidos.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>Requisitos obligatorios de una entidad JPA</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>1. Estar anotada con <code>@Entity</code>.</p>
+                                    <p>2. Tener constructor público/protegido sin argumentos.</p>
+                                    <p>3. Implementar la interfaz <code>java.io.Serializable</code>.</p>
+                                    <p>4. Definir una propiedad identificadora con <code>@Id</code>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué implica SINGLE_TABLE en JPA?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Mapea una jerarquía completa de herencia Java a una única tabla física, usando una columna de discriminación para distinguir las clases.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿find() vs getReference()?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p><code>find()</code> realiza la consulta de inmediato (Eager). <code>getReference()</code> devuelve un proxy perezoso (Lazy) que solo consultará la base de datos cuando se acceda a sus atributos.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué es la caché de primer nivel (L1)?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Es el contexto de persistencia asociado al <code>EntityManager</code>. Si solicitas el mismo registro por ID dos veces en la misma transacción, no se repite la consulta SQL.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL 4: QUIZ -->
+                <div class="tab-content-panel" id="tab-quiz">
+                    <div class="quiz-container">
+                        <!-- Q1 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">1. ¿Qué métodos de EntityManager requieren obligatoriamente la ejecución de una transacción?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Únicamente el método <code>find()</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Los métodos de escritura/modificación: <code>persist()</code>, <code>remove()</code> y <code>merge()</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Cualquier tipo de consulta ejecutada mediante JPQL.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="Las modificaciones físicas de registros de la base de datos requieren abrir y confirmar transacciones."></div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">2. En una relación bidireccional 1 a N, ¿dónde debe colocarse la propiedad 'mappedBy'?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>En el lado 1 (clase padre) de la relación con la anotación <code>@OneToMany</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>En el lado N (clase hija) de la relación con la anotación <code>@ManyToOne</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Debe definirse obligatoriamente en ambos extremos de la relación.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="mappedBy se ubica en el lado padre para referenciar cuál es la variable en el lado hijo que gestiona la relación física."></div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">3. ¿Qué consulta JPQL es correcta para recuperar todas las pistas con espesor de nieve (gruixNeu) mayor a 20?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>SELECT p FROM pistes p WHERE p.gruix_neu > 20</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>SELECT * FROM Pista p WHERE p.gruixNeu > 20</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>SELECT p FROM Pista p WHERE p.gruixNeu > 20</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="En JPQL se omiten los caracteres comodín como '*' y se hace referencia estricta a clases Java (Pista) y propiedades camelCase (gruixNeu)."></div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">4. Si borramos una entidad padre con CascadeType.REMOVE o CascadeType.ALL, ¿qué sucede con sus entidades hijas asociadas?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Permanecen huérfanas en la base de datos sin clave foránea.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Se eliminan automáticamente de la base de datos en cascada.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Lanza una excepción de integridad referencial SQL y falla.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="La cascada REMOVE propaga automáticamente la eliminación física del registro padre hacia todos los registros hijos relacionados."></div>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">5. ¿Cuál es el comportamiento de em.find(Clase.class, pk) si el registro no existe en la base de datos?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Devuelve <code>null</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Lanza una excepción <code>NoResultException</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Lanza una excepción <code>EntityNotFoundException</code>.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="El método find() de EntityManager devuelve null directamente si no encuentra la clave primaria solicitada en la BD."></div>
+                        </div>
+
+                        <!-- Q6 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">6. ¿Qué método de Query o TypedQuery se utiliza para inyectar valores en los parámetros con nombre (:nombreParametro) definidos en JPQL?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>setVariable("nombre", valor)</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>bind("nombre", valor)</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>setParameter("nombre", valor)</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="En JPA se utiliza setParameter() para asignar valores a variables declaradas en la consulta JPQL."></div>
+                        </div>
+
+                        <!-- Q7 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">7. ¿Qué anotación de JPA se utiliza para indicar que un atributo de una clase entidad Java NO debe ser mapeado en ninguna columna de la base de datos?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>@Transient</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>@XmlTransient</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>@IgnoreColumn</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="@Transient le indica al motor de JPA que ignore ese campo de la clase Java y no busque ninguna columna asociada en la tabla física."></div>
+                        </div>
+
+                        <!-- Q8 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">8. ¿Cuál es la estrategia de carga (FetchType) predeterminada por JPA para las relaciones de tipo @ManyToOne?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>FetchType.LAZY</code> (carga perezosa).</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>No tiene estrategia predeterminada, se debe indicar explícitamente.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>FetchType.EAGER</code> (carga inmediata).</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="Por especificación de JPA, las relaciones @ManyToOne y @OneToOne cargan sus datos asociados de forma EAGER por defecto."></div>
+                        </div>
+
+                        <!-- Q9 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">9. ¿Qué método de EntityManager debemos invocar para volcar o sincronizar de forma inmediata todos los cambios pendientes en memoria con la base de datos antes de hacer commit?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>commit()</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>flush()</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>clear()</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="El método flush() fuerza la escritura física de las sentencias SQL pendientes en la base de datos sin cerrar la transacción en curso."></div>
+                        </div>
+
+                        <button class="btn-submit-quiz" data-module="m3">Corregir Cuestionario</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M1: Ficheros y Serialización - Acceso a Datos</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">AD</div>
+                <div class="logo-text">Acceso a Datos</div>
+            </div>
+            
+            <nav>
+                <div class="nav-section-title">General</div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link"><span class="nav-link-icon">📊</span> Dashboard</a></li>
+                </ul>
+                
+                <div class="nav-section-title">Módulos de Teoría</div>
+                <ul class="nav-links">
+                    <li><a href="modulo1.html" class="nav-link active"><span class="nav-link-icon">📁</span> M1: Ficheros (UF1)</a></li>
+                    <li><a href="modulo2.html" class="nav-link"><span class="nav-link-icon">🔌</span> M2: JDBC / Postgres</a></li>
+                    <li><a href="modulo3.html" class="nav-link"><span class="nav-link-icon">🏛️</span> M3: JPA / Objetos</a></li>
+                    <li><a href="modulo4.html" class="nav-link"><span class="nav-link-icon">🍃</span> M4: BaseX / Spring</a></li>
+                </ul>
+                
+                <div class="nav-section-title">Evaluación</div>
+                <ul class="nav-links">
+                    <li><a href="simulador.html" class="nav-link"><span class="nav-link-icon">⏱️</span> PAF Simulator</a></li>
+                </ul>
+            </nav>
+            
+            <div style="margin-top: auto; padding-top: 2rem;">
+                <div class="nav-section-title">Utilidades</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="resetAllProgress()" class="nav-link" style="color: var(--error);"><span class="nav-link-icon">🔄</span> Reiniciar Progreso</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header Bar -->
+            <header class="header-bar">
+                <div>
+                    <span class="badge">Unidad Formativa 1</span>
+                    <h1 class="title-large">M1: Ficheros y Serialización</h1>
+                    <p class="description-large">Persistencia física mediante estructuras de ficheros de texto, XML y JSON</p>
+                </div>
+                <div class="progress-widget">
+                    <span>Progreso Global:</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="main-progress-bar-fill"></div>
+                    </div>
+                </div>
+            </header>
+
+            <div class="tabs-container">
+                <!-- Inner Module Tabs -->
+                <div class="module-tabs">
+                    <button class="module-tab active" data-target="tab-teoria">📖 Teoría</button>
+                    <button class="module-tab" data-target="tab-codi">💻 Códigos Clave</button>
+                    <button class="module-tab" data-target="tab-flashcards">🎴 Flashcards</button>
+                    <button class="module-tab" data-target="tab-quiz">❓ Autoevaluación</button>
+                </div>
+
+                <!-- PANEL 1: THEORY -->
+                <div class="tab-content-panel active" id="tab-teoria">
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">1</span> La clase File y Argumentos de Línea de Comandos</h2>
+                        <p>
+                            La clase <code>java.io.File</code> se utiliza como enlace físico a un recurso del sistema de archivos (archivo o directorio). No permite leer o escribir el contenido en sí, sino verificar y modificar sus descriptores o atributos externos.
+                        </p>
+                        <p><strong>Métodos de metadatos evaluados en el examen:</strong></p>
+                        <ul class="custom-list">
+                            <li><code>exists()</code>: Comprueba si la ruta existe realmente.</li>
+                            <li><code>isFile()</code>: Verifica si la ruta apunta a un archivo ordinario de datos.</li>
+                            <li><code>isDirectory()</code>: Verifica si la ruta corresponde a una carpeta.</li>
+                            <li><code>length()</code>: Devuelve el tamaño en <strong>Bytes</strong> del archivo (tipo <code>long</code>).</li>
+                            <li><code>isHidden()</code>: Indica si el archivo está oculto según los atributos del S.O.</li>
+                            <li><code>canRead()</code>, <code>canWrite()</code>, <code>canExecute()</code>: Comprueban los permisos activos.</li>
+                        </ul>
+                        <div class="alert alert-warning" style="margin-top: 1.5rem;">
+                            <span class="alert-icon">⚠️</span>
+                            <div class="alert-content">
+                                <h4>Peligro: ArrayIndexOutOfBoundsException con Argumentos</h4>
+                                <p style="margin-bottom: 0; font-size: 0.9rem;">
+                                    El método <code>main(String[] args)</code> recoge los parámetros pasados desde la línea de comandos en el vector <code>args</code>.
+                                    <br><strong>Error típico de examen:</strong> Si intentas acceder a <code>args[0]</code> o <code>args[1]</code> sin verificar antes su longitud (<code>args.length</code>), el programa lanzará una excepción <strong><code>ArrayIndexOutOfBoundsException</code></strong> si el usuario olvida pasar dichos parámetros. Siempre debes validar la longitud del array antes de acceder a sus índices.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">2</span> Flujos de datos (Streams y Buffers)</h2>
+                        <p>
+                            Para acceder al contenido interno de los ficheros utilizamos <strong>Streams</strong>. Un stream es una secuencia ordenada de bytes que conecta la aplicación con el medio físico.
+                        </p>
+                        <div class="grid-2">
+                            <div style="background: rgba(255,255,255,0.02); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                                <h4 style="color: white; margin-bottom: 0.5rem;">A. Flujos de Bytes (Binario)</h4>
+                                <p style="font-size: 0.9rem; margin-bottom: 0;">
+                                    Tratan las dades bit a bit. Ideales para imágenes, archivos ejecutables o flujos binarios directos.
+                                    <br>Clases abstractas: <strong><code>InputStream</code></strong> e <strong><code>OutputStream</code></strong>.
+                                    <br>Implementación típica: <code>FileInputStream</code> / <code>FileOutputStream</code>.
+                                </p>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.02); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                                <h4 style="color: white; margin-bottom: 0.5rem;">B. Flujos de Caracteres (Texto)</h4>
+                                <p style="font-size: 0.9rem; margin-bottom: 0;">
+                                    Adecuados para texto plano, decodificando los bytes a caracteres mediante codificaciones (ej. UTF-8).
+                                    <br>Clases abstractas: <strong><code>Reader</code></strong> y <strong><code>Writer</code></strong>.
+                                    <br>Implementación típica: <code>FileReader</code> / <code>FileWriter</code>.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="alert alert-info">
+                            <span class="alert-icon">⚡</span>
+                            <div class="alert-content">
+                                <h4>Manejo de Buffers</h4>
+                                <p style="margin-bottom: 0; font-size: 0.9rem;">
+                                    El acceso directo a disco es lento. Envolver los streams con un buffer (ej. <code>BufferedReader</code>) permite almacenar bloques grandes de datos en la memoria RAM para procesarlos. Con <code>BufferedReader</code> podemos usar <code>readLine()</code> para leer línea a línea cómodamente. Recuerda llamar a <code>flush()</code> para "empujar" las dades de los buffers de escritura hacia el disco antes de cerrar con <code>close()</code>.
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">3</span> Filtrado: FileFilter</h2>
+                        <p>
+                            El método <code>listFiles()</code> acepta una instancia de la interfaz funcional <code>FileFilter</code>. Esta tiene un único método <code>accept(File pathname)</code> que decide si incluir o excluir el archivo analizado del listado.
+                        </p>
+                        <p>
+                            En Java moderno, se escribe directamente en formato de expresión lambda para mantener el código limpio y legible.
+                        </p>
+                    </article>
+
+                    <article class="theory-card">
+                        <h2 class="theory-title"><span class="theory-title-number">4</span> Serialización XML (JAXB) y JSON (Gson)</h2>
+                        <p>
+                            La <strong>serialización</strong> transforma el estado de un objeto Java en memoria a un formato de texto persistible (XML o JSON). La <strong>deserialización</strong> recupera el objeto original desde ese texto.
+                        </p>
+                        <p><strong>Anotaciones JAXB principales:</strong></p>
+                        <ul class="custom-list">
+                            <li><code>@XmlRootElement(name = "root")</code>: En la clase raíz del XML.</li>
+                            <li><code>@XmlType(propOrder = {...})</code>: Define el orden estricto de renderizado de los campos hijos.</li>
+                            <li><code>@XmlAttribute</code>: Guarda el atributo en la cabecera de la etiqueta (ej. <code>&lt;estacio id="1"&gt;</code>).</li>
+                            <li><code>@XmlElementWrapper(name = "contenedor")</code>: Genera un tag envolvente para una lista de subnodos.</li>
+                        </ul>
+                        <p><strong>Gson:</strong></p>
+                        <ul class="custom-list">
+                            <li><code>@SerializedName("nombre_json")</code>: Mapea propiedades cuando el nombre del campo en Java no coincide con la clave JSON.</li>
+                            <li>Métodos principales: <code>toJson()</code> y <code>fromJson()</code>.</li>
+                        </ul>
+                    </article>
+                </div>
+
+                <!-- PANEL 2: CODE SNIPPETS -->
+                <div class="tab-content-panel" id="tab-codi">
+                    <h3 style="margin-bottom: 1rem; color: white;">FileFilter con Lambdas</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-comment">// Crear un filtro que busque archivos .json de tamaño superior a 10KB</span>
+<span class="code-type">FileFilter</span> filtro = archivo -> {
+    <span class="code-keyword">if</span> (archivo.isDirectory()) <span class="code-keyword">return</span> <span class="code-keyword">false</span>;
+    <span class="code-type">boolean</span> correctoExt = archivo.getName().endsWith(<span class="code-string">".json"</span>);
+    <span class="code-type">boolean</span> correctoTam = archivo.length() > <span class="code-keyword">10240</span>; <span class="code-comment">// 10KB</span>
+    <span class="code-keyword">return</span> correctoExt && correctoTam;
+};
+
+<span class="code-type">File</span> directorio = <span class="code-keyword">new</span> <span class="code-type">File</span>(<span class="code-string">"D:/datos"</span>);
+<span class="code-type">File</span>[] archivosFiltrados = directorio.listFiles(filtre);</code></pre>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; color: white;">JAXB Marshaller & Unmarshaller</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-comment">// 1. Marshalling (Java a XML)</span>
+<span class="code-type">JAXBContext</span> context = <span class="code-type">JAXBContext</span>.newInstance(Estacio.class);
+<span class="code-type">Marshaller</span> marshaller = context.createMarshaller();
+marshaller.setProperty(<span class="code-type">Marshaller</span>.JAXB_FORMATTED_OUTPUT, <span class="code-keyword">true</span>);
+marshaller.marshal(objetoEstacion, <span class="code-keyword">new</span> <span class="code-type">File</span>(<span class="code-string">"estacion.xml"</span>));
+
+<span class="code-comment">// 2. Unmarshalling (XML a Java)</span>
+<span class="code-type">Unmarshaller</span> unmarshaller = context.createUnmarshaller();
+<span class="code-type">Estacio</span> estacionRecuperada = (<span class="code-type">Estacio</span>) unmarshaller.unmarshal(<span class="code-keyword">new</span> <span class="code-type">File</span>(<span class="code-string">"estacion.xml"</span>));</code></pre>
+                    </div>
+
+                    <h3 style="margin-bottom: 1rem; color: white;">Gson Serialización JSON</h3>
+                    <div class="code-container">
+                        <div class="code-header">
+                            <span>Java</span>
+                            <button class="btn-copy">📋 Copiar Código</button>
+                        </div>
+                        <pre><code><span class="code-comment">// 1. Serialización (Java a JSON String y escritura en fichero)</span>
+<span class="code-type">Gson</span> gson = <span class="code-keyword">new</span> <span class="code-type">GsonBuilder</span>().setPrettyPrinting().create();
+<span class="code-type">String</span> jsonString = gson.toJson(objetoEstacion);
+
+<span class="code-keyword">try</span> (<span class="code-type">FileWriter</span> writer = <span class="code-keyword">new</span> <span class="code-type">FileWriter</span>(<span class="code-string">"estacion.json"</span>)) {
+    writer.write(jsonString);
+}
+
+<span class="code-comment">// 2. Deserialización (Fichero JSON a Java)</span>
+<span class="code-keyword">try</span> (<span class="code-type">FileReader</span> reader = <span class="code-keyword">new</span> <span class="code-type">FileReader</span>(<span class="code-string">"estacion.json"</span>)) {
+    <span class="code-type">Estacio</span> estacion = gson.fromJson(reader, <span class="code-type">Estacio</span>.class);
+}</code></pre>
+                    </div>
+                </div>
+
+                <!-- PANEL 3: FLASHCARDS -->
+                <div class="tab-content-panel" id="tab-flashcards">
+                    <p style="margin-bottom: 1.5rem;">Haz clic sobre las tarjetas para ver las respuestas de conceptos clave.</p>
+                    <div class="flashcards-grid">
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué diferencia hay entre InputStream y Reader?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p><code>InputStream</code> lee los datos byte a byte (ideal para dades binarias como imágenes o archivos serializados de Java).</p>
+                                    <p><code>Reader</code> está diseñado para flujos de caracteres (texto plano, decodificando el texto en UTF-8 o similar).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué utilidad tiene @XmlElementWrapper en JAXB?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Sirve para agrupar listas de objetos bajo un tag XML contenedor.</p>
+                                    <p>Por ejemplo, envuelve varios subnodos <code>&lt;pista&gt;</code> dentro de una etiqueta externa <code>&lt;pistes&gt;</code>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Para qué sirve la anotación @SerializedName de Gson?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Vincula el nombre de un atributo de la clase Java con una clave JSON con nombre diferente.</p>
+                                    <p>Ejemplo: <code>@SerializedName("fecha_alta") String fecha;</code> genera la clave <code>"fecha_alta": "valor"</code> en el JSON.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué función tiene el método flush()?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Vacía el buffer de escritura enviando cualquier dato pendiente directamente al almacenamiento físico en el disco duro.</p>
+                                    <p>Evita pérdidas de datos que se queden pendientes en la RAM.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Por qué es crítico validar args.length en main?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Para evitar un error en tiempo de ejecución del tipo <code>ArrayIndexOutOfBoundsException</code> si el usuario olvida pasar los parámetros por línea de comandos.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Diferencia entre FileInputStream y FileReader?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p><code>FileInputStream</code> lee bytes puros (8 bits, datos binarios/imágenes).</p>
+                                    <p><code>FileReader</code> lee caracteres (16 bits, texto plano decodificado mediante codificación de caracteres).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Cómo evitamos que JAXB serialice un campo a XML?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Anotando el atributo o su método getter correspondiente con la anotación <code>@XmlTransient</code>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Cómo lee BufferedReader una línea de texto?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Llamando al método <code>readLine()</code>, que lee hasta encontrar un salto de línea y devuelve el String correspondiente (o <code>null</code> si alcanza el fin de fichero).</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard">
+                            <div class="flashcard-inner">
+                                <div class="flashcard-front">
+                                    <span>¿Qué es @XmlAccessorType en JAXB?</span>
+                                    <div class="flashcard-tip">Haz clic para girar</div>
+                                </div>
+                                <div class="flashcard-back">
+                                    <p>Configura si JAXB debe buscar las propiedades leyendo las variables privadas (<code>XmlAccessType.FIELD</code>) o los métodos getter/setter (<code>XmlAccessType.PROPERTY</code>).</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANEL 4: QUIZ -->
+                <div class="tab-content-panel" id="tab-quiz">
+                    <div class="quiz-container">
+                        <!-- Q1 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">1. ¿Qué método de la clase File nos indica el tamaño de un fichero en Bytes?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>length()</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>size()</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>getBytes()</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="El método length() de la clase File devuelve un entero 'long' con la cantidad de Bytes del archivo."></div>
+                        </div>
+
+                        <!-- Q2 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">2. En JAXB, ¿cuál es la funcionalidad de la operación de Unmarshalling?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Serializar un objeto Java a un archivo XML físico en el disco.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Deserializar o transformar un documento XML en una instancia de objeto Java en memoria.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Configurar la jerarquía de tags ordenados para la escritura.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="El Unmarshalling consiste en leer un XML del disco y convertirlo en objetos Java instanciados."></div>
+                        </div>
+
+                        <!-- Q3 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">3. Si queremos un diseño eficiente en la lectura de archivos de texto grande, ¿cuál es la estructura correcta?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span>Envolver un <code>FileOutputStream</code> con un <code>BufferedWriter</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Hacer uso de un <code>FileInputStream</code> sin buffers de memoria intermedia.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Envolver un <code>FileReader</code> dentro de un <code>BufferedReader</code>.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="BufferedReader añade una memoria RAM intermedia que agiliza la lectura línea a línea (readLine()) de texto sobre ficheros (FileReader)."></div>
+                        </div>
+
+                        <!-- Q4 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">4. Si intentas leer args[0] sin validar la longitud del array en main, ¿qué excepción lanzará la JVM si no se pasan parámetros?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>NullPointerException</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>ArrayIndexOutOfBoundsException</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>IllegalArgumentException</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="Al intentar acceder a un índice de un array que está fuera de su límite (en este caso, vacío con tamaño 0), se lanza una excepción del tipo ArrayIndexOutOfBoundsException."></div>
+                        </div>
+
+                        <!-- Q5 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">5. ¿Qué anotación de JAXB indica que un atributo Java debe serializarse como atributo del tag contenedor en lugar de como subtag secundario?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>@XmlAttribute</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>@XmlElement</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>@XmlRootElement</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="La anotación @XmlAttribute fuerza a que la propiedad se imprima dentro de la cabecera de la etiqueta XML (ej: <item id='1'>)."></div>
+                        </div>
+
+                        <!-- Q6 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">6. ¿Qué excepción obligatoria de Gson se debe capturar al deserializar un archivo JSON corrupto o con errores de sintaxis?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>IOException</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>NullPointerException</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>JsonSyntaxException</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="Gson lanza una JsonSyntaxException si el string JSON leído del fichero no es válido sintácticamente o no se corresponde con el formato."></div>
+                        </div>
+
+                        <!-- Q7 -->
+                        <div class="question-block" data-correct="A">
+                            <div class="question-text">7. ¿Qué valor entero devuelve el método read() de un InputStream o Reader de Java cuando alcanza el final del archivo (EOF)?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>-1</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>0</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Lanza directamente una excepción <code>EOFException</code>.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="El fin de flujo (EOF) en Streams clásicos se denota devolviendo el entero -1 en la lectura secuencial."></div>
+                        </div>
+
+                        <!-- Q8 -->
+                        <div class="question-block" data-correct="C">
+                            <div class="question-text">8. ¿Qué anotación de JAXB permite omitir por completo un atributo Java para que no aparezca serializado en el XML resultante?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>@XmlIgnore</code></span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span><code>@JsonIgnore</code></span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span><code>@XmlTransient</code></span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="@XmlTransient le indica a JAXB que ignore por completo este campo en la serialización y deserialización XML."></div>
+                        </div>
+
+                        <!-- Q9 -->
+                        <div class="question-block" data-correct="B">
+                            <div class="question-text">9. En Gson, ¿con qué clase podemos configurar la codificación con sangrado estructurado (Pretty Printing)?</div>
+                            <ul class="options-list">
+                                <li class="option-item" data-value="A">
+                                    <div class="option-radio"></div>
+                                    <span><code>new Gson()</code> pasándole un booleano en el constructor.</span>
+                                </li>
+                                <li class="option-item" data-value="B">
+                                    <div class="option-radio"></div>
+                                    <span>Usando <code>new GsonBuilder().setPrettyPrinting().create()</code>.</span>
+                                </li>
+                                <li class="option-item" data-value="C">
+                                    <div class="option-radio"></div>
+                                    <span>Mediante la anotación <code>@JsonFormatted</code> sobre la clase Java.</span>
+                                </li>
+                            </ul>
+                            <div class="feedback-text" data-explanation="Pretty Printing se configura a través del builder auxiliar GsonBuilder y su método setPrettyPrinting()."></div>
+                        </div>
+
+                        <button class="btn-submit-quiz" data-module="m1">Corregir Cuestionario</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

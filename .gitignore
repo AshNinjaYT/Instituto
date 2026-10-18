@@ -3,3 +3,9 @@
 *.dumpstream
 temp_odt/
 temp.zip
+
+target/
+*.class
+.gradle/
+build/
+

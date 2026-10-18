@@ -1,0 +1,111 @@
+{
+    "id": "ST-001",
+    "nom": "Neu Gran",
+    "comarca": "Cerdanya",
+    "altitud_maxima": 2535,
+    "web": "https://www.neugran.cat",
+    "qualificacio":  "Molt bona",
+    "estat_obertura_percentatge": 80,
+    "pistes": [
+        {
+            "id": "A101",
+            "nom": "La Canal",
+            "longitud": 1500,
+            "desnivell": 450,
+            "color": "Negra",
+            "oberta": true,
+            "gruix_neu": 60,
+            "qualitat_neu": "Pols"
+        },
+        {
+            "id": "A102",
+            "nom": "Pista del Bosc",
+            "longitud": 2100,
+            "desnivell": 200,
+            "color": "Blava",
+            "oberta": true,
+            "gruix_neu": 45,
+            "qualitat_neu": "Pols-Dura"
+        },
+        {
+            "id": "A103",
+            "nom": "Debutants I",
+            "longitud": 500,
+            "desnivell": 50,
+            "color": "Verda",
+            "oberta": true,
+            "gruix_neu": 30,
+            "qualitat_neu": "Dura"
+        },
+        {
+            "id": "A104",
+            "nom": "Muro de les Àligues",
+            "longitud": 1800,
+            "desnivell": 600,
+            "color": "Negra",
+            "oberta": false,
+            "gruix_neu": 0,
+            "qualitat_neu": "Sense neu"
+        },
+        {
+            "id": "A105",
+            "nom": "Camí Ral",
+            "longitud": 3200,
+            "desnivell": 150,
+            "color": "Verda",
+            "oberta": true,
+            "gruix_neu": 40,
+            "qualitat_neu": "Primavera"
+        },
+        {
+            "id": "A106",
+            "nom": "La Directa",
+            "longitud": 1200,
+            "desnivell": 380,
+            "color": "Vermella",
+            "oberta": true,
+            "gruix_neu": 55,
+            "qualitat_neu": "Pols"
+        },
+        {
+            "id": "A107",
+            "nom": "Costa dels Avets",
+            "longitud": 2400,
+            "desnivell": 310,
+            "color": "Vermella",
+            "obeta": false,
+            "gruix_neu": 10,
+            "qualitat_neu": "Dura"
+        },
+        {
+            "id": "A108",
+            "nom": "Pala Central",
+            "longitud": 900,
+            "desnivell": 250,
+            "color": "Vermella",
+            "oberta": true,
+            "gruix_neu": 50,
+            "qualitat_neu": "Pols-Dura"
+        },
+        {
+            "id": "A109",
+            "nom": "Passeig de la Neu",
+            "longitud": 4100,
+            "desnivell": 120,
+            "color": "Blava",
+            "oberta": true,
+            "gruix_neu": 35,
+            "qualitat_neu": "Primavera"
+        },
+        {
+            "id": "A110",
+            "nom": "Tub de la Coma",
+            "longitud": 1350,
+            "desnivell": 410,
+            "color": "Negra",
+            "oberta": true,
+            "gruix_neu": 70,
+            "qualitat_neu": "Pols"
+        }
+    ]
+}

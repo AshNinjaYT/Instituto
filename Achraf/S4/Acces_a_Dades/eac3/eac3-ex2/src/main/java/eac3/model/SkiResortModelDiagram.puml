@@ -1,0 +1,56 @@
+@startuml
+top to bottom direction
+skinparam classAttributeIconSize 0
+
+class Estacio {
+  - id : String
+  - nom : String
+  - comarca : String
+  - altitudMaxima : int
+  - web : String
+  - qualificacio : String
+  - percentatgePistesObertes : double
+}
+
+abstract class Pista {
+  - id : String
+  - nom : String
+  - longitud : int
+  - oberta : boolean
+  - desnivell : int
+  - gruixNeu : int
+  - qualitatNeu : String
+  - iluminada : boolean
+}
+
+class PistaAlpina {
+  - color : String
+  - pendentMax : int
+}
+
+class PistaNordica {
+  - estil : String
+  - trepitjada : boolean
+}
+
+class ItinerariRaquetes {
+  - dificultat : String
+  - circular : boolean
+  - senyalitzat : boolean
+  - tempsEstimat : int
+}
+
+Estacio "1" *- "0..*" Pista :"                          "
+
+Pista <|-- PistaAlpina
+Pista <|-- PistaNordica
+Pista <|-- ItinerariRaquetes
+
+PistaAlpina -[hidden]right- PistaNordica
+PistaNordica -[hidden]right- ItinerariRaquetes
+
+Pista -[hidden]down- PistaAlpina
+Pista -[hidden]down- PistaNordica
+Pista -[hidden]down- ItinerariRaquetes
+
+@enduml
